@@ -6,6 +6,6 @@ playhostProject/build/
 playhostProject/src/main/resources/application.properties
 playhostProject/src/main/resources/application-dev.properties
 playhostProject/src/main/resources/application-prod.properties
-frontend-typescript/node_modules/
-
-
+playhostProject/src/main/resources/static/
+playhostProject/src/main/resources/schema.sql
+playhostProject/src/main/resources/data.sql

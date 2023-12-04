@@ -72,8 +72,6 @@ public class ProductController {
                                                           @RequestParam(defaultValue = "8") int size
     ) {
         try {
-            System.out.println("받은 이름 : " + name);
-
             Pageable pageable = PageRequest.of(page, size);
             Page<Product> productPage
                     = productService.findAllByNameContaining(name, pageable);

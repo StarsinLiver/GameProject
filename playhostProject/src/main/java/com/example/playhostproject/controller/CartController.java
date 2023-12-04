@@ -55,11 +55,8 @@ public class CartController {
     ) {
         try {
 //            페이지 변수 저장 (page:현재페이지 번호, size: 한 페이지당 개수)
-//            함수 매개변수 : Pageable(위의 값을 넣기)
-//            사용법 : Pageable pageable = PageRequest.of(현재페이지번호, 한페이지당개수);
             Pageable pageable = PageRequest.of(page, size);
 
-//            전체조회(dname="") + like 검색(dname="S")
             Page<CartDto> cartDtoPage
                     = cartService.selectByNameContaining(userId , pageable);
 
@@ -231,11 +228,8 @@ public class CartController {
     ) {
         try {
 //            페이지 변수 저장 (page:현재페이지 번호, size: 한 페이지당 개수)
-//            함수 매개변수 : Pageable(위의 값을 넣기)
-//            사용법 : Pageable pageable = PageRequest.of(현재페이지번호, 한페이지당개수);
             Pageable pageable = PageRequest.of(page, size);
 
-//            전체조회(dname="") + like 검색(dname="S")
             Page<CartDto> cartDtoPage
                     = cartService.selectByUserId(userId, pageable);
 

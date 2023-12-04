@@ -56,9 +56,10 @@ function Header() {
                     <div id="logo">
                       <Link to="/">
                         <img
-                          className="logo-main"
+                          className="logo-main ms-6"
                           src="images/logo.png"
                           alt=""
+                          style={{width: "180px", height: "45px"}}
                         />
                         <img
                           className="logo-mobile"

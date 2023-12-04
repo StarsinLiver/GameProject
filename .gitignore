@@ -1,0 +1,9 @@
+
+frontend-typescript/.env.development
+frontend-typescript/.env.production
+playhostProject/build/
+playhostProject/src/main/resources/application.properties
+playhostProject/src/main/resources/application-dev.properties
+playhostProject/src/main/resources/application-prod.properties
+
+

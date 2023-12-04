@@ -260,7 +260,10 @@ function AdminControllPenal() {
                                     <tbody id="my-accordion">
                                         {render &&
                                             steamList
-                                                .filter((value) => value.name.indexOf(searchName) != -1)
+                                                .filter(
+                                                    (value) =>
+                                                        value.name.toUpperCase().indexOf(searchName.toUpperCase()) != -1
+                                                )
 
                                                 .map((value, index) => (
                                                     <>

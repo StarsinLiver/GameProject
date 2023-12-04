@@ -106,10 +106,10 @@ function AdminControlPanelRefund() {
 
     emailjs
       .send(
-        "test-service", // 서비스 ID
-        "my-template", // 템플릿 ID
+        `${process.env.REACT_APP_EMAIL_JS_SERVICE_ID}`, // 서비스 ID
+        "template_8i7gn6k", // 템플릿 ID
         templateParams,
-        "pe9gKXXdvYA-8jITi" // public-key
+        `${process.env.REACT_APP_EMAIL_JS_API_KEY}` // public-key
       )
       .then((response) => {
         console.log("이메일이 성공적으로 보내졌습니다:", response);

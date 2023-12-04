@@ -12,7 +12,7 @@ import AuthService from "../../services/auth/AuthService";
 
 function Contact() {
   const [message, setMessage] = useState("");
-  const [anyQuestion, setAnyQuestion] = useState<string | null>();
+  const [anyQuestion, setAnyQuestion] = useState<string | null>("");
 
   // Todo : 유효성 체크 lib
   // Todo : Formik 객체 초기화 (initialValues) : html 태그에서
@@ -21,7 +21,6 @@ function Contact() {
     name: "",
     email: "",
     phone: "",
-    question: "",
   };
 
   // Todo : 함수 정의
@@ -31,8 +30,6 @@ function Contact() {
   const validationSchema = Yup.object().shape({});
 
   useEffect(() => {
-    // form();
-    // recaptcha();
     customMarquee();
     designesis();
   }, []);
@@ -40,60 +37,54 @@ function Contact() {
   // Todo : 로그인 함수 : submit(Formit)
   // Todo : Formit lib 에서 자동으로 email , password 값을 보내줌
   const sendMessage = (formValue: any) => {
-    const { name, email, phone, question } = formValue;
-    // setSendEmailClick(true);
-    // console.log(message);
-    // console.log(anyQuestion);
-    // let data = {
-    //   name,
-    //   email,
-    //   phone,
-    //   message
-    // };
-    // AuthService.resetPassword(data)
-    // .then((response : any) => {
-    //   console.log(response);
-    //   setMessage("문의 되었습니다.")
-    //   sendVerificationEmail(message);
-    // })
-    // .catch((e : Error )=> {
-    //   console.log(e);
-    // })
-    sendVerificationEmail(name, email, phone, question);
+    const { name, email, phone } = formValue;
+    console.log(message);
+    console.log(anyQuestion);
+    sendVerificationEmail(name, email, phone);
   };
 
   const sendVerificationEmail = (
     name: string,
     email: string,
-    phone: string,
-    question: string
+    phone: string
   ) => {
     // 이메일 보내기
     // 여기서 정의해야하는 것은 위에서 만든 메일 템플릿에 지정한 변수({{ }})에 대한 값을 담아줘야한다.
-    // const templateParams = {
-    //   to_email: "san2636@naver.com",
-    //   message: `  이용자 ${name} 으로부터 문의가 왔습니다.
-    //                 이메일 : ${email}
-    //                 핸드폰 : ${phone}
-    //                 ${anyQuestion}
-    //                 ----------------
-    //                   `,
-    // };
-    // emailjs
-    //   .send(
-    //     "test-service", // 서비스 ID
-    //     "my-template2", // 템플릿 ID
-    //     templateParams,
-    //     "pe9gKXXdvYA-8jITi" // public-key
-    //   )
-    //   .then((response: any) => {
-    //     console.log("문의가 성공적으로 전송되었습니다:", response);
-    //     // setIsEmailSent(true);
-    //   })
-    //   .catch((error: Error) => {
-    //     console.error("문의 실패:", error);
-    //     // 이메일 전송 실패 처리 로직 추가
-    //   });
+    const templateParams = {
+      to_email: "san2636@naver.com",
+      from_name : name,
+      message: `
+                    이메일 : ${email}
+                    핸드폰 : ${phone}
+
+                    ----------------
+                    질문 : ${anyQuestion}
+                      `,
+    };
+    emailjs
+      .send(
+        `${process.env.REACT_APP_EMAIL_JS_SERVICE_ID}`, // 서비스 ID
+        `template_p4jxv0a`,
+        templateParams,
+        `${process.env.REACT_APP_EMAIL_JS_API_KEY}` // public-key
+      )
+      .then((response: any) => {
+        console.log("문의가 성공적으로 전송되었습니다:", response);
+        // setIsEmailSent(true);
+      })
+      .catch((error: Error) => {
+        console.error("문의 실패:", error);
+        // 이메일 전송 실패 처리 로직 추가
+      });
+
+    // console.log("name ", name);
+    // console.log("email ", email);
+    // console.log("phone ", phone);
+  };
+
+  const onChangeTextArea = (e: any) => {
+    setAnyQuestion(e.target.value);
+    console.log(anyQuestion);
   };
 
   return (
@@ -147,9 +138,9 @@ function Contact() {
                         <div className="col-lg-6 mb10">
                           <div className="field-set">
                             <span className="d-label">성함</span>
-                            <input
+                            <Field
                               type="text"
-                              name="Name"
+                              name="name"
                               id="name"
                               className="form-control"
                               placeholder="당신의 이름"
@@ -159,9 +150,9 @@ function Contact() {
 
                           <div className="field-set">
                             <span className="d-label">이메일</span>
-                            <input
+                            <Field
                               type="text"
-                              name="Email"
+                              name="email"
                               id="email"
                               className="form-control"
                               placeholder="당신의 이메일"
@@ -171,7 +162,7 @@ function Contact() {
 
                           <div className="field-set">
                             <span className="d-label">휴대폰</span>
-                            <input
+                            <Field
                               type="text"
                               name="phone"
                               id="phone"
@@ -189,6 +180,7 @@ function Contact() {
                               name="message"
                               id="message"
                               className="form-control"
+                              onChange={onChangeTextArea}
                               placeholder="메세지 내용"
                               required
                             ></textarea>

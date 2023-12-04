@@ -90,7 +90,7 @@ function AdminControlPanelRefund() {
     const templateParams = {
       to_email: refundDetail?.email,
       to_name: refundDetail?.uname,
-      from_name: "관리자",
+      from_name: "playhost 팀",
       message: `저희 playHost를 이용해주셔서 감사합니다.
                 환불요청신청이 완료되어 내역을 알려드립니다.
                 -----------------------------------------
@@ -107,7 +107,7 @@ function AdminControlPanelRefund() {
     emailjs
       .send(
         `${process.env.REACT_APP_EMAIL_JS_SERVICE_ID}`, // 서비스 ID
-        "template_8i7gn6k", // 템플릿 ID
+        `template_8i7gn6k`,
         templateParams,
         `${process.env.REACT_APP_EMAIL_JS_API_KEY}` // public-key
       )

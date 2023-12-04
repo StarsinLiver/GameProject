@@ -6,5 +6,6 @@ playhostProject/build/
 playhostProject/src/main/resources/application.properties
 playhostProject/src/main/resources/application-dev.properties
 playhostProject/src/main/resources/application-prod.properties
+frontend-typescript/node_modules/
 
 

@@ -146,7 +146,7 @@ function GameTagRpg() {
                     {/* < -- 2번째 섹션 : Most complete 시작 -- >  */}
                     <section className="jarallax">
                         <img
-                            src="images/game-wallpaper/15.png"
+                            src="images/game-wallpaper/19.jpg"
                             className="jarallax-img"
                             alt=""
                             style={{ opacity: '0.3' }}

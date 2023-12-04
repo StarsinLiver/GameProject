@@ -146,7 +146,7 @@ function GameTagAdventure() {
                     {/* < -- 2번째 섹션 : Most complete 시작 -- >  */}
                     <section className="jarallax">
                         <img
-                            src="images/game-wallpaper/17.png"
+                            src="images/game-wallpaper/20.jpg"
                             className="jarallax-img"
                             alt=""
                             style={{ opacity: '0.3' }}

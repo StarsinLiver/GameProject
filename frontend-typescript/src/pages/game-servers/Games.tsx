@@ -146,7 +146,7 @@ function Games() {
                 <section className="jarallax">
                     {/* 백그라운드 이미지 */}
                     <img
-                        src="images/game-wallpaper/16.jpg"
+                        src="images/game-wallpaper/21.jpg"
                         className="jarallax-img"
                         alt=""
                         style={{ opacity: '0.3' }}

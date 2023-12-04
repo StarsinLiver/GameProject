@@ -70,7 +70,8 @@ public class MvcConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
 //                아래 url 허용
                 .allowedOrigins(reactServer)
-                .allowedOrigins("http://43.201.18.3:3000")
+//                .allowedOrigins("http://43.201.18.3:3000")
+//                .allowedOrigins("http://43.201.18.3")
                 .allowedHeaders("*")
                 .allowCredentials(true)
 //                .allowedOrigins("http://localhost:3000")

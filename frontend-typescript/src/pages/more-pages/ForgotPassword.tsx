@@ -74,12 +74,10 @@ function ForgotPassword() {
       message: `이메일 확인 메시지입니다. ${randomNumber} 번호를 맞게 입력해주세요`,
     };
 
-    console.log("전송 데이터:", templateParams);
-
     emailjs
       .send(
         `${process.env.REACT_APP_EMAIL_JS_SERVICE_ID}`,
-        "template_p4jxv0a",
+        `template_p4jxv0a`,
         templateParams,
         `${process.env.REACT_APP_EMAIL_JS_API_KEY}`
       )

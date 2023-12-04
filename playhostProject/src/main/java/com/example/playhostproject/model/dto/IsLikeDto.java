@@ -39,4 +39,7 @@ public interface IsLikeDto {
     public Long getLikeCount();
     public Long getReviewCount();
 
+    public Integer getLikeOrderBy();
+    public String getInsertTime();
+
 }

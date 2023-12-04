@@ -123,26 +123,40 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     ////    추가
     @Query(value = "SELECT " +
-            "P.PID AS pid, " +
-            "P.NAME AS name, " +
-            "P.SHORT_DESCRIPTION AS shortDescription, " +
-            "P.IMG_URL AS imgUrl, " +
-            "P.PRICE AS price, " +
-            "P.FINAL_PRICE AS finalPrice, " +
-            "P.TAG AS tag, " +
-            "P.DISCOUNT AS discount, " +
-            "P.UUID AS uuid, " +
-            "COUNT(CASE WHEN R.IS_LIKE = 1 THEN 1 END) AS likeCount, " +
-            "COUNT(CASE WHEN R.PARENT_ID = 0 THEN 1 END) AS reviewCount " +
-            "FROM PRODUCT P, REVIEW R " +
-            "WHERE P.PID = R.PID(+) " +
-            "AND P.FINAL_PRICE >= :minPrice " +
-            "AND P.FINAL_PRICE <= :maxPrice " +
-            "AND P.TAG LIKE '%' || :tag || '%' " +
-            "AND P.NAME LIKE '%' || :name || '%' " +
-            "AND P.DELETE_YN = 'N' " +
-            "GROUP BY P.PID, P.NAME, P.SHORT_DESCRIPTION, P.IMG_URL, P.PRICE, P.FINAL_PRICE, P.TAG, P.DISCOUNT, P.UUID",
+            "    P.PID, " +
+            "    P.NAME AS name,   " +
+            "            P.SHORT_DESCRIPTION AS shortDescription,   " +
+            "            P.IMG_URL AS imgUrl,   " +
+            "            P.PRICE AS price,   " +
+            "            P.FINAL_PRICE AS finalPrice,   " +
+            "            P.TAG AS tag,   " +
+            "            P.DISCOUNT AS discount,   " +
+            "            P.UUID AS uuid,   " +
+            "            P.INSERT_TIME AS insertTime,  " +
+            "    COUNT(CASE WHEN R.IS_LIKE = 1 THEN 1 END) AS likeCount, " +
+            "    COUNT(CASE WHEN R.PARENT_ID = 0 THEN 1 END) AS reviewCount, " +
+            "    CASE " +
+            "        WHEN COUNT(CASE WHEN R.PARENT_ID = 0 THEN 1 END) <> 0 " +
+            "        THEN COUNT(CASE WHEN R.IS_LIKE = 1 THEN 1 END) / COUNT(CASE WHEN R.PARENT_ID = 0 THEN 1 END) " +
+            "        ELSE 0 " +
+            "    END AS likeOrderBy " +
+            "FROM " +
+            "    PRODUCT P " +
+            "LEFT JOIN " +
+            "    REVIEW R ON P.PID = R.PID  AND (R.DELETE_YN = 'N' OR R.DELETE_YN IS NULL) " +
+            "    WHERE    P.FINAL_PRICE >= :minPrice   " +
+            "            AND P.FINAL_PRICE <= :maxPrice " +
+            "            AND P.TAG LIKE '%' || :tag || '%'   " +
+            "            AND P.NAME LIKE '%' || :name || '%'   " +
+            "            AND P.DELETE_YN = 'N'   " +
+            " " +
+            "GROUP BY " +
+            "    P.PID, P.NAME, P.SHORT_DESCRIPTION, P.IMG_URL, P.PRICE, P.FINAL_PRICE, P.TAG, P.DISCOUNT, P.UUID, P.INSERT_TIME  " +
+            "ORDER BY " +
+            "CASE WHEN :order IS NOT NULL AND :order = 'DESC' THEN likeOrderBy END DESC, " +
+            "CASE WHEN :order IS NOT NULL AND :order = 'ASC' THEN likeOrderBy END ASC, " +
+            "insertTime DESC",// Added condition for optional order parameter
             nativeQuery = true)
-    Page<IsLikeDto> findByIsLike(@Param("tag") String tag, @Param("name") String name, @Param("minPrice") int minPrice, @Param("maxPrice") int maxPrice,Pageable pageable);
+    Page<IsLikeDto> findByIsLike(@Param("tag") String tag, @Param("name") String name, @Param("minPrice") int minPrice, @Param("maxPrice") int maxPrice, Pageable pageable, @Param("order") String order);
 
 }

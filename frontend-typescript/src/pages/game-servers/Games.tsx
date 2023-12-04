@@ -26,12 +26,12 @@ function Games() {
   //  TODO  공통 변수(필수)  page(현재 페이지), count(총 페이지 건수) , pageSize(3,6,9 배열  1페이지 당 건수)
   const [page, setPage] = useState<number>(1); // 현재 페이지 번호         최초값 1
   const [count, setCount] = useState<number>(1); //총페이지 건수          최초값 1
-  const [pageSize, setPageSize] = useState<number>(10); //1페이지당 개수  최초값 20
+  const [pageSize, setPageSize] = useState<number>(12); //1페이지당 개수  최초값 20
 
   // todo : 태그페이징
   const [page2, setPage2] = useState<number>(1); // 현재 페이지 번호         최초값 1
   const [count2, setCount2] = useState<number>(1); //총페이지 건수          최초값 1
-  const [pageSize2, setPageSize2] = useState<number>(10); //1페이지당 개수  최초값 20
+  const [pageSize2, setPageSize2] = useState<number>(12); //1페이지당 개수  최초값 20
   //  검색어 변수
   const [searchName, setSearchName] = useState<string>("");
 
@@ -43,8 +43,6 @@ function Games() {
 
   const tagChange = (event: any, tag2: any) => {
     let name = searchName;
-    console.log("name : ", name);
-    console.log("priceTag : ", minPrice, maxPrice);
     if (tag != tag2) {
       setPage2(1);
       setTag(tag2);
@@ -55,23 +53,37 @@ function Games() {
       }
     }
 
-    ReviewService.dd(tag2, name, minPrice, maxPrice, page2 - 1, pageSize2)
+    ReviewService.dd(
+      tag2,
+      name,
+      minPrice,
+      maxPrice,
+      page2 - 1,
+      pageSize2,
+      isLikedOrder
+    )
       .then((response: any) => {
         const { IsLikeProduct, totalPages } = response.data;
         setProductTag(IsLikeProduct);
         setCount2(totalPages);
-        console.log("태그 : ", tag2);
-        console.log("받은 데이터**가격제한 : ", response.data);
+        console.log("dd" , isLikedOrder)
+        console.log("ds",IsLikeProduct)
       })
-      .catch((e: Error) => {
-        console.log(e);
-      });
+      .catch((e: Error) => {});
   };
 
   // todo : 전체조회 - 태그 포함 검색
   const searchByTagName = () => {
     if (tag == "") {
-      ReviewService.dd(tag, searchName, minPrice, maxPrice, page - 1, pageSize)
+      ReviewService.dd(
+        tag,
+        searchName,
+        minPrice,
+        maxPrice,
+        page - 1,
+        pageSize,
+        isLikedOrder
+      )
         .then((response: any) => {
           const { IsLikeProduct, totalPages, tagList } = response.data;
           setProductTag(IsLikeProduct);
@@ -79,16 +91,22 @@ function Games() {
           setCount2(totalPages);
           setPage2(1);
           setRender(true);
-          console.log(tag2);
-          console.log("제품리스트", IsLikeProduct);
         })
-        .catch((e: Error) => {
-          console.log(e);
-        });
+        .catch((e: Error) => {});
     } else {
       setPage2(1);
       tagChange(1, tag);
     }
+  };
+
+  /* 여기부터 수정 */
+  // 리뷰비율 변수
+  const [isLikedOrder, setIsLikedOrder] = useState<string>("DESC"); // DESC : 높은순 ASC : 낮은순
+
+  // todo : 리뷰정렬 버튼
+  const changeReviewLiked = (event: any) => {
+    setIsLikedOrder(event);
+    setPage2(1);
   };
 
   // todo : 가격 설정
@@ -98,8 +116,8 @@ function Games() {
   const changePriceTag = (data1: any, data2: any) => {
     setMaxPrice(data2);
     setMinPrice(data1);
-    console.log(setMaxPrice);
-    console.log(setMinPrice);
+    setPage2(1);
+    
   };
 
   // todo : 따봉 개수 보여주기
@@ -125,17 +143,18 @@ function Games() {
     // value == 화면의 페이지번호
     setPage2(value);
   };
+
   useEffect(() => {
     designesis();
     form();
-  }, []);
+  }, [page, maxPrice, tag, isLikedOrder]);
 
   useEffect(() => {
     searchByTagName();
   }, [page, pageSize]);
   useEffect(() => {
     tagChange(1, tag);
-  }, [page2, maxPrice]);
+  }, [page2, maxPrice, isLikedOrder]);
 
   return (
     <>
@@ -156,33 +175,39 @@ function Games() {
           {/* 분문시작 */}
           <div className="container z-1000" style={{ height: "auto" }}>
             <div className="row align-items-center">
-              <div className="col-lg-12">
-                <div className="subtitle wow fadeInUp mb-3">Most complete</div>
-              </div>
-
               {/* Game Collection */}
               <div className="col-lg-6">
-                <h2 className="wow fadeInUp" data-wow-delay=".2s">
+                <h2 className="wow fadeInUp mb-3" data-wow-delay=".2s">
                   게임 컬렉션
                 </h2>
-                <div className="spacer-20"></div>
               </div>
+              <div className="col-lg-12">
+                <div className=" wow fadeInUp mb-3">
+                  playhost에서 최고의 게임을 찾아보세요!
+                </div>
+              </div>
+              <div className="spacer-20"></div>
             </div>
 
             {/* 상품 목록 */}
 
             <div className="row" style={{ height: "auto" }}>
-              <div id="" className="wow fadeInUp col-md-9 row g-4 mb-3">
+              <div
+                id=""
+                className="wow fadeInRight col-md-9 row g-4 mb-3"
+                style={{ height: "fit-content" }}
+              >
                 {tag === "" ? (
                   <>
                     {" "}
-                    <div id="" className="row g-4  wow fadeInUp mb-3">
+                    <div id="" className="row g-4  wow fadeInRight mb-3">
                       {render &&
                         productTag != undefined &&
                         productTag.map((value, index) => (
                           <div
                             className={`col-lg-4 col-md-4 item ${value.tag}`}
                             key={index}
+                            style={{ height: "auto", marginBottom: "1.5rem" }}
                           >
                             <div
                               className="de-item"
@@ -204,11 +229,16 @@ function Games() {
                                     left: "20px",
                                     width: "fit-content",
                                     backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                    fontSize: "0.6rem",
+                                    fontSize: "0.7rem",
                                   }}
                                 >
                                   {value.reviewCount > 0 ? (
-                                    <span style={{ color: "#F4C025" }}>
+                                    <span
+                                      style={{
+                                        color: "#F4C025",
+                                        fontSize: "0.7rem",
+                                      }}
+                                    >
                                       {isLikedValue(
                                         value.reviewCount,
                                         value.likeCount
@@ -224,30 +254,35 @@ function Games() {
                                     style={{
                                       color: "white",
                                       fontWeight: "500",
-                                      backgroundColor: "rgba(30, 30, 30, 0.4)",
-                                      width: "15rem",
-                                      paddingLeft: "15px",
+                                      backgroundColor: "rgba(30, 30, 30, 0.3)",
+                                      width: "100%",
+                                      paddingLeft: "0.7rem",
                                       borderRadius: "10px",
                                     }}
                                   >
                                     {value.name}
                                   </div>
+
                                   {value.discount > 0 ? (
-                                    <>
-                                      <p className="d-price">
-                                        Price <del>{value.price.toLocaleString()}</del>
+                                    <div style={{widows:"100%"}}>
+                                      <p className="d-price" style={{fontSize:"0.9rem", color:"white"}}>
+                                        Price :{" "}
+                                        <del style={{fontSize:"0.9rem", color:"gray"}}>
+                                          {value.price.toLocaleString()}
+                                        </del>
                                         <span className="price">
                                           {value.finalPrice.toLocaleString()} 원
                                         </span>
                                       </p>
-                                    </>
+                                    </div>
                                   ) : (
                                     <>
-                                      <p className="d-price">
-                                        Price{" "}
+                                      <p className="d-price" style={{fontSize:"0.9rem", color:"white"}}>
+                                        Price : {" "}
                                         <span className="price">
                                           {value.price > 0
-                                            ? value.price.toLocaleString() + " 원"
+                                            ? value.price.toLocaleString() +
+                                              " 원"
                                             : `무료`}
                                         </span>
                                       </p>
@@ -276,42 +311,78 @@ function Games() {
                 ) : (
                   <>
                     {" "}
-                    <div id="" className="row g-4  wow fadeInUp mb-3 ">
+                    <div
+                      id=""
+                      className="row g-4  wow fadeInRight mb-3 "
+                      style={{ height: "fit-content" }}
+                    >
                       {render &&
                         productTag != undefined &&
                         productTag.map((value, index) => (
                           <div
                             className={`col-lg-4 col-md-4 item ${value.tag}`}
                             key={index}
+                            style={{ height: "auto", marginBottom: "1.5rem" }}
                           >
                             <div
                               className="de-item"
                               style={{ height: "10rem" }}
                             >
                               <div className="d-overlay">
-                                <div className="d-label">
+                                <div
+                                  className="d-label"
+                                  style={{ fontSize: "0.7rem" }}
+                                >
                                   {value.discount > 0 && (
                                     <>{value.discount}% off !</>
                                   )}
                                 </div>
-                                <div className="d-text">
+                                <div
+                                  className="d-label"
+                                  style={{
+                                    left: "20px",
+                                    width: "fit-content",
+                                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                    fontSize: "0.6rem",
+                                  }}
+                                >
+                                  {value.reviewCount > 0 ? (
+                                    <span
+                                      style={{
+                                        color: "#F4C025",
+                                        fontSize: "0.7rem",
+                                      }}
+                                    >
+                                      {isLikedValue(
+                                        value.reviewCount,
+                                        value.likeCount
+                                      )}
+                                    </span>
+                                  ) : (
+                                    <>리뷰가 없습니다.</>
+                                  )}
+                                </div>
+                                <div className="d-text" style={{}}>
                                   <div
                                     className="css-1e8ix6x2"
                                     style={{
                                       color: "white",
                                       fontWeight: "500",
                                       backgroundColor: "rgba(30, 30, 30, 0.4)",
-                                      width: "15rem",
-                                      paddingLeft: "15px",
-                                      borderRadius: "10px",
+                                      width: "100%",
+                                      paddingLeft: "0.7rem",
+                                      borderRadius: "10px"                                      
                                     }}
                                   >
                                     {value.name}
                                   </div>
                                   {value.discount > 0 ? (
                                     <>
-                                      <p className="d-price">
-                                        Price <del>{value.price.toLocaleString()}</del>
+                                      <p className="d-price" style={{fontSize:"0.9rem", color:"white"}}>
+                                        Price{" "}
+                                        <del style={{fontSize:"0.9rem", color:"gray"}}>
+                                          {value.price.toLocaleString()}
+                                        </del>
                                         <span className="price">
                                           {value.finalPrice.toLocaleString()} 원
                                         </span>
@@ -319,11 +390,12 @@ function Games() {
                                     </>
                                   ) : (
                                     <>
-                                      <p className="d-price">
+                                      <p className="d-price" style={{fontSize:"0.9rem", color:"white"}}>
                                         Price{" "}
-                                        <span className="price">
+                                        <span className="price" style={{backgroundColor:""}}>
                                           {value.price > 0
-                                            ? value.price.toLocaleString() + " 원"
+                                            ? value.price.toLocaleString() +
+                                              " 원"
                                             : `무료`}
                                         </span>
                                       </p>
@@ -364,6 +436,8 @@ function Games() {
                 }}
               >
                 {/* 장바구니 버튼 -> 삼항 - true false {장바구니 담기&& 장바구니 제거 } */}
+
+                {/* 게임 이름 검색 */}
                 <div className="widget mb-1">
                   <h4>게임 이름</h4>
                   <div className="small-border" style={{ width: "100%" }}></div>
@@ -371,7 +445,6 @@ function Games() {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="게임 이름을 입력해 주세요"
                       value={searchName}
                       onChange={onChangeSearchName}
                       style={{
@@ -379,7 +452,7 @@ function Games() {
                         backgroundColor: "rgba(255, 255, 255, .1)",
                         borderColor: "rgba(255, 255, 255, .1)",
                         color: "white",
-                        width: "9rem",
+                        width: "60%",
                       }}
                     />
                     <div className="input-group-append">
@@ -389,9 +462,9 @@ function Games() {
                         onClick={searchByTagName}
                         style={{
                           height: "2.5rem",
-                          width: "5.5rem",
+                          width: "5rem",
                           borderColor: "rgba(255, 255, 255, .1)",
-                          color: "grey",
+                          color: "grey",                          
                         }}
                       >
                         Search
@@ -399,10 +472,11 @@ function Games() {
                     </div>
                   </div>
                 </div>
+                {/* 게임 이름 검색 끝*/}
 
                 {/* 게임 태그(카테고리, 종류, 타입) 시작 */}
-                <div className="widget">
-                  <h4>Tags</h4>
+                <div className="widget mb-1">
+                  <h4>태그별 검색</h4>
                   <div className="small-border" style={{ width: "100%" }}></div>
                   <div>
                     <ul
@@ -410,24 +484,39 @@ function Games() {
                       data-wow-delay="0s"
                     >
                       <li>
-                        {tag == "" && (
-                          <span
-                            className="material-symbols-outlined"
-                            style={{
-                              fontSize: "1.1rem",
-                              color: "white",
-                            }}
+                        {tag == "" ? (
+                          <>
+                            <span
+                              className="material-symbols-outlined"
+                              style={{
+                                fontSize: "1.1rem",
+                                color: "#6a79fa",
+                                fontWeight: "750",
+                              }}
+                            >
+                              check
+                            </span>
+                            <a
+                              
+                              onClick={() => tagChange(1, "")}
+                              style={{
+                                color: "#6a79fa",
+                                marginLeft: "0.5rem",
+                                fontWeight: "750", cursor:"pointer"
+                              }}
+                            >
+                              All Games
+                            </a>
+                          </>
+                        ) : (
+                          <a
+                            
+                            onClick={() => tagChange(1, "")}
+                            style={{ color: "white", marginLeft: "0.3rem", cursor:"pointer" }}
                           >
-                            check
-                          </span>
+                            All Games
+                          </a>
                         )}
-                        <a
-                          href="#"
-                          onClick={() => tagChange(1, "")}
-                          style={{ color: "white", marginLeft: "0.3rem" }}
-                        >
-                          All&nbsp;Games
-                        </a>
                       </li>
                       {productList2 &&
                         productList2
@@ -438,34 +527,66 @@ function Games() {
                           )
                           .filter((value: any, index) => value != "무료")
                           .map((value, index) => (
-                            <li>
-                              {tag == value && (
-                                <span
-                                  className="material-symbols-outlined"
-                                  style={{
-                                    fontSize: "1.1rem",
-                                    color: "white",
-                                  }}
-                                >
-                                  check
-                                </span>
-                              )}
-                              {value == null ? (
-                                <a
-                                  href="#"
-                                  onClick={() => tagChange(1, value)}
-                                  style={{ color: "white" }}
-                                >
-                                  기타
-                                </a>
+                            <li key={index}>
+                              {tag == value ? (
+                                <>
+                                  <span
+                                    className="material-symbols-outlined"
+                                    style={{
+                                      fontSize: "1.1rem",
+                                      color: "#6a79fa",
+                                      fontWeight: "750",
+                                    }}
+                                  >
+                                    check
+                                  </span>
+
+                                  {value == null ? (
+                                    <a
+                                      
+                                      onClick={() => tagChange(1, value)}
+                                      style={{
+                                        color: "#6a79fa",
+                                        marginLeft: "0.5rem",
+                                        fontWeight: "750", cursor:"pointer"
+                                      }}
+                                    >
+                                      기타
+                                    </a>
+                                  ) : (
+                                    <a
+                                      
+                                      onClick={() => tagChange(1, value)}
+                                      style={{
+                                        color: "#6a79fa",
+                                        marginLeft: "0.5rem",
+                                        fontWeight: "750", cursor:"pointer"
+                                      }}
+                                    >
+                                      {value}
+                                    </a>
+                                  )}
+                                </>
                               ) : (
-                                <a
-                                  href="#"
-                                  onClick={() => tagChange(1, value)}
-                                  style={{ color: "white" }}
-                                >
-                                  {value}
-                                </a>
+                                <>
+                                  {value == null ? (
+                                    <a
+                                      
+                                      onClick={() => tagChange(1, value)}
+                                      style={{ color: "white", cursor:"pointer" }}
+                                    >
+                                      기타
+                                    </a>
+                                  ) : (
+                                    <a
+                                      
+                                      onClick={() => tagChange(1, value)}
+                                      style={{ color: "white" , cursor:"pointer"}}
+                                    >
+                                      {value}
+                                    </a>
+                                  )}
+                                </>
                               )}
                             </li>
                           ))}
@@ -473,8 +594,10 @@ function Games() {
                   </div>
                 </div>
                 {/* 게임 태그(카테고리, 종류, 타입) 끝 */}
-                <div className="widget">
-                  <h4>가격별 항목</h4>
+
+                {/* 가격별 검색 */}
+                <div className="widget mb-1">
+                  <h4>가격별 검색</h4>
                   <div className="small-border" style={{ width: "100%" }}></div>
 
                   <ul
@@ -482,153 +605,335 @@ function Games() {
                     data-wow-delay="0s"
                   >
                     <li>
-                      {maxPrice == 800000 && (
-                        <span
-                          className="material-symbols-outlined"
-                          style={{
-                            fontSize: "1.1rem",
-                            color: "white",
-                          }}
+                      {maxPrice == 800000 ? (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "1.1rem",
+                              color: "#6a79fa",
+                              fontWeight: "750",
+                            }}
+                          >
+                            check
+                          </span>
+                          <a
+                            
+                            onClick={() => changePriceTag(0, 800000)}
+                            style={{
+                              color: "#6a79fa",
+                              marginLeft: "0.5rem",
+                              fontWeight: "750", cursor:"pointer"
+                            }}
+                          >
+                            전체 가격
+                          </a>
+                        </>
+                      ) : (
+                        <a
+                          
+                          onClick={() => changePriceTag(0, 800000)}
+                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
                         >
-                          check
-                        </span>
+                          전체 가격
+                        </a>
                       )}
-                      <a
-                        href="#"
-                        onClick={() => changePriceTag(0, 800000)}
-                        style={{ color: "white", marginLeft: "0.5rem" }}
-                      >
-                        전체 가격
-                      </a>
                     </li>
 
                     <li style={{ width: "100%", alignItems: "center" }}>
-                      {maxPrice == 5000 && (
-                        <span
-                          className="material-symbols-outlined"
-                          style={{
-                            fontSize: "1.1rem",
-                            color: "white",
-                          }}
+                      {maxPrice == 5000 ? (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "1.1rem",
+                              color: "#6a79fa",
+                              fontWeight: "750",
+                            }}
+                          >
+                            check
+                          </span>
+                          <a
+                            
+                            onClick={() => changePriceTag(0, 5000)}
+                            style={{
+                              color: "#6a79fa",
+                              marginLeft: "0.5rem",
+                              fontWeight: "750", cursor:"pointer"
+                            }}
+                          >
+                            ~ 5,000￦
+                          </a>
+                        </>
+                      ) : (
+                        <a
+                          
+                          onClick={() => changePriceTag(0, 5000)}
+                          style={{ color: "white", marginLeft: "0.5rem" , cursor:"pointer"}}
                         >
-                          check
-                        </span>
+                          ~ 5,000￦
+                        </a>
                       )}
-                      <a
-                        href="#"
-                        onClick={() => changePriceTag(0, 5000)}
-                        style={{ color: "white", marginLeft: "0.5rem" }}
-                      >
-                        ~5000￦
-                      </a>
+                    </li>
+                    <li>
+                      {maxPrice == 10000 ? (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "1.1rem",
+                              color: "#6a79fa",
+                              fontWeight: "750",
+                            }}
+                          >
+                            check
+                          </span>
+                          <a
+                            
+                            onClick={() => changePriceTag(5001, 10000)}
+                            style={{
+                              color: "#6a79fa",
+                              marginLeft: "0.5rem",
+                              fontWeight: "750", cursor:"pointer"
+                            }}
+                          >
+                            5,000￦ &nbsp;~ &nbsp;10,000￦
+                          </a>
+                        </>
+                      ) : (
+                        <a
+                          
+                          onClick={() => changePriceTag(5001, 10000)}
+                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                        >
+                          5,000￦ &nbsp;~ &nbsp;10,000￦
+                        </a>
+                      )}
                     </li>
 
                     <li>
-                      {maxPrice == 10000 && (
-                        <span
-                          className="material-symbols-outlined"
-                          style={{
-                            fontSize: "1.1rem",
-                            color: "white",
-                          }}
+                      {maxPrice == 30000 ? (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "1.1rem",
+                              color: "#6a79fa",
+                              fontWeight: "750",
+                            }}
+                          >
+                            check
+                          </span>
+                          <a
+                            
+                            onClick={() => changePriceTag(10001, 30000)}
+                            style={{
+                              color: "#6a79fa",
+                              marginLeft: "0.5rem",
+                              fontWeight: "750", cursor:"pointer"
+                            }}
+                          >
+                            10,000￦ ~ 30,000￦
+                          </a>
+                        </>
+                      ) : (
+                        <a
+                          
+                          onClick={() => changePriceTag(10001, 30000)}
+                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
                         >
-                          check
-                        </span>
+                          10,000￦ ~ 30,000￦
+                        </a>
                       )}
-                      <a
-                        href="#"
-                        onClick={() => changePriceTag(5001, 10000)}
-                        style={{ color: "white", marginLeft: "0.5rem" }}
-                      >
-                        ~10000￦
-                      </a>
                     </li>
 
                     <li>
-                      {maxPrice == 30000 && (
-                        <span
-                          className="material-symbols-outlined"
-                          style={{
-                            fontSize: "1.1rem",
-                            color: "white",
-                          }}
+                      {maxPrice == 50000 ? (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "1.1rem",
+                              color: "#6a79fa",
+                              fontWeight: "750"
+                            }}
+                          >
+                            check
+                          </span>
+                          <a
+                            
+                            onClick={() => changePriceTag(30001, 50000)}
+                            style={{
+                              color: "#6a79fa",
+                              marginLeft: "0.5rem",
+                              fontWeight: "750",
+                              cursor:"pointer"
+                            }}
+                          >
+                            30,000￦ ~ 50,000￦
+                          </a>
+                        </>
+                      ) : (
+                        <a
+                          
+                          onClick={() => changePriceTag(30001, 50000)}
+                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
                         >
-                          check
-                        </span>
+                          30,000￦ ~ 50,000￦
+                        </a>
                       )}
-                      <a
-                        href="#"
-                        onClick={() => changePriceTag(10001, 30000)}
-                        style={{ color: "white", marginLeft: "0.5rem" }}
-                      >
-                        ~30000￦
-                      </a>
                     </li>
 
                     <li>
-                      {maxPrice == 50000 && (
-                        <span
-                          className="material-symbols-outlined"
-                          style={{
-                            fontSize: "1.1rem",
-                            color: "white",
-                          }}
+                      {minPrice == 50000 ? (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "1.1rem",
+                              color: "#6a79fa",
+                              fontWeight: "750", cursor:"pointer"
+                            }}
+                          >
+                            check
+                          </span>
+                          <a
+                            
+                            onClick={() => changePriceTag(50000, 1000000)}
+                            style={{
+                              color: "#6a79fa",
+                              marginLeft: "0.5rem",
+                              fontWeight: "750", cursor:"pointer"
+                            }}
+                          >
+                            50000￦ 이상
+                          </a>
+                        </>
+                      ) : (
+                        <a
+                          
+                          onClick={() => changePriceTag(50000, 1000000)}
+                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
                         >
-                          check
-                        </span>
+                          50000￦ 이상
+                        </a>
                       )}
-                      <a
-                        href="#"
-                        onClick={() => changePriceTag(30001, 50000)}
-                        style={{ color: "white", marginLeft: "0.5rem" }}
-                      >
-                        ~50000￦
-                      </a>
                     </li>
 
                     <li>
-                      {minPrice == 50000 && (
-                        <span
-                          className="material-symbols-outlined"
-                          style={{
-                            fontSize: "1.1rem",
-                            color: "white",
-                          }}
+                      {maxPrice == 0 ? (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "1.1rem",
+                              color: "#6a79fa",
+                              fontWeight: "750",
+                            }}
+                          >
+                            check
+                          </span>
+                          <a
+                            
+                            onClick={() => changePriceTag(0, 0)}
+                            style={{
+                              color: "#6a79fa",
+                              marginLeft: "0.5rem",
+                              fontWeight: "750",
+                              cursor:"pointer"
+                            }}
+                          >
+                            무료 게임
+                          </a>
+                        </>
+                      ) : (
+                        <a
+                          
+                          onClick={() => changePriceTag(0, 0)}
+                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
                         >
-                          check
-                        </span>
+                          무료 게임
+                        </a>
                       )}
-                      <a
-                        href="#"
-                        onClick={() => changePriceTag(50000, 1000000)}
-                        style={{ color: "white", marginLeft: "0.5rem" }}
-                      >
-                        50000￦ 이상
-                      </a>
-                    </li>
-
-                    <li>
-                      {maxPrice == 0 && (
-                        <span
-                          className="material-symbols-outlined"
-                          style={{
-                            fontSize: "1.1rem",
-                            color: "white",
-                          }}
-                        >
-                          check
-                        </span>
-                      )}
-                      <a
-                        href="#"
-                        onClick={() => changePriceTag(0, 0)}
-                        style={{ color: "white", marginLeft: "0.5rem" }}
-                      >
-                        무료 게임
-                      </a>
                     </li>
                   </ul>
                 </div>
+                {/* 가격별 검색 끝 */}
+
+                {/* 리뷰 평가 순 정렬 */}
+                <div className="widget mb-1">
+                  <h4>리뷰 평가 검색</h4>
+                  <div className="small-border" style={{ width: "100%" }}></div>
+                  <ul
+                    // className="float-end float-sm-start wow fadeInUp"
+                    data-wow-delay="0s"
+                  >
+                    <li>
+                      {isLikedOrder == "DESC" ? (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "1.1rem",
+                              color: "#6a79fa",
+                              fontWeight: "750",
+                            }}
+                          >
+                            check
+                          </span>
+                          <a
+                            
+                            onClick={() => changeReviewLiked("DESC")}
+                            style={{ color: "#6a79fa", marginLeft: "0.5rem", cursor:"pointer" }}
+                          >
+                            리뷰 좋은 순
+                          </a>
+                        </>
+                      ) : (
+                        <a
+                          
+                          onClick={() => changeReviewLiked("DESC")}
+                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                        >
+                          리뷰 좋은 순
+                        </a>
+                      )}
+                    </li>
+
+                    <li>
+                      {isLikedOrder == "ASC" ? (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "1.1rem",
+                              color: "#6a79fa",
+                              fontWeight: "750",
+                            }}
+                          >
+                            check
+                          </span>
+                          <a
+                            
+                            onClick={() => changeReviewLiked("ASC")}
+                            style={{ color: "#6a79fa", marginLeft: "0.5rem", cursor:"pointer" }}
+                          >
+                            리뷰 나쁜 순
+                          </a>
+                        </>
+                      ) : (
+                        <a
+                          
+                          onClick={() => changeReviewLiked("ASC")}
+                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                        >
+                          리뷰 나쁜 순
+                        </a>
+                      )}
+                    </li>
+                  </ul>
+                </div>
+                {/* 리뷰 평가 순 정렬 끝 */}
               </div>
 
               {/* 사이드 바 */}

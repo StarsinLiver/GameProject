@@ -44,11 +44,11 @@ function AddNews() {
     FileDbService.upload(uploadFileDb, currentFile) // 저장 요청
       .then((response: any) => {
         alert("업로드 성공");
-        console.log(response.data);
+        
         navigate("/news");
       })
       .catch((e: Error) => {
-        console.log(e);
+       
       });
   };
 

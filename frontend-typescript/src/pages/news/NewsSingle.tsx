@@ -51,10 +51,10 @@ function NewsSingle() {
     FileDbService.getFileDb(uuid) // 벡엔드로 상세조회 요청
       .then((response: any) => {
         setUploadFileDb(response.data);
-        console.log(response.data);
+        
       })
       .catch((e: Error) => {
-        console.log(e);
+       
       });
   };
 
@@ -67,13 +67,13 @@ function NewsSingle() {
   const deleteImage = (uuid: any) => {
     FileDbService.deleteFile(uuid) // 벡엔드로 삭제요청
       .then((response: any) => {
-        console.log(response.data);
+      
         alert("삭제되었습니다.");
         // 재조회
         navigate("/news");
       })
       .catch((e: Error) => {
-        console.log(e);
+       
       });
   };
 
@@ -86,11 +86,11 @@ function NewsSingle() {
         const { fileDb, totalPages } = response.data;
         setFileDb(fileDb);
         setCount(totalPages);
-        console.log("response", response.data);
+       
       })
       .catch((e: Error) => {
         // 벡엔드 실패시 실행됨
-        console.log(e);
+      
       });
   };
 

@@ -93,7 +93,7 @@ function CheckOut() {
         setRender(true);
       })
       .catch((e: Error) => {
-        console.log(e);
+       
       });
   };
 

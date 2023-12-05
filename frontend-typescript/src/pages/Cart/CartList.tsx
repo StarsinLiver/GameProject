@@ -38,7 +38,7 @@ function CartList() {
         setCount(totalPages);
       })
       .catch((e: Error) => {
-        console.log(e);
+       
       });
   };
 
@@ -58,7 +58,7 @@ function CartList() {
         retrieveCart();
       })
       .catch((e: Error) => {
-        console.log(e);
+    
       });
   };
 

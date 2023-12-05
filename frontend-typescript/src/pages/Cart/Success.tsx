@@ -61,7 +61,7 @@ export function SuccessPage() {
   const retrieveCart = () => {
     CartService.getAll(user?.userId, 0, 100)
       .then((response: any) => {
-        console.log(response);
+       
         const { cart, userDto } = response.data;
         setCart(cart);
         setUserDto(userDto);
@@ -69,34 +69,32 @@ export function SuccessPage() {
         setRender(true);
       })
       .catch((e: Error) => {
-        console.log(e);
-      });
+             });
   };
 
   const success = () => {
-    console.log("price ", price);
+    
     // cart가 유효한지 확인
     if (cart && userDto && cart.length > 0) {
       // Todo : 유저 수정 함수
 
       let point =
         (userDto.point as number) - (price - queryAmount) + price / 100;
-      console.log("userDto.point", userDto.point);
-      console.log("price - queryAmount", price - queryAmount);
+    
 
       UserService.updatePoint(user?.userId, point)
         .then((response: any) => {
-          console.log(response);
+       
         })
         .catch((e: Error) => {
-          console.log(e);
+        
         });
 
       // Todo : Cart 와 Library 업데이트
       cart.map((value, index) =>
         CartService.updateCompleteYn(value.cid)
           .then((response: any) => {
-            console.log(response.data);
+            
 
             let data: ILibrary = {
               lid: null,
@@ -112,14 +110,13 @@ export function SuccessPage() {
 
             LibraryService.create(data)
               .then((response: any) => {
-                console.log(response);
-              })
+                            })
               .catch((e: Error) => {
-                console.log(e);
+              
               });
           })
           .catch((e: Error) => {
-            console.log(e);
+           
             navigate("/checkout");
           })
       );
@@ -165,12 +162,12 @@ export function SuccessPage() {
         `${process.env.REACT_APP_EMAIL_JS_API_KEY}`
       )
       .then((response: any) => {
-        console.log("이메일이 성공적으로 보내졌습니다:", response);
+       
         // setIsEmailSent(true);
         // 이메일 전송 성공 처리 로직 추가
       })
       .catch((error: Error) => {
-        console.error("이메일 보내기 실패:", error);
+        
         // 이메일 전송 실패 처리 로직 추가
       });
 

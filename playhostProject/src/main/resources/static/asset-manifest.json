@@ -1,7 +1,11 @@
 {
   "files": {
     "main.css": "/static/css/main.93462eb2.css",
+<<<<<<< Updated upstream
     "main.js": "/static/js/main.3f2b9f83.js",
+=======
+    "main.js": "/static/js/main.5bebd652.js",
+>>>>>>> Stashed changes
     "static/js/787.ab8cc49a.chunk.js": "/static/js/787.ab8cc49a.chunk.js",
     "static/media/news.png": "/static/media/news.80ec065d2a101506f507.png",
     "static/media/all.png": "/static/media/all.7b034832119f34dc1c9b.png",
@@ -57,11 +61,19 @@
     "index.html": "/index.html",
     "static/media/google_icon.svg": "/static/media/google_icon.4c71e91119578c79da80511815f39ddf.svg",
     "main.93462eb2.css.map": "/static/css/main.93462eb2.css.map",
+<<<<<<< Updated upstream
     "main.3f2b9f83.js.map": "/static/js/main.3f2b9f83.js.map",
+=======
+    "main.5bebd652.js.map": "/static/js/main.5bebd652.js.map",
+>>>>>>> Stashed changes
     "787.ab8cc49a.chunk.js.map": "/static/js/787.ab8cc49a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.93462eb2.css",
+<<<<<<< Updated upstream
     "static/js/main.3f2b9f83.js"
+=======
+    "static/js/main.5bebd652.js"
+>>>>>>> Stashed changes
   ]
 }

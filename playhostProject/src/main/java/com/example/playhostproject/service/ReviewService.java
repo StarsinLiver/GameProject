@@ -106,8 +106,10 @@ public class ReviewService {
 
     // todo : 추가 외부에서 islike보기
 
-    public Page<IsLikeDto> findByIsLike(String tag, String name, int minPrice,int maxPrice, Pageable pageable) {
-        Page<IsLikeDto> page = reviewRepository.findByIsLike(tag, name, minPrice,maxPrice , pageable);
+    // todo : 추가 외부에서 islike보기
+
+    public Page<IsLikeDto> findByIsLike(String tag, String name, int minPrice,int maxPrice, Pageable pageable,String order) {
+        Page<IsLikeDto> page = reviewRepository.findByIsLike(tag, name, minPrice,maxPrice , pageable, order);
         System.out.println("이즈");
         return page;
     }

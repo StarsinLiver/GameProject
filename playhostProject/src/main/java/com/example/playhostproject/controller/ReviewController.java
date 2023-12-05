@@ -210,13 +210,13 @@ public class ReviewController {
     }
 
     @GetMapping("/review/isLike")
-    public ResponseEntity<Object> findByIsLike(@RequestParam(defaultValue = "") String tag, @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "0") int minPrice , @RequestParam(defaultValue = "999999") int maxPrice , @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size){
+    public ResponseEntity<Object> findByIsLike(@RequestParam(defaultValue = "") String tag, @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "0") int minPrice , @RequestParam(defaultValue = "999999") int maxPrice , @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size, @RequestParam(defaultValue = "DESC") String order ){
         try {
 
             Pageable pageable = PageRequest.of(page, size);
             System.out.println("이즈 서비스 들어감");
 
-            Page<IsLikeDto> isLikeDtoPage = reviewService.findByIsLike(tag,name,minPrice,maxPrice,pageable);
+            Page<IsLikeDto> isLikeDtoPage = reviewService.findByIsLike(tag,name,minPrice,maxPrice,pageable, order);
             System.out.println("이즈 서비스에서 나옴");
             List<String> tagList = productService.findAllTag();
             System.out.println("이즈 맵에 들어감");

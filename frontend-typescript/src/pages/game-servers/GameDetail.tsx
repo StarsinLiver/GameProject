@@ -350,12 +350,12 @@ function GamesDetail() {
   };
 
   // 댓글 작성 시 작동하는 상세조회
-  const getReview2 = (rid: string) => {
+  const getReview2 = (rid: string, title:string) => {
     ReviewService.get(rid) // 백엔드로 상세조회 요청
       .then((response: any) => {
         const data2 = {
           rid: rid,
-          title: review.title,
+          title: title,
           content: "",
           email: email,
           writer: user?.userId, // 유저 정보 들고오기
@@ -365,8 +365,10 @@ function GamesDetail() {
           pid: Number(pid),
           insertTime: null,
         };
+        
 
         setReview(data2);
+        
       })
       .catch((e: Error) => {});
   };
@@ -1031,7 +1033,7 @@ function GamesDetail() {
                                                   data-bs-target="#exampleModal"
                                                   data-bs-whatever="@mdo"
                                                   onClick={() =>
-                                                    getReview2(value.rid)
+                                                    getReview2(value.rid, value.title)
                                                   }
                                                 >
                                                   댓글 달기
@@ -1371,7 +1373,7 @@ function GamesDetail() {
                                             <form>
                                               <div className="mb-3">
                                                 <label className="col-form-label">
-                                                  Reply to: {value.title}
+                                                  Reply to: {review.title}
                                                 </label>
                                                 <textarea
                                                   className="form-control"

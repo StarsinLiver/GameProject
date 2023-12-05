@@ -49,11 +49,8 @@ public class FileDbController {
     ) {
         try {
 //            페이지 변수 저장 (page:현재페이지 번호, size: 한 페이지당 개수)
-//            함수 매개변수 : Pageable(위의 값을 넣기)
-//            사용법 : Pageable pageable = PageRequest.of(현재페이지번호, 한페이지당개수);
             Pageable pageable = PageRequest.of(page, size);
 
-//            전체조회(fileTitle="") + like 검색(fileTitle="S")
             Page<FileDb> fileDbPage
                     = fileDbservice.findAllByFileTitleContainingOrderByInsertTimeDesc(fileTitle, pageable);
 

@@ -1,7 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.fd815cb3.css",
-    "main.js": "/static/js/main.7b5a00b2.js",
+    "main.css": "/static/css/main.93462eb2.css",
+<<<<<<< Updated upstream
+    "main.js": "/static/js/main.3f2b9f83.js",
+=======
+    "main.js": "/static/js/main.5bebd652.js",
+>>>>>>> Stashed changes
     "static/js/787.ab8cc49a.chunk.js": "/static/js/787.ab8cc49a.chunk.js",
     "static/media/news.png": "/static/media/news.80ec065d2a101506f507.png",
     "static/media/all.png": "/static/media/all.7b034832119f34dc1c9b.png",
@@ -44,6 +48,7 @@
     "static/media/2.webp": "/static/media/2.1caaca23d074a3867872.webp",
     "static/media/space.webp": "/static/media/space.a5da68c5c8abb826a00e.webp",
     "static/media/7.webp": "/static/media/7.9775d533cbee0f2129c5.webp",
+    "static/media/logo.png": "/static/media/logo.c1d4e2293c4b167ecc0e.png",
     "static/media/man-with-phone.webp": "/static/media/man-with-phone.668f9b9060ba75fecd40.webp",
     "static/media/american-express.webp": "/static/media/american-express.1660359d25bad30c6f5f.webp",
     "static/media/paypal.webp": "/static/media/paypal.3c309a9e08f31cd8c45c.webp",
@@ -55,12 +60,20 @@
     "static/media/download-appstore.webp": "/static/media/download-appstore.d14007d236737c2c9f3e.webp",
     "index.html": "/index.html",
     "static/media/google_icon.svg": "/static/media/google_icon.4c71e91119578c79da80511815f39ddf.svg",
-    "main.fd815cb3.css.map": "/static/css/main.fd815cb3.css.map",
-    "main.7b5a00b2.js.map": "/static/js/main.7b5a00b2.js.map",
+    "main.93462eb2.css.map": "/static/css/main.93462eb2.css.map",
+<<<<<<< Updated upstream
+    "main.3f2b9f83.js.map": "/static/js/main.3f2b9f83.js.map",
+=======
+    "main.5bebd652.js.map": "/static/js/main.5bebd652.js.map",
+>>>>>>> Stashed changes
     "787.ab8cc49a.chunk.js.map": "/static/js/787.ab8cc49a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fd815cb3.css",
-    "static/js/main.7b5a00b2.js"
+    "static/css/main.93462eb2.css",
+<<<<<<< Updated upstream
+    "static/js/main.3f2b9f83.js"
+=======
+    "static/js/main.5bebd652.js"
+>>>>>>> Stashed changes
   ]
 }

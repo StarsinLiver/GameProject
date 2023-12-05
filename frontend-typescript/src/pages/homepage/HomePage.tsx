@@ -51,18 +51,19 @@ function HomePage() {
             });
     };
 
-    const retrievePrductListThumbNail = () => {
-        ProductService.getAllByThumbNailFullJoin('', 0, 20)
-            .then((response: any) => {
-                const { list, productDtoPage } = response.data;
-                console.log('productDtoPage', productDtoPage);
-                setProductDtoPage(productDtoPage);
-                console.log('response.data', response.data);
-            })
-            .catch((e: Error) => {
-                console.log(e);
-            });
-    };
+
+  const retrievePrductListThumbNail = () => {
+    ProductService.getAllByThumbNailFullJoin("", 0, 8)
+      .then((response: any) => {
+        const { list, productDtoPage } = response.data;
+        console.log("productDtoPage", productDtoPage);
+        setProductDtoPage(list);
+        console.log("response.data", response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  };
 
     return (
         <>
@@ -607,6 +608,52 @@ function HomePage() {
                                                                                     </div>
                                                                                 </div>
 
+
+                    {/* 리스트 2 - 무료게임 */}
+                    <li className="css-dliiq8">
+                      <div className="css-1sm2slz">
+                        <div className="css-61xwjr">
+                          <h4 className="" style={{ paddingTop: "10px" }}>
+                            <span>무료 게임</span>
+                          </h4>
+                          <Link to={"/games"} className="css-1m37id5">
+                            <span
+                              className="css-15fdr99"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              view more
+                            </span>
+                          </Link>
+                        </div>
+                        <ul className="css-ker5ce">
+                          {/* map -> 게임 정렬 */}
+                          {render &&
+                            product
+                              .filter((value, index) => value.finalPrice === 0)
+                              .filter((value, index) => index < 4)
+                              .map((value, imdex) => (
+                                <li className="css-8atqhb">
+                                  <div className="css-ukk7l6">
+                                    <Link
+                                      to={"/game-detail/" + value.pid}
+                                      className="css-1xvrxmf"
+                                    >
+                                      <div className="css-1k6yql2">
+                                        {/* 이미지 */}
+                                        <div className="css-422f2k">
+                                          <div className="css-csipgi">
+                                            <div className="yb58t8">
+                                              <div className="css-rl9sa6">
+                                                {/* 게임 썸네일 이미지 넣기 */}
+                                                <img
+                                                  className="css-1jk123r"
+                                                  src={value.imgUrl}
+                                                ></img>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
                                                                                 {/* 정보 */}
                                                                                 <div className="css-8atqhb">
                                                                                     <span className="css-119zqif">
@@ -616,6 +663,7 @@ function HomePage() {
                                                                                             </div>
                                                                                         </div>
                                                                                     </span>
+
 
                                                                                     {/* 가격 표시 */}
                                                                                     <div className="css-1q7njkh">
@@ -726,6 +774,57 @@ function HomePage() {
                                                                                     </div>
                                                                                 </div>
 
+
+                    {/* 리스트 3 - 할인율 */}
+                    <li className="css-dliiq82">
+                      <div className="css-1sm2slz">
+                        <div className="css-61xwjr">
+                          <h4 className="" style={{ paddingTop: "10px" }}>
+                            <span>할인 이벤트</span>
+                          </h4>
+                          <Link to={"/games"} className="css-1m37id5">
+                            <span
+                              className="css-15fdr99"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              view more
+                            </span>
+                          </Link>
+                        </div>
+                        <ul className="css-ker5ce">
+                          {/* map -> 게임 정렬 */}
+                          {render &&
+                            product
+                              .sort((a, b) => b.discount - a.discount)
+                              .filter((value, index) => value.discount > 0)
+                              .filter((value, index) => value.finalPrice != 0)
+                              .filter((value, index) => index < 4)
+                              .map((value, imdex) => (
+                                <li className="css-8atqhb">
+                                  <div className="css-ukk7l6">
+                                    <Link
+                                      to={"/game-detail/" + value.pid}
+                                      className="css-1xvrxmf"
+                                    >
+                                      <div className="css-1k6yql2">
+                                        {/* 이미지 */}
+                                        <div className="css-422f2k">
+                                          <div className="css-csipgi">
+                                            <div className="yb58t8">
+                                              <div className="css-rl9sa6">
+                                                {/* 게임 썸네일 이미지 넣기 */}
+                                                <img
+                                                  className="css-1jk123r"
+                                                  src={value.imgUrl}
+                                                  style={{
+                                                    width: "100%",
+                                                  }}
+                                                ></img>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
                                                                                 {/* 정보 */}
                                                                                 <div className="css-8atqhb">
                                                                                     <span className="css-119zqif">
@@ -735,6 +834,7 @@ function HomePage() {
                                                                                             </div>
                                                                                         </div>
                                                                                     </span>
+
 
                                                                                     {/* 가격 표시 */}
                                                                                     <div className="css-1q7njkh">

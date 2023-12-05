@@ -17,7 +17,7 @@ import axios from "axios";
 // 연습 : id 값 : 218620
 
 const findAll = () => {
-  return axios.get(`https://proxy.cors.sh/https://api.steampowered.com/ISteamApps/GetAppList/v2`, {
+  return axios.get(`https://proxy.cors.sh/https://api.steampowered.com/ISteamApps/GetAppList/v2/?l=koreana`, {
     headers: {
     'x-cors-api-key': `${process.env.REACT_APP_PROXY_KEY}`
     }
@@ -35,7 +35,7 @@ const findById = (appid: number) => {
 
 const findNewsById = (appid : number) => {
   console.log("appid" , appid);
-  return axios.get(`https://proxy.cors.sh/https://api.steampowered.com/ISteamNews/GetNewsForApp/v2?appid=${appid}`, {
+  return axios.get(`https://proxy.cors.sh/https://api.steampowered.com/ISteamNews/GetNewsForApp/v2?appid=${appid}&l=koreana`, {
     headers: {
       'x-cors-api-key': `${process.env.REACT_APP_PROXY_KEY}`
     }

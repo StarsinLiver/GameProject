@@ -68,7 +68,7 @@ function App() {
         {/* Router */}
         <Routes>
           {/* HomePage */}
-          <Route path="/index" element={<Index />} />
+          {/* <Route path="/index" element={<Index />} /> */}
           <Route path="/" element={<HomePage />} />
 
           {/* Game Servers */}

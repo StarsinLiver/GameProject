@@ -29,10 +29,10 @@ function NewsDetail() {
       .then((response: any) => {
         setUploadFileDb(response.data);
         setPreviewImage(response.data.fileUrl); // 수정 전 이미지를 먼저 미리보기에 표시
-        console.log(response.data);
+    
       })
       .catch((e: Error) => {
-        console.log(e);
+      
       });
   };
 
@@ -50,12 +50,12 @@ function NewsDetail() {
 
     FileDbService.updateFileDb(uploadFileDb, currentFile)
       .then((response: any) => {
-        console.log(response.data);
+       
         alert("수정되었습니다.");
         navigate(`/news/${uuid}`);
       })
       .catch((e: Error) => {
-        console.log(e);
+     
       });
   };
 

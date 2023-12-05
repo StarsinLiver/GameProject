@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import form from '../../assets/js/form';
-import Pagination from '@mui/material/Pagination';
-import IProduct from '../../types/IProduct';
-import designesis from '../../assets/js/designesia';
-import ProductService from '../../services/product/ProductService';
-import { Link } from 'react-router-dom';
-import AdminProductService from '../../services/admin/AdminProductService';
-import { colors } from '@mui/material';
-import ReviewService from '../../services/review/ReviewService';
-import '../../assets/css/gamesStyle.css';
+import React, { useState } from "react";
+import { useEffect } from "react";
+import form from "../../assets/js/form";
+import Pagination from "@mui/material/Pagination";
+import IProduct from "../../types/IProduct";
+import designesis from "../../assets/js/designesia";
+import ProductService from "../../services/product/ProductService";
+import { Link } from "react-router-dom";
+import AdminProductService from "../../services/admin/AdminProductService";
+import { colors } from "@mui/material";
+import ReviewService from "../../services/review/ReviewService";
+import "../../assets/css/gamesStyle.css";
 
 function Games() {
   // Todo : 랜더링
@@ -305,7 +305,22 @@ function Games() {
                                         </span>
                                       </p>
                                     </>
-                                )}
+                                  )}
+
+                                  <Link
+                                    className="btn-main btn-fullwidth"
+                                    to={`/game-detail/${value.pid}`}
+                                  >
+                                    Order Now
+                                  </Link>
+                                </div>
+                              </div>
+                              <img
+                                src={value.imgUrl}
+                                className="img-fluid"
+                                alt=""
+                                style={{ height: "10rem" }}
+                              />
                             </div>
                           </div>
                         ))}
@@ -328,13 +343,8 @@ function Games() {
                             style={{ height: "auto", marginBottom: "1.5rem" }}
                           >
                             <div
-                                id="sidebar"
-                                className="col-md-3"
-                                style={{
-                                    marginTop: '3rem',
-                                    backgroundColor: 'rgba(30, 30, 30, 0.3)',
-                                    paddingTop: '1.5rem',
-                                }}
+                              className="de-item"
+                              style={{ height: "10rem" }}
                             >
                               <div className="d-overlay">
                                 <div
@@ -437,6 +447,13 @@ function Games() {
                                     Order Now
                                   </Link>
                                 </div>
+                              </div>
+                              <img
+                                src={value.imgUrl}
+                                className="img-fluid"
+                                alt=""
+                                style={{ height: "10rem" }}
+                              />
                             </div>
                           </div>
                         ))}

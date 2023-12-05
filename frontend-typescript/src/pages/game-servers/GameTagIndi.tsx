@@ -162,9 +162,10 @@ function GameTagIndi() {
         <section className="jarallax">
           {/* 백그라운드 이미지 */}
           <img
-            src={require("../../assets/images/background/3.webp")}
+            src="images/game-wallpaper/11.jpg"
             className="jarallax-img"
             alt=""
+            style={{ opacity: "0.3" }}
           />
           <div className="de-gradient-edge-top"></div>
           <div className="de-gradient-edge-bottom"></div>

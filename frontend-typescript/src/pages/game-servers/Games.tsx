@@ -66,8 +66,8 @@ function Games() {
         const { IsLikeProduct, totalPages } = response.data;
         setProductTag(IsLikeProduct);
         setCount2(totalPages);
-        console.log("dd" , isLikedOrder)
-        console.log("ds",IsLikeProduct)
+        console.log("dd", isLikedOrder);
+        console.log("ds", IsLikeProduct);
       })
       .catch((e: Error) => {});
   };
@@ -117,7 +117,6 @@ function Games() {
     setMaxPrice(data2);
     setMinPrice(data1);
     setPage2(1);
-    
   };
 
   // todo : 따봉 개수 보여주기
@@ -164,10 +163,12 @@ function Games() {
         {/* 섹션 1번 */}
         <section className="jarallax">
           {/* 백그라운드 이미지 */}
+          {/* 백그라운드 이미지 */}
           <img
-            src={require("../../assets/images/background/3.webp")}
+            src="images/game-wallpaper/21.jpg"
             className="jarallax-img"
             alt=""
+            style={{ opacity: "0.3" }}
           />
           <div className="de-gradient-edge-top"></div>
           <div className="de-gradient-edge-bottom"></div>
@@ -264,10 +265,21 @@ function Games() {
                                   </div>
 
                                   {value.discount > 0 ? (
-                                    <div style={{widows:"100%"}}>
-                                      <p className="d-price" style={{fontSize:"0.9rem", color:"white"}}>
+                                    <div style={{ widows: "100%" }}>
+                                      <p
+                                        className="d-price"
+                                        style={{
+                                          fontSize: "0.9rem",
+                                          color: "white",
+                                        }}
+                                      >
                                         Price :{" "}
-                                        <del style={{fontSize:"0.9rem", color:"gray"}}>
+                                        <del
+                                          style={{
+                                            fontSize: "0.9rem",
+                                            color: "gray",
+                                          }}
+                                        >
                                           {value.price.toLocaleString()}
                                         </del>
                                         <span className="price">
@@ -277,8 +289,14 @@ function Games() {
                                     </div>
                                   ) : (
                                     <>
-                                      <p className="d-price" style={{fontSize:"0.9rem", color:"white"}}>
-                                        Price : {" "}
+                                      <p
+                                        className="d-price"
+                                        style={{
+                                          fontSize: "0.9rem",
+                                          color: "white",
+                                        }}
+                                      >
+                                        Price :{" "}
                                         <span className="price">
                                           {value.price > 0
                                             ? value.price.toLocaleString() +
@@ -371,16 +389,27 @@ function Games() {
                                       backgroundColor: "rgba(30, 30, 30, 0.4)",
                                       width: "100%",
                                       paddingLeft: "0.7rem",
-                                      borderRadius: "10px"                                      
+                                      borderRadius: "10px",
                                     }}
                                   >
                                     {value.name}
                                   </div>
                                   {value.discount > 0 ? (
                                     <>
-                                      <p className="d-price" style={{fontSize:"0.9rem", color:"white"}}>
+                                      <p
+                                        className="d-price"
+                                        style={{
+                                          fontSize: "0.9rem",
+                                          color: "white",
+                                        }}
+                                      >
                                         Price{" "}
-                                        <del style={{fontSize:"0.9rem", color:"gray"}}>
+                                        <del
+                                          style={{
+                                            fontSize: "0.9rem",
+                                            color: "gray",
+                                          }}
+                                        >
                                           {value.price.toLocaleString()}
                                         </del>
                                         <span className="price">
@@ -390,9 +419,18 @@ function Games() {
                                     </>
                                   ) : (
                                     <>
-                                      <p className="d-price" style={{fontSize:"0.9rem", color:"white"}}>
+                                      <p
+                                        className="d-price"
+                                        style={{
+                                          fontSize: "0.9rem",
+                                          color: "white",
+                                        }}
+                                      >
                                         Price{" "}
-                                        <span className="price" style={{backgroundColor:""}}>
+                                        <span
+                                          className="price"
+                                          style={{ backgroundColor: "" }}
+                                        >
                                           {value.price > 0
                                             ? value.price.toLocaleString() +
                                               " 원"
@@ -464,7 +502,7 @@ function Games() {
                           height: "2.5rem",
                           width: "5rem",
                           borderColor: "rgba(255, 255, 255, .1)",
-                          color: "grey",                          
+                          color: "grey",
                         }}
                       >
                         Search
@@ -497,12 +535,12 @@ function Games() {
                               check
                             </span>
                             <a
-                              
                               onClick={() => tagChange(1, "")}
                               style={{
                                 color: "#6a79fa",
                                 marginLeft: "0.5rem",
-                                fontWeight: "750", cursor:"pointer"
+                                fontWeight: "750",
+                                cursor: "pointer",
                               }}
                             >
                               All Games
@@ -510,9 +548,12 @@ function Games() {
                           </>
                         ) : (
                           <a
-                            
                             onClick={() => tagChange(1, "")}
-                            style={{ color: "white", marginLeft: "0.3rem", cursor:"pointer" }}
+                            style={{
+                              color: "white",
+                              marginLeft: "0.3rem",
+                              cursor: "pointer",
+                            }}
                           >
                             All Games
                           </a>
@@ -543,24 +584,24 @@ function Games() {
 
                                   {value == null ? (
                                     <a
-                                      
                                       onClick={() => tagChange(1, value)}
                                       style={{
                                         color: "#6a79fa",
                                         marginLeft: "0.5rem",
-                                        fontWeight: "750", cursor:"pointer"
+                                        fontWeight: "750",
+                                        cursor: "pointer",
                                       }}
                                     >
                                       기타
                                     </a>
                                   ) : (
                                     <a
-                                      
                                       onClick={() => tagChange(1, value)}
                                       style={{
                                         color: "#6a79fa",
                                         marginLeft: "0.5rem",
-                                        fontWeight: "750", cursor:"pointer"
+                                        fontWeight: "750",
+                                        cursor: "pointer",
                                       }}
                                     >
                                       {value}
@@ -571,17 +612,21 @@ function Games() {
                                 <>
                                   {value == null ? (
                                     <a
-                                      
                                       onClick={() => tagChange(1, value)}
-                                      style={{ color: "white", cursor:"pointer" }}
+                                      style={{
+                                        color: "white",
+                                        cursor: "pointer",
+                                      }}
                                     >
                                       기타
                                     </a>
                                   ) : (
                                     <a
-                                      
                                       onClick={() => tagChange(1, value)}
-                                      style={{ color: "white" , cursor:"pointer"}}
+                                      style={{
+                                        color: "white",
+                                        cursor: "pointer",
+                                      }}
                                     >
                                       {value}
                                     </a>
@@ -618,12 +663,12 @@ function Games() {
                             check
                           </span>
                           <a
-                            
                             onClick={() => changePriceTag(0, 800000)}
                             style={{
                               color: "#6a79fa",
                               marginLeft: "0.5rem",
-                              fontWeight: "750", cursor:"pointer"
+                              fontWeight: "750",
+                              cursor: "pointer",
                             }}
                           >
                             전체 가격
@@ -631,9 +676,12 @@ function Games() {
                         </>
                       ) : (
                         <a
-                          
                           onClick={() => changePriceTag(0, 800000)}
-                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                          style={{
+                            color: "white",
+                            marginLeft: "0.5rem",
+                            cursor: "pointer",
+                          }}
                         >
                           전체 가격
                         </a>
@@ -654,12 +702,12 @@ function Games() {
                             check
                           </span>
                           <a
-                            
                             onClick={() => changePriceTag(0, 5000)}
                             style={{
                               color: "#6a79fa",
                               marginLeft: "0.5rem",
-                              fontWeight: "750", cursor:"pointer"
+                              fontWeight: "750",
+                              cursor: "pointer",
                             }}
                           >
                             ~ 5,000￦
@@ -667,9 +715,12 @@ function Games() {
                         </>
                       ) : (
                         <a
-                          
                           onClick={() => changePriceTag(0, 5000)}
-                          style={{ color: "white", marginLeft: "0.5rem" , cursor:"pointer"}}
+                          style={{
+                            color: "white",
+                            marginLeft: "0.5rem",
+                            cursor: "pointer",
+                          }}
                         >
                           ~ 5,000￦
                         </a>
@@ -689,12 +740,12 @@ function Games() {
                             check
                           </span>
                           <a
-                            
                             onClick={() => changePriceTag(5001, 10000)}
                             style={{
                               color: "#6a79fa",
                               marginLeft: "0.5rem",
-                              fontWeight: "750", cursor:"pointer"
+                              fontWeight: "750",
+                              cursor: "pointer",
                             }}
                           >
                             5,000￦ &nbsp;~ &nbsp;10,000￦
@@ -702,9 +753,12 @@ function Games() {
                         </>
                       ) : (
                         <a
-                          
                           onClick={() => changePriceTag(5001, 10000)}
-                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                          style={{
+                            color: "white",
+                            marginLeft: "0.5rem",
+                            cursor: "pointer",
+                          }}
                         >
                           5,000￦ &nbsp;~ &nbsp;10,000￦
                         </a>
@@ -725,12 +779,12 @@ function Games() {
                             check
                           </span>
                           <a
-                            
                             onClick={() => changePriceTag(10001, 30000)}
                             style={{
                               color: "#6a79fa",
                               marginLeft: "0.5rem",
-                              fontWeight: "750", cursor:"pointer"
+                              fontWeight: "750",
+                              cursor: "pointer",
                             }}
                           >
                             10,000￦ ~ 30,000￦
@@ -738,9 +792,12 @@ function Games() {
                         </>
                       ) : (
                         <a
-                          
                           onClick={() => changePriceTag(10001, 30000)}
-                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                          style={{
+                            color: "white",
+                            marginLeft: "0.5rem",
+                            cursor: "pointer",
+                          }}
                         >
                           10,000￦ ~ 30,000￦
                         </a>
@@ -755,19 +812,18 @@ function Games() {
                             style={{
                               fontSize: "1.1rem",
                               color: "#6a79fa",
-                              fontWeight: "750"
+                              fontWeight: "750",
                             }}
                           >
                             check
                           </span>
                           <a
-                            
                             onClick={() => changePriceTag(30001, 50000)}
                             style={{
                               color: "#6a79fa",
                               marginLeft: "0.5rem",
                               fontWeight: "750",
-                              cursor:"pointer"
+                              cursor: "pointer",
                             }}
                           >
                             30,000￦ ~ 50,000￦
@@ -775,9 +831,12 @@ function Games() {
                         </>
                       ) : (
                         <a
-                          
                           onClick={() => changePriceTag(30001, 50000)}
-                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                          style={{
+                            color: "white",
+                            marginLeft: "0.5rem",
+                            cursor: "pointer",
+                          }}
                         >
                           30,000￦ ~ 50,000￦
                         </a>
@@ -792,18 +851,19 @@ function Games() {
                             style={{
                               fontSize: "1.1rem",
                               color: "#6a79fa",
-                              fontWeight: "750", cursor:"pointer"
+                              fontWeight: "750",
+                              cursor: "pointer",
                             }}
                           >
                             check
                           </span>
                           <a
-                            
                             onClick={() => changePriceTag(50000, 1000000)}
                             style={{
                               color: "#6a79fa",
                               marginLeft: "0.5rem",
-                              fontWeight: "750", cursor:"pointer"
+                              fontWeight: "750",
+                              cursor: "pointer",
                             }}
                           >
                             50000￦ 이상
@@ -811,9 +871,12 @@ function Games() {
                         </>
                       ) : (
                         <a
-                          
                           onClick={() => changePriceTag(50000, 1000000)}
-                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                          style={{
+                            color: "white",
+                            marginLeft: "0.5rem",
+                            cursor: "pointer",
+                          }}
                         >
                           50000￦ 이상
                         </a>
@@ -834,13 +897,12 @@ function Games() {
                             check
                           </span>
                           <a
-                            
                             onClick={() => changePriceTag(0, 0)}
                             style={{
                               color: "#6a79fa",
                               marginLeft: "0.5rem",
                               fontWeight: "750",
-                              cursor:"pointer"
+                              cursor: "pointer",
                             }}
                           >
                             무료 게임
@@ -848,9 +910,12 @@ function Games() {
                         </>
                       ) : (
                         <a
-                          
                           onClick={() => changePriceTag(0, 0)}
-                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                          style={{
+                            color: "white",
+                            marginLeft: "0.5rem",
+                            cursor: "pointer",
+                          }}
                         >
                           무료 게임
                         </a>
@@ -882,18 +947,24 @@ function Games() {
                             check
                           </span>
                           <a
-                            
                             onClick={() => changeReviewLiked("DESC")}
-                            style={{ color: "#6a79fa", marginLeft: "0.5rem", cursor:"pointer" }}
+                            style={{
+                              color: "#6a79fa",
+                              marginLeft: "0.5rem",
+                              cursor: "pointer",
+                            }}
                           >
                             리뷰 좋은 순
                           </a>
                         </>
                       ) : (
                         <a
-                          
                           onClick={() => changeReviewLiked("DESC")}
-                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                          style={{
+                            color: "white",
+                            marginLeft: "0.5rem",
+                            cursor: "pointer",
+                          }}
                         >
                           리뷰 좋은 순
                         </a>
@@ -914,18 +985,24 @@ function Games() {
                             check
                           </span>
                           <a
-                            
                             onClick={() => changeReviewLiked("ASC")}
-                            style={{ color: "#6a79fa", marginLeft: "0.5rem", cursor:"pointer" }}
+                            style={{
+                              color: "#6a79fa",
+                              marginLeft: "0.5rem",
+                              cursor: "pointer",
+                            }}
                           >
                             리뷰 나쁜 순
                           </a>
                         </>
                       ) : (
                         <a
-                          
                           onClick={() => changeReviewLiked("ASC")}
-                          style={{ color: "white", marginLeft: "0.5rem", cursor:"pointer" }}
+                          style={{
+                            color: "white",
+                            marginLeft: "0.5rem",
+                            cursor: "pointer",
+                          }}
                         >
                           리뷰 나쁜 순
                         </a>
@@ -989,6 +1066,7 @@ function Games() {
                 )}
               </>
             </>
+            
           </div>
 
           {/* 본문 끝 */}

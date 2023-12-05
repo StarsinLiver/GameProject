@@ -1704,22 +1704,34 @@ function GamesDetail() {
                               >
                                 <div>
                                   {productList.finalPrice == 0 ? (
-                                    <div className="container text-center">
-                                      <span
-                                        style={{
-                                          fontWeight: "bold",
-                                          color: "green",
-                                        }}
-                                      >
-                                        무료
-                                      </span>
-                                      <br></br>
+                                    <div className="text-center">
                                       <button
                                         className="btn-main mb10 mt-3"
                                         onClick={saveLibraryGame}
-                                        style={{ display: "inline-block" }}
+                                        style={{
+                                          display: "inline-block",
+                                          paddingTop: "10px",
+                                        }}
                                       >
-                                        라이브러리에 추가
+                                        <span
+                                          className="material-symbols-outlined"
+                                          style={{
+                                            fontSize: "1.1rem",
+                                            marginRight: "0.5rem",
+                                            color: "white",
+                                          }}
+                                        >
+                                          library_add
+                                        </span>
+                                        <span
+                                          style={{
+                                            fontWeight: "bold",
+                                            color: "white",
+                                            fontSize: "1.3rem",
+                                          }}
+                                        >
+                                          라이브러리에 추가
+                                        </span>
                                       </button>
                                     </div>
                                   ) : (
@@ -1776,7 +1788,7 @@ function GamesDetail() {
                                             fontSize: "1.3rem",
                                           }}
                                         >
-                                          {productList.price}￦
+                                          {productList.price.toLocaleString()}￦
                                         </span>
                                       </button>
                                     </>
@@ -1791,6 +1803,7 @@ function GamesDetail() {
                                   style={{
                                     display: "inline-block",
                                     paddingTop: "10px",
+                                    background: "#828282"
                                   }}
                                 >
                                   <span
@@ -1807,7 +1820,8 @@ function GamesDetail() {
                                     style={{
                                       fontWeight: "bold",
                                       color: "white",
-                                      fontSize: "1.1rem",                                    }}
+                                      fontSize: "1.1rem",
+                                    }}
                                   >
                                     장바구니에서 제거
                                   </span>

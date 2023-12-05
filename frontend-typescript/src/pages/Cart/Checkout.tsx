@@ -85,7 +85,6 @@ function CheckOut() {
   const retrieveCart = () => {
     CartService.getAll(user?.userId, page - 1, pageSize)
       .then((response: any) => {
-        console.log(response);
         const { cart, priceSum, totalPages, userDto } = response.data;
         setCart(cart);
         setUserDto(userDto);

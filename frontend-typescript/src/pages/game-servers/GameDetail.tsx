@@ -367,8 +367,6 @@ function GamesDetail() {
         };
 
         setReview(data2);
-        console.log(review2);
-        console.log(review);
       })
       .catch((e: Error) => {});
   };

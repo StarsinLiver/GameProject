@@ -66,8 +66,6 @@ function Games() {
         const { IsLikeProduct, totalPages } = response.data;
         setProductTag(IsLikeProduct);
         setCount2(totalPages);
-        console.log("dd", isLikedOrder);
-        console.log("ds", IsLikeProduct);
       })
       .catch((e: Error) => {});
   };

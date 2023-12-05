@@ -355,7 +355,7 @@ function About() {
                     data-bs-placement="top"
                     title="Project Manager"
                     data-bs-html="true"
-                    data-bs-content="1️⃣ 기초 데이터베이스 설계<br>2️⃣ 로그인·회원가입 기능 담당<br>3️⃣ 포인트 기능 담당<br>4️⃣ 프로젝트 총괄"
+                    data-bs-content="1️⃣ 기초 데이터베이스 설계<br>2️⃣ 로그인·회원가입 기능 담당<br>3️⃣ 메인페이지 Backend 담당<br>4️⃣ 프로젝트 총괄<br/>5️⃣ 관리자페이지 Backend 담당"
                     data-bs-target="#popover1" // 고유한 ID 부여
                     data-bs-trigger="hover" // Trigger on hover
                   >
@@ -385,7 +385,7 @@ function About() {
                     data-bs-placement="top"
                     title="Frontend + Backend"
                     data-bs-html="true"
-                    data-bs-content="1️⃣ 제안서 작성<br>2️⃣ 장바구니 기능 Front 담당<br>3️⃣ About 페이지 Front 담당"
+                    data-bs-content="1️⃣ 제안서 작성<br>2️⃣ 장바구니 기능 Front 담당<br>3️⃣ About 페이지 Front 담당<br/>4️⃣ 유저 페이지 Front 담당<br/>5️⃣ News 페이지 Front 담당"
                     data-bs-target="#popover2" // 고유한 ID 부여
                     data-bs-trigger="hover" // Trigger on hover
                   >
@@ -446,7 +446,7 @@ function About() {
                     title="Frontend + Backend"
                     data-bs-html="true"
                     data-bs-container="body" // 팝오버가 body 요소 안에 위치하도록 설정
-                    data-bs-content=" 1️⃣ 상세조회 부분 담당<br>2️⃣ 리뷰 부분 담당"
+                    data-bs-content=" 1️⃣ 상세조회 Front부분 담당<br>2️⃣ 게임 컬렉션 Front부분 구현 담당<br>3️⃣ 리뷰 부분 Front 담당<br>4️⃣ 태그별 게임 컬렉션 Front부분 담당"
                     data-bs-target="#popover4" // 고유한 ID 부여
                     data-bs-trigger="hover" // Trigger on hover
                   >
@@ -476,7 +476,7 @@ function About() {
                     title="Frontend + Backend"
                     data-bs-html="true"
                     data-bs-container="body" // 팝오버가 body 요소 안에 위치하도록 설정
-                    data-bs-content=" 1️⃣ 전체조회 페이지 구현 담당<br>2️⃣ 메인 페이지 담당"
+                    data-bs-content=" 1️⃣ 게임 컬력션 구현 담당<br>2️⃣ 메인 페이지 담당<br/>3️⃣ 관리자 페이지 Front 담당<br/>4️⃣ 유저 페이지 Front 담당"
                     data-bs-target="#popover5" // 고유한 ID 부여
                     data-bs-trigger="hover" // Trigger on hover
                   >
@@ -506,7 +506,7 @@ function About() {
                     title="Frontend + Backend"
                     data-bs-html="true"
                     data-bs-container="body" // 팝오버가 body 요소 안에 위치하도록 설정
-                    data-bs-content=" 1️⃣ 상세조회 부분 담당<br>2️⃣ 리뷰 부분 담당"
+                    data-bs-content="  1️⃣ 상세조회 Backend부분 담당<br>2️⃣ 게임컬렉션 Backend부분 구현 담당<br>3️⃣ 리뷰 부분 Backend부분 담당<br>4️⃣ 태그별 게임 컬렉션 Backend부분 담당"
                     data-bs-target="#popover6" // 고유한 ID 부여
                     data-bs-trigger="hover" // Trigger on hover
                   >

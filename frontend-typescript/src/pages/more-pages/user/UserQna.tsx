@@ -48,7 +48,6 @@ function UserQna() {
     QnaService.get(qid) // 벡엔드로 상세조회 요청
       .then((response: any) => {
         setQna(response.data);
-        console.log(response.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -71,7 +70,6 @@ function UserQna() {
       .then((response: any) => {
         alert("답변이 완료되었습니다.");
         navigate(`/user-qna-list`);
-        console.log(response.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -82,7 +80,6 @@ function UserQna() {
   const deleteQna = () => {
     UserQnaService.remove(qna.qid) // 벡엔드로 삭제요청
       .then((response: any) => {
-        console.log(response.data);
         alert("질문이 삭제 되었습니다.");
         // 강제 페이지 이동 : 전체조회
         navigate(`/user-qna-list`);

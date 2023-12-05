@@ -16,10 +16,6 @@ function Login() {
   useEffect(() => {
     customMarquee();
     designesis();
-    console.log("kakaoClientId",kakaoClientId);
-    console.log("kakaoRedirectUrl",kakaoRedirectUrl);
-    console.log("googleClientId",googleClientId);
-    console.log("googleRedirectUrl",googleRedirectUrl);
 
     // Todo : isLoggedIn (로그인 상태변수 true / false)
     // Todo : isLoggedIn == true 강제이동

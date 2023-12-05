@@ -58,7 +58,7 @@ function CartList() {
         retrieveCart();
       })
       .catch((e: Error) => {
-    
+    console.log(e);
       });
   };
 

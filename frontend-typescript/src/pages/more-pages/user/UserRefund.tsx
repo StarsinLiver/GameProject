@@ -49,7 +49,6 @@ function UserRefund() {
       .then((response: any) => {
         setRefundDetail(response.data);
         setUserDto(response.data);
-        console.log(response);
       })
       .catch((e: Error) => {
         alert("정보를 가져오는데 실패 하였습니다.");
@@ -136,7 +135,6 @@ function UserRefund() {
         `${process.env.REACT_APP_EMAIL_JS_API_KEY}`
       )
       .then((response) => {
-        console.log("이메일이 성공적으로 보내졌습니다:", response);
         // setIsEmailSent(true);
         // 이메일 전송 성공 처리 로직 추가
       })

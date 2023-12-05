@@ -77,8 +77,6 @@ function AdminControlPanelModify() {
                 setTag(tag);
                 // Todo : 페이징 처리
                 setCount(totalPages);
-                // 로깅
-                console.log(response.data);
             })
             .catch((e: Error) => {
                 console.log(e);
@@ -91,7 +89,6 @@ function AdminControlPanelModify() {
             .then((response: any) => {
                 setAdminProduct(response.data);
                 getFileDb(response.data.uuid);
-                console.log(response.data);
             })
             .catch((e: Error) => {
                 console.log(e);
@@ -104,13 +101,11 @@ function AdminControlPanelModify() {
         if (value >= 0) {
             setAdminProduct({ ...adminProduct, [name]: value });
         }
-        console.log(adminProduct.discount);
     };
 
     // todo: 할인율 수정 버튼 온클릭 함수
     const updateFileDb = () => {
         let currentFile = selectedFiles?.[0];
-        console.log('첫번째 uuid ', uploadFileDb.uuid);
 
         if (currentFile == null) {
             return updateProductDiscount(uploadFileDb.uuid);
@@ -118,7 +113,6 @@ function AdminControlPanelModify() {
 
         ThumbNailService.updateFileDb(uploadFileDb, currentFile)
             .then((response: any) => {
-                console.log('updateFileDb 데이터 받음 ', response.data);
                 updateProductDiscount(response.data);
             })
             .catch((e: Error) => {
@@ -143,7 +137,6 @@ function AdminControlPanelModify() {
 
         AdminProductService.update(data.pid, data) // 백엔드로 수정 요청
             .then((response: any) => {
-                console.log(response.data);
                 alert('상품이 수정되었습니다.');
                 window.location.reload();
             })
@@ -162,7 +155,6 @@ function AdminControlPanelModify() {
         // Todo : 상품 삭제
         AdminProductService.remove(adminProduct.pid) // 벡엔드로 삭제요청
             .then((response: any) => {
-                console.log(response.data);
             })
             .catch((e: Error) => {
                 console.log(e);
@@ -171,7 +163,6 @@ function AdminControlPanelModify() {
         // Todo : 썸네일 삭제
         ThumbNailService.deleteFile(adminProduct.uuid)
             .then((response: any) => {
-                console.log(response.data);
                 toastMessage('상품이 삭제되었습니다.');
                 reteiveAdminProductList();
             })
@@ -216,7 +207,6 @@ function AdminControlPanelModify() {
             .then((response: any) => {
                 setUploadFileDb(response.data);
                 setPreviewImage(response.data.fileUrl); // 수정 전 이미지를 먼저 미리보기에 표시
-                console.log('이미지 ', response.data);
             })
             .catch((e: Error) => {
                 console.log(e);

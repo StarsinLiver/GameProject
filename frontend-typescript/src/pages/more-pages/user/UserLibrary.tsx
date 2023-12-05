@@ -94,8 +94,6 @@ function UserLibrary() {
         setUserDto(userDto);
         setCount(totalPages);
         setLibraryDtoNoPage(libraryDtoNoPage);
-
-        console.log(response.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -105,7 +103,6 @@ function UserLibrary() {
   const inputChange = (e: any) => {
     const { name, value } = e.target;
     setUserDto({ ...userDto, [name]: value });
-    console.log(userDto.password);
   };
 
   // 패스워드를 확인하고자 할때
@@ -123,7 +120,6 @@ function UserLibrary() {
     // Todo : 영문자 + 숫자 6자리 이상으로 정규식 체크
     const passwordCheck = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$/;
     setResetPassword(e.target.value);
-    console.log(resetPassword);
     if (passwordCheck.test(e.target.value)) {
       return setIsPasswordCheck(true);
     } else {
@@ -237,7 +233,6 @@ function UserLibrary() {
     };
     AuthService.isPassword(data)
       .then((response: any) => {
-        console.log(response);
         setIsPasswordRight(response.data);
         response.data
           ? alert("바꾸실 패스워드를 입력해주세요")

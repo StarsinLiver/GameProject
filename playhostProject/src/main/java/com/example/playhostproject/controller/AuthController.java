@@ -188,9 +188,6 @@ public class AuthController {
         try {
 
             Optional<User> user1 = authService.findByEmail(user.getEmail());
-            System.out.println("보낸 유저의 패스워드 : " + passwordEncoder.encode(user.getPassword()));
-            System.out.println("데이터베이스의 유저 : " + user1.get().getPassword().toString());
-
             if (passwordEncoder.matches(user.getPassword(), user1.get().getPassword())) {
                 return new ResponseEntity<>(true, HttpStatus.OK);
             }
@@ -239,8 +236,6 @@ public class AuthController {
     @GetMapping("/auth/login/oauth2/code/{registrationId}")
     public ResponseEntity<Object> socialLogin(@RequestParam String code, @PathVariable String registrationId) {
         try {
-            System.out.println("code : " + code);
-            System.out.println("registrationId : " + registrationId);
             UserDto user = authService.socialLogin(code, registrationId);
 
 

@@ -102,8 +102,6 @@ public class AdminController {
                                                  @RequestParam(defaultValue = "10") int size
     ) {
         try {
-            System.out.println("받은 이름 : " + name);
-
             Pageable pageable = PageRequest.of(page, size);
             Page<Product> productPage
                     = productService.findAllByNameContaining(name, pageable);

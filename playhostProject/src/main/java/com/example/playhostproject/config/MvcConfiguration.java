@@ -70,10 +70,8 @@ public class MvcConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
 //                아래 url 허용
                 .allowedOrigins(reactServer)
-                .allowedOrigins("http://43.201.18.3:3000")
                 .allowedHeaders("*")
                 .allowCredentials(true)
-//                .allowedOrigins("http://localhost:3000")
 //                Todo: 아래 추가해야 update, delete, insert, select 가 cors 문제가 안생김
                 .allowedMethods(
                         HttpMethod.GET.name(),

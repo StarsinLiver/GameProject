@@ -41,8 +41,6 @@ public class FileDbservice {
     }
 
 
-
-
     //    fileTitle like 조회 + paging
     public Page<FileDb> findAllByFileTitleContainingOrderByInsertTimeDesc(String fileTitle, Pageable pageable) {
         Page<FileDb> page

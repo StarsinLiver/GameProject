@@ -12,7 +12,7 @@ module.exports = function(app) {
   ,  app.use(
     '/api/appdetails',
     createProxyMiddleware({
-      target: 'https://store.steampowered.com',
+      target: 'https://store.steampowered.com/?l=koreana',
       changeOrigin: true,
     })
   )

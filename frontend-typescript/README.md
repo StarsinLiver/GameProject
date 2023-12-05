@@ -46,6 +46,14 @@ npm install emailjs-com
 3) services - auth 생성
 4) pages - auth 생성
 
+# 메시지 부분
+Register
+ResetPassword
+Contact
+AdminControlPanelRefund
+Success
+UserRefund
+ForgotPassword
 
 # * 외부 라이브러리 타입이 없을 경우 처리 : 타입 설정
 # 1) tsconfig.json 파일 - compilerOptions 속성에 아래 추가 : 프로젝트시작위치/types - 이 위치에 타입을 인식하게 하는 경로 설정

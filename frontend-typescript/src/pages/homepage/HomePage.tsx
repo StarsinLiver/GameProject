@@ -56,7 +56,7 @@ function HomePage() {
       .then((response: any) => {
         const { list, productDtoPage } = response.data;
         console.log("productDtoPage", productDtoPage);
-        setProductDtoPage(productDtoPage);
+        setProductDtoPage(list);
         console.log("response.data", response.data);
       })
       .catch((e: Error) => {
@@ -88,7 +88,7 @@ function HomePage() {
                 {render &&
                   productDtoPage
                     .filter((value, index) => value.uuid != null)
-                    .slice(0, 4)
+                    .slice(0,4)
                     .map((value, index) => (
                       <>
                         <div
@@ -709,7 +709,7 @@ function HomePage() {
                       <div className="css-1sm2slz">
                         <div className="css-61xwjr">
                           <h4 className="" style={{ paddingTop: "10px" }}>
-                            <span>무료</span>
+                            <span>무료 게임</span>
                           </h4>
                           <Link to={"/games"} className="css-1m37id5">
                             <span
@@ -829,7 +829,7 @@ function HomePage() {
                       <div className="css-1sm2slz">
                         <div className="css-61xwjr">
                           <h4 className="" style={{ paddingTop: "10px" }}>
-                            <span>할인율</span>
+                            <span>할인 이벤트</span>
                           </h4>
                           <Link to={"/games"} className="css-1m37id5">
                             <span
@@ -1263,9 +1263,10 @@ function HomePage() {
                       <div
                         className="p-2 rounded-10"
                         data-bgcolor="rgba(255, 255, 255, .05)"
+                        style={{ width: "90px", height: "90px" }}
                       >
                         <img
-                          src="images/payments/visa.webp"
+                          src="images/payments/toss.png"
                           className="img-fluid"
                           alt=""
                         />
@@ -1275,9 +1276,24 @@ function HomePage() {
                       <div
                         className="p-2 rounded-10"
                         data-bgcolor="rgba(255, 255, 255, .05)"
+                        style={{ width: "90px", height: "90px" }}
                       >
                         <img
-                          src="images/payments/mastercard.webp"
+                          src="images/payments/mastercard.png"
+                          className="img-fluid"
+                          alt=""
+                          style={{ paddingTop: "8px" }}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-sm-2 col-4">
+                      <div
+                        className="p-2 rounded-10"
+                        data-bgcolor="rgba(255, 255, 255, .05)"
+                        style={{ width: "90px", height: "90px" }}
+                      >
+                        <img
+                          src="images/payments/samsungpay.png"
                           className="img-fluid"
                           alt=""
                         />
@@ -1287,9 +1303,10 @@ function HomePage() {
                       <div
                         className="p-2 rounded-10"
                         data-bgcolor="rgba(255, 255, 255, .05)"
+                        style={{ width: "90px", height: "90px" }}
                       >
                         <img
-                          src="images/payments/paypal.webp"
+                          src="images/payments/cultureland.png"
                           className="img-fluid"
                           alt=""
                         />
@@ -1299,33 +1316,10 @@ function HomePage() {
                       <div
                         className="p-2 rounded-10"
                         data-bgcolor="rgba(255, 255, 255, .05)"
+                        style={{ width: "90px", height: "90px" }}
                       >
                         <img
-                          src="images/payments/skrill.webp"
-                          className="img-fluid"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="col-sm-2 col-4">
-                      <div
-                        className="p-2 rounded-10"
-                        data-bgcolor="rgba(255, 255, 255, .05)"
-                      >
-                        <img
-                          src="images/payments/jcb.webp"
-                          className="img-fluid"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="col-sm-2 col-4">
-                      <div
-                        className="p-2 rounded-10"
-                        data-bgcolor="rgba(255, 255, 255, .05)"
-                      >
-                        <img
-                          src="images/payments/american-express.webp"
+                          src="images/payments/ssgpay.png"
                           className="img-fluid"
                           alt=""
                         />

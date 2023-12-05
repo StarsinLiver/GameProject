@@ -22,6 +22,10 @@ import javax.xml.bind.SchemaOutputResolver;
 @Controller
 public class AwsController {
 
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String redirectAll() {
+        return "forward:/index.html";
+    }
     @RequestMapping(value = "/{path:[^\\.]*}", method = RequestMethod.GET)
     public String redirect() {
         return "forward:/index.html";
@@ -66,6 +70,6 @@ public class AwsController {
     public String redirect9() {
         return "forward:/index.html";
     }
-    
+
 
 }

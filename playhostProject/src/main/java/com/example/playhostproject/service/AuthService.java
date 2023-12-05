@@ -205,11 +205,6 @@ public class AuthService {
         params.add("redirect_uri", redirectUri);
         params.add("grant_type", "authorization_code");
 
-        System.out.println("clientId : " + clientId);
-        System.out.println("clientSecret : " + clientSecret);
-        System.out.println("redirectUri : " + redirectUri);
-        System.out.println("tokenUri : " + tokenUri);
-
         return WebClient.builder()
                 .baseUrl(tokenUri)
                 .build()
@@ -232,7 +227,6 @@ public class AuthService {
         // [STEP3] 접근 코드를 기반으로 사용자 정보를 조회합니다.
         JSONObject userInfo = findUserInfo(accessToken, registrationId);
         String kakaoAccount = String.valueOf(userInfo.get("kakao_account"));
-        System.out.println("kakaoAccount :: " + kakaoAccount);
 
         try {
             Map<String, Object> account = (Map<String, Object>) userInfo.get("kakao_account");

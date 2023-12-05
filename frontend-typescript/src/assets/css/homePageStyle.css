@@ -23,7 +23,7 @@
 }
 
 .css-1sm2slz {
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
 }
@@ -89,10 +89,12 @@
     flex-direction: column;
     -webkit-box-pack: justify;
     justify-content: space-between;
+    height: auto;
 }
 
 .css-8atqhb {
     width: 100%;
+    height: auto;
 }
 
 .css-ukk7l6 {

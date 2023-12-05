@@ -41,7 +41,6 @@ function AdminControllPenal() {
       ).length / pageSize
     );
     setCount(pageCount);
-    console.log("count 바뀜 : " + count);
   };
 
   // Todo : 파일
@@ -64,7 +63,6 @@ function AdminControllPenal() {
   const reteiveSteamAll = () => {
     TestOpenApiService.findAll()
       .then((response: any) => {
-        console.log(response);
 
         const { apps } = response.data.applist;
 
@@ -85,7 +83,6 @@ function AdminControllPenal() {
     TestOpenApiService.findById(appid)
       .then((response: any) => {
         let data = response.data[`${appid}`].data;
-        console.log(response.data);
         setSteam(data);
         setDiscount(0);
       })
@@ -162,7 +159,6 @@ function AdminControllPenal() {
     ThumbNailService.upload(appid, currentFile) // 저장 요청
       .then((response: any) => {
         uploadProduct(appid, response.data);
-        console.log(response.data);
       })
       .catch((e: Error) => {
         if ("Request failed with status code 400" == e.message) {

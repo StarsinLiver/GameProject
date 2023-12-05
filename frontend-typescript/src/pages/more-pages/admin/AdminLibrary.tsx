@@ -138,7 +138,6 @@ function AdminLibrary() {
         setAdminLibraryListRefundNo(libraryNoPage);
         setCount(totalPages);
         setUserDto(userDto);
-        console.log(response.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -150,7 +149,6 @@ function AdminLibrary() {
     AdminProductService.get(pid) // 벡엔드로 상세조회 요청
       .then((response: any) => {
         setAdminProduct(response.data);
-        console.log(response.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -163,7 +161,6 @@ function AdminLibrary() {
     if (value >= 0) {
       setAdminProduct({ ...adminProduct, [name]: value });
     }
-    console.log(adminProduct.discount);
   };
 
   // todo: 할인율 수정 버튼 온클릭 함수
@@ -185,7 +182,6 @@ function AdminLibrary() {
 
     AdminProductService.update(data.pid, data) // 백엔드로 수정 요청
       .then((response: any) => {
-        console.log(response.data);
         toastMessage("상품 할인율이 수정되었습니다.");
         retrieveAdminEverything();
       })
@@ -198,7 +194,6 @@ function AdminLibrary() {
   const deleteProduct = () => {
     AdminProductService.remove(adminProduct.pid) // 벡엔드로 삭제요청
       .then((response: any) => {
-        console.log(response.data);
         toastMessage("상품이 삭제되었습니다.");
         retrieveAdminEverything();
       })
@@ -226,8 +221,6 @@ function AdminLibrary() {
 
   // Todo : 유저 수정 함수
   const handleRegisterUpdate = () => {
-    console.log("resetPassword", resetPassword);
-    console.log("userDto.password", userDto.password);
     if (isPasswordChangButton === false) {
       const data: IUser = {
         userId: userDto.userId,
@@ -314,7 +307,6 @@ function AdminLibrary() {
     };
     AuthService.isPassword(data)
       .then((response: any) => {
-        console.log(response);
         setIsPasswordRight(response.data);
         response.data
           ? toastMessage("바꾸실 패스워드를 입력해주세요")

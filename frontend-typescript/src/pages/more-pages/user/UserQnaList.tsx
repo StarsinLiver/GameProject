@@ -55,8 +55,6 @@ function UserQnaList() {
         setQnaList(qna);
         // Todo : 페이징 처리
         setCount(totalPages);
-        // 로깅
-        console.log(response.data);
       })
       .catch((e: Error) => {
         console.log(e);

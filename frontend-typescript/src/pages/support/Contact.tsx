@@ -38,8 +38,6 @@ function Contact() {
   // Todo : Formit lib 에서 자동으로 email , password 값을 보내줌
   const sendMessage = (formValue: any) => {
     const { name, email, phone } = formValue;
-    console.log(message);
-    console.log(anyQuestion);
     sendVerificationEmail(name, email, phone);
   };
 

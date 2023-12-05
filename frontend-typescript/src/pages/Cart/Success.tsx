@@ -165,16 +165,17 @@ export function SuccessPage() {
        
         // setIsEmailSent(true);
         // 이메일 전송 성공 처리 로직 추가
+          // 토스트 메시지 표시
+    toast.success(
+      "저희 사이트에서 구매해주셔서 감사합니다. 결제 완료 정보를 메일로 발송해드렸습니다.."
+    );
       })
       .catch((error: Error) => {
         
         // 이메일 전송 실패 처리 로직 추가
       });
 
-    // 토스트 메시지 표시
-    toast.success(
-      "저희 사이트에서 구매해주셔서 감사합니다. 결제 완료 정보를 메일로 발송해드렸습니다.."
-    );
+  
   };
 
   return (

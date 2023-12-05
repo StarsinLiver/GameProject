@@ -53,7 +53,6 @@ function UserAddQna() {
         UserQnaService.create(data) // 저장 요청
             .then((response: any) => {
                 setQna(initialQna);
-                console.log(response.data);
                 alert('질문이 제출 되었습니다.');
                 navigate(`/user-qna-list`);
             })

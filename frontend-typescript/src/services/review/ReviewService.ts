@@ -73,8 +73,8 @@ const removeReviewChild = (rid: any) => {
 };
 
 // maxPrice = 최대값 minPrice = 최솟값
-const dd = (tag:any, name:any, minPrice:any,maxPrice:any,page:any, size:any) => { 
-  return http.get<any>(`review/isLike?tag=${tag}&name=${name}&minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}&size=${size}`)
+const dd = (tag:any, name:any, minPrice:any,maxPrice:any,page:any, size:any, order:any) => { 
+  return http.get<any>(`review/isLike?tag=${tag}&name=${name}&minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}&size=${size}&order=${order}`)
 }
 
 const ReviewService = {

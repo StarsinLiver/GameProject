@@ -17,7 +17,7 @@ import axios from "axios";
 // 연습 : id 값 : 218620
 
 const findAll = () => {
-  return axios.get(`https://proxy.cors.sh/https://api.steampowered.com/ISteamApps/GetAppList/v2`, {
+  return axios.get(`https://proxy.cors.sh/https://api.steampowered.com/ISteamApps/GetAppList/v2/?l=koreana`, {
     headers: {
     'x-cors-api-key': `${process.env.REACT_APP_PROXY_KEY}`
     }
@@ -35,17 +35,26 @@ const findById = (appid: number) => {
 
 const findNewsById = (appid : number) => {
   console.log("appid" , appid);
-  return axios.get(`https://proxy.cors.sh/https://api.steampowered.com/ISteamNews/GetNewsForApp/v2?appid=${appid}`, {
+  return axios.get(`https://proxy.cors.sh/https://api.steampowered.com/ISteamNews/GetNewsForApp/v2?appid=${appid}&l=koreana`, {
     headers: {
       'x-cors-api-key': `${process.env.REACT_APP_PROXY_KEY}`
     }
   });
 }
 
+const findBySearchName = (searchName: string, page: number, pageSize: number) => {
+  return axios.get(`https://your-search-api-endpoint?search=${searchName}&page=${page}&pageSize=${pageSize}`, {
+      headers: {
+          'x-cors-api-key': `${process.env.REACT_APP_PROXY_KEY}`
+      }
+  });
+};
+
 const TestOpenApiService = {
   findAll,
   findById,
-  findNewsById
+  findNewsById,
+  findBySearchName
 };
 
 export default TestOpenApiService;

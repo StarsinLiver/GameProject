@@ -62,14 +62,11 @@ public class ReviewController {
             response.put("totalPages", reviewDtoPage.getTotalPages()); // 총페이지수
 
             if (reviewDtoPage.isEmpty() == false) {
-                System.out.println("완벽선공");
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
-                System.out.println("서비스 성공 나머지 실패");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
         } catch (Exception e) {
-            System.out.println("실패 나옴");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -81,21 +78,15 @@ public class ReviewController {
                                                    @RequestParam int parentId) {
         try {
 
-            System.out.println("서비스 들어감");
-
             List<ReviewDto> reviewDtoPage = reviewService.selectByChildAll(pid, parentId);
-            System.out.println("서비스에서 나옴");
 
 
             if (reviewDtoPage.isEmpty() == false) {
-                System.out.println("완벽선공");
                 return new ResponseEntity<>(reviewDtoPage, HttpStatus.OK);
             } else {
-                System.out.println("서비스 성공 나머지 실패");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
         } catch (Exception e) {
-            System.out.println("실패 나옴");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -105,18 +96,13 @@ public class ReviewController {
     @GetMapping("/review/{rid}")
     public ResponseEntity<Object> findById(@PathVariable int rid) {
         try {
-            System.out.println("들어오기는 성공함");
             Optional<Review> optionalReview = reviewService.findById(rid);
-            System.out.println("서비스 성공함");
             if (optionalReview.isEmpty() == false) {
-                System.out.println("성공값 반환");
                 return new ResponseEntity<>(optionalReview.get(), HttpStatus.OK);
             } else {
-                System.out.println("실패값 반환");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
         } catch (Exception e) {
-            System.out.println("ㅈ망함 다시해야함");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -141,7 +127,6 @@ public class ReviewController {
     @PostMapping("/user/review-parent")
     public ResponseEntity<Object> createParent(@RequestBody Review review) {
         try {
-            System.out.println("review :" + review);
             int insertCount = reviewService.insertByParent(review);
             return new ResponseEntity<>(insertCount, HttpStatus.OK);
         } catch (Exception e) {
@@ -181,14 +166,10 @@ public class ReviewController {
     @DeleteMapping("/user/review/deletion/parent/{groupId}")
     public ResponseEntity<Object> deleteParent(@PathVariable int groupId) {
         try {
-            System.out.println("일단 실행됨");
             boolean bSuccess = reviewService.removeAllByGroupId(groupId);
-            System.out.println("서비스 통과");
             if (bSuccess) {
-                System.out.println("성공함");
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
-                System.out.println("실패함");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
         } catch (Exception e) {
@@ -229,13 +210,13 @@ public class ReviewController {
     }
 
     @GetMapping("/review/isLike")
-    public ResponseEntity<Object> findByIsLike(@RequestParam(defaultValue = "") String tag, @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "0") int minPrice , @RequestParam(defaultValue = "999999") int maxPrice , @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size){
+    public ResponseEntity<Object> findByIsLike(@RequestParam(defaultValue = "") String tag, @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "0") int minPrice , @RequestParam(defaultValue = "999999") int maxPrice , @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size, @RequestParam(defaultValue = "DESC") String order ){
         try {
 
             Pageable pageable = PageRequest.of(page, size);
             System.out.println("이즈 서비스 들어감");
 
-            Page<IsLikeDto> isLikeDtoPage = reviewService.findByIsLike(tag,name,minPrice,maxPrice,pageable);
+            Page<IsLikeDto> isLikeDtoPage = reviewService.findByIsLike(tag,name,minPrice,maxPrice,pageable, order);
             System.out.println("이즈 서비스에서 나옴");
             List<String> tagList = productService.findAllTag();
             System.out.println("이즈 맵에 들어감");

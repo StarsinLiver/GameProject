@@ -74,17 +74,17 @@ function AdminControlPanelRefund() {
             });
     };
 
-    const [userDto, setUserDto] = useState<IUser>();
-    // Todo : 이메일 발송
-    // const [isEmailSent, setIsEmailSent] = useState(false);
-    const sendVerificationEmail = () => {
-        // 이메일 보내기
-        // 여기서 정의해야하는 것은 위에서 만든 메일 템플릿에 지정한 변수({{ }})에 대한 값을 담아줘야한다.
-        const templateParams = {
-            to_email: refundDetail?.email,
-            to_name: refundDetail?.uname,
-            from_name: '관리자',
-            message: `저희 playHost를 이용해주셔서 감사합니다.
+  const [userDto, setUserDto] = useState<IUser>();
+  // Todo : 이메일 발송
+  // const [isEmailSent, setIsEmailSent] = useState(false);
+  const sendVerificationEmail = () => {
+    // 이메일 보내기
+    // 여기서 정의해야하는 것은 위에서 만든 메일 템플릿에 지정한 변수({{ }})에 대한 값을 담아줘야한다.
+    const templateParams = {
+      to_email: refundDetail?.email,
+      to_name: refundDetail?.uname,
+      from_name: "playhost 팀",
+      message: `저희 playHost를 이용해주셔서 감사합니다.
                 환불요청신청이 완료되어 내역을 알려드립니다.
                 -----------------------------------------
                 환불 요청내용
@@ -95,25 +95,25 @@ function AdminControlPanelRefund() {
 
                     이용해주셔서 감사합니다.
                     `,
-        };
-
-        emailjs
-            .send(
-                `${process.env.REACT_APP_EMAIL_JS_SERVICE_ID}`, // 서비스 ID
-                'template_8i7gn6k', // 템플릿 ID
-                templateParams,
-                `${process.env.REACT_APP_EMAIL_JS_API_KEY}` // public-key
-            )
-            .then((response) => {
-                console.log('이메일이 성공적으로 보내졌습니다:', response);
-                // setIsEmailSent(true);
-                // 이메일 전송 성공 처리 로직 추가
-            })
-            .catch((error) => {
-                console.error('이메일 보내기 실패:', error);
-                // 이메일 전송 실패 처리 로직 추가
-            });
     };
+
+    emailjs
+      .send(
+        `${process.env.REACT_APP_EMAIL_JS_SERVICE_ID}`, // 서비스 ID
+        `template_8i7gn6k`,
+        templateParams,
+        `${process.env.REACT_APP_EMAIL_JS_API_KEY}` // public-key
+      )
+      .then((response) => {
+        console.log("이메일이 성공적으로 보내졌습니다:", response);
+        // setIsEmailSent(true);
+        // 이메일 전송 성공 처리 로직 추가
+      })
+      .catch((error) => {
+        console.error("이메일 보내기 실패:", error);
+        // 이메일 전송 실패 처리 로직 추가
+      });
+  };
 
     return (
         <>

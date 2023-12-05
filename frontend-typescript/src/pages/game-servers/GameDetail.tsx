@@ -4,7 +4,6 @@ import customSwiper2 from "../../assets/js/custom-swiper-2";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ISteam from "../../types/steam/ISteam";
 import SteamOpenApiService from "../../services/steam/SteamOpenApiService";
-// import "../../assets/css/button.css"; style.css에 추가해둠 (상세페이지 추가로 표시)
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import CartService from "../../services/cart/CartService";
@@ -16,10 +15,11 @@ import LibraryService from "../../services/library/LibraryService";
 import ProductService from "../../services/product/ProductService";
 import IProduct from "../../types/IProduct";
 import ILibrary from "../../types/ILibrary";
-import { grey } from "@mui/material/colors";
 import ISteamNews from "../../types/steam/ISteamNews";
 import "../../assets/css/gameDetail.css";
 import { ToastContainer, toast } from "react-toastify";
+import * as Yup from "yup";
+import ScrollToTop from "../../assets/js/scrollTop";
 
 function GamesDetail() {
   // user
@@ -34,15 +34,13 @@ function GamesDetail() {
     ReviewService.getEmail(user?.userId)
       .then((response: any) => {
         setEmail(response.data);
-        console.log("이메일 받기 성공", response.data);
+
         if (review.email == null) {
           setReview(initalReview);
           setReview2(initalReview);
         }
       })
-      .catch((e: Error) => {
-        console.log("이메일 받기 실패");
-      });
+      .catch((e: Error) => {});
   };
 
   // 전체조회 페이지에서 전송한 기본키
@@ -60,10 +58,8 @@ function GamesDetail() {
 
     setPage2(value);
     showReviewChild(pid, parentId);
-
-    console.log("value", value);
   };
- // todo : 스팀 조회 시작
+  // todo : 스팀 조회 시작
 
   // 받아온 스팀게임의 id
   // const { pid } = useParams();
@@ -115,18 +111,14 @@ function GamesDetail() {
       .then((response: any) => {
         const data = response.data[`${appid}`].data;
         setProduct(data);
-        console.log("product", product);
+
         setRender(true);
-        console.log(data);
+
         setMovies(data.movies[0]);
-        console.log("이거 스크린샷이야!", product.screenshots);
       })
-      .catch((e: Error) => {
-        console.log(e);
-      });
+      .catch((e: Error) => {});
     ProductService.get(appid)
       .then((response: any) => {
-        console.log("우리 백엔드에서 할인율 들고오기", response.data);
         setProductList(response.data);
       })
       .catch((e: Error) => {});
@@ -135,13 +127,10 @@ function GamesDetail() {
   const getSteamNews = (appid: number) => {
     SteamOpenApiService.findNewsById(appid)
       .then((response: any) => {
-        console.log(response.data.appnews.newsitems);
         const newsData = response.data.appnews.newsitems;
         setSteamNews(newsData);
       })
-      .catch((e: Error) => {
-        console.log(e);
-      });
+      .catch((e: Error) => {});
   };
 
   useEffect(() => {
@@ -152,12 +141,6 @@ function GamesDetail() {
     customSwiper2();
     // todo : 화면 시작과 동시에 스팀에서 게임정보를 받아오는 함수 호출
   }, [render]);
-
-  const dd = (event: any) => {
-    console.log("누름");
-    console.log(movies[0].mp4["480"]);
-  };
-
   // 스팀복사 끝
   // todo 스팀 조회 끝
 
@@ -178,11 +161,8 @@ function GamesDetail() {
       .then((response: any) => {
         setCid(response.data);
         setCart(true);
-        console.log("cid 받아오기! : ", response.data);
       })
-      .catch((e: Error) => {
-        console.log("아무것도 없다");
-      });
+      .catch((e: Error) => {});
   };
 
   // cart 담기 button onclik이벤트
@@ -197,28 +177,21 @@ function GamesDetail() {
     };
     CartService.create(data)
       .then((response: any) => {
-        toastMessage(null ,"장바구니에 담겼습니다." , '/cart');
+        toastMessage(null, "장바구니에 담겼습니다.", "/cart");
         setCart(true);
         setCid(response.data.cid);
-        console.log(response.data);
-        // window.location.replace("/game-detail/"+pid);
       })
-      .catch((e: Error) => {
-        console.log(e);
-      });
+      .catch((e: Error) => {});
   };
 
   // 장바구니(cart) 비우기
   const cartClear = (event: any) => {
-    console.log("cid", cid);
     CartService.remove(cid)
       .then(() => {
         setCart(false);
         toastMessage("장바구니에서 취소하였습니다.");
       })
-      .catch(() => {
-        console.log("코드 다시짜기", cid);
-      });
+      .catch(() => {});
   };
 
   // todo : 카트 끝
@@ -297,14 +270,8 @@ function GamesDetail() {
         const { reviewList, totalPages } = response.data;
         setReviewList(reviewList);
         setCount(totalPages);
-
-        console.log("reviewList", response.data.reviewList);
-        console.log("totalPages");
-        console.log("실행 성공");
       })
-      .catch((e: Error) => {
-        console.log("실패...", pid);
-      });
+      .catch((e: Error) => {});
   };
 
   // 리뷰 작성
@@ -323,7 +290,6 @@ function GamesDetail() {
     };
     ReviewService.createReviewParent(data)
       .then(() => {
-        console.log("리뷰 등록 성공");
         toastMessage("리뷰 등록 성공");
         setReview2(initalReview);
         setReview(initalReview);
@@ -332,9 +298,7 @@ function GamesDetail() {
         setHasOnLike(false);
         getReviewList();
       })
-      .catch((e: Error) => {
-        console.log("리뷰 등록 실패");
-      });
+      .catch((e: Error) => {});
   };
 
   // 화면 새로고침(저장 후 저장된 객체 불러오기)
@@ -345,32 +309,26 @@ function GamesDetail() {
   const updateReview = () => {
     ReviewService.update(review2.rid, review2)
       .then((response: any) => {
-        console.log("리뷰수정 성공");
         toastMessage("리뷰수정 성공");
         setReview2(initalReview);
         setHasOnDisLike(false);
         setHasOnLike(false);
         getReviewList();
       })
-      .catch((e: Error) => {
-        console.log("리뷰수정 실패");
-      });
+      .catch((e: Error) => {});
   };
 
   // 댓글 수정
   const updateReview2 = () => {
     ReviewService.update(review2.rid, review2)
       .then((response: any) => {
-        console.log("댓글수정 성공");
         toastMessage("댓글수정 성공");
         setReview2(initalReview);
         setHasOnDisLike(false);
         setHasOnLike(false);
         showReviewChild(pid, response.data.parentId);
       })
-      .catch((e: Error) => {
-        console.log("리뷰수정 실패");
-      });
+      .catch((e: Error) => {});
   };
 
   // 상세조회 함수
@@ -379,21 +337,16 @@ function GamesDetail() {
 
       .then((response: any) => {
         setReview2(response.data);
-        console.log(response.data);
         if (response.data.isLike == 1) {
           setHasOnLike2(true);
           setHasOnDisLike2(false);
           review2.isLike = 1;
-          console.log("like버튼 실행", response.data.isLike);
         } else if (response.data.isLike == 0) {
           setHasOnLike2(false);
           setHasOnDisLike2(true);
-          console.log("dislike버튼 실행");
         }
       })
-      .catch((e: Error) => {
-        console.log(e);
-      });
+      .catch((e: Error) => {});
   };
 
   // 댓글 작성 시 작동하는 상세조회
@@ -414,11 +367,10 @@ function GamesDetail() {
         };
 
         setReview(data2);
-        console.log(response.data);
+        console.log(review2);
+        console.log(review);
       })
-      .catch((e: Error) => {
-        console.log(e);
-      });
+      .catch((e: Error) => {});
   };
   /* **** 대댓글? ***** */
   // 리뷰, 댓글  작성 바인딩 함수
@@ -426,14 +378,12 @@ function GamesDetail() {
   const handleReviewChange = (event: any) => {
     const { name, value } = event.target;
     setReview({ ...review, [name]: value });
-    console.log("리뷰 컨텐츠");
   };
 
   // 수정 시 바인딩
   const handleReviewChange2 = (event: any) => {
     const { name, value } = event.target;
     setReview2({ ...review2, [name]: value });
-    console.log("수정, 답글 컨텐츠");
   };
 
   // 리뷰 댓글 생성
@@ -453,17 +403,20 @@ function GamesDetail() {
 
     ReviewService.createReviewChild(data)
       .then((response: any) => {
-        console.log("리뷰 댓글 등록 성공", data.pid);
         toastMessage("댓글이 작성되었습니다.");
         setReview(initalReview);
         setReview2(initalReview);
         showReviewChild(pid, response.data.parentId);
-        console.log("리뷰 댓글 등록 성공", review.rid);
       })
-      .catch((e: Error) => {
-        console.log("리뷰 댓글 등록 실패");
-      });
+      .catch((e: Error) => {});
   };
+
+  // TODO : 유효성 체크
+  // Todo : 함수 정의
+  // Todo : Formit 라이브러리 : validationSchema
+  // Todo : validationSchema : 유효성 체크 규칙을 정의
+  // Todo : validationSchema = Yup.object().shape({유효성 체크규칙})
+  const validationSchema = Yup.object().shape({});
 
   // todo : 따봉 버튼 함수
 
@@ -475,12 +428,10 @@ function GamesDetail() {
     if (!hasOnDisLike) {
       setHasOnLike(true);
       review.isLike = 1;
-      console.log("좋아요");
     } else {
       setHasOnLike(true);
       setHasOnDisLike(false);
       review.isLike = 1;
-      console.log("좋아요");
     }
   };
 
@@ -489,12 +440,10 @@ function GamesDetail() {
     if (!hasOnLike) {
       setHasOnDisLike(true);
       review.isLike = 0;
-      console.log("싫어요");
     } else {
       setHasOnLike(false);
       setHasOnDisLike(true);
       review.isLike = 0;
-      console.log("싫어요");
     }
   };
   /* 바인딩으로 나눈 긍정 부정 버튼 */
@@ -505,12 +454,10 @@ function GamesDetail() {
     if (!hasOnDisLike2) {
       setHasOnLike2(true);
       review2.isLike = 1;
-      console.log("좋아요");
     } else {
       setHasOnLike2(true);
       setHasOnDisLike2(false);
       review2.isLike = 1;
-      console.log("좋아요");
     }
   };
 
@@ -518,12 +465,10 @@ function GamesDetail() {
     if (!hasOnLike2) {
       setHasOnDisLike2(true);
       review2.isLike = 0;
-      console.log("싫어요");
     } else {
       setHasOnLike2(false);
       setHasOnDisLike2(true);
       review2.isLike = 0;
-      console.log("싫어요");
     }
   };
 
@@ -534,23 +479,16 @@ function GamesDetail() {
         setReviewChild(response.data);
         setRender(true);
         setParentId(parentId);
-        console.log(reviewList);
       })
-      .catch((e: Error) => {
-        console.log("실패...", pid);
-      });
+      .catch((e: Error) => {});
   };
 
   // todo : close button 누를 때 리뷰 저장 초기화
   const initialReview2 = (event: any) => {
-    console.log("작동됨 ㅅㅅ", initalReview);
     setReview(initalReview);
     setReview2(initalReview);
     setHasOnDisLike(false);
     setHasOnLike(false);
-    console.log("ㅅㅅ", review);
-    console.log(review2);
-    console.log(review);
   };
 
   // todo : 리뷰 삭제함수 만들기
@@ -558,15 +496,10 @@ function GamesDetail() {
     ReviewService.removeReviewParent(groupId)
       .then((response: any) => {
         toastMessage("삭제성공!");
-        console.log("성공");
-        console.log("response.data");
         setReview(initalReview);
         getReviewList();
       })
-      .catch((e: Error) => {
-        console.log("그룹아디 : ", review.groupId);
-        console.log("실패");
-      });
+      .catch((e: Error) => {});
   };
   // todo : 리뷰 기능 끝
 
@@ -575,14 +508,10 @@ function GamesDetail() {
     ReviewService.removeReviewChild(rid)
       .then((response: any) => {
         toastMessage("댓글 삭제 완료");
-        console.log("성공");
         getReviewList();
         showReviewChild(pid, parentId);
       })
-      .catch((e: Error) => {
-        console.log("rid : ", review.rid);
-        console.log("실패");
-      });
+      .catch((e: Error) => {});
   };
 
   // todo : 라이브러리 시작
@@ -607,11 +536,8 @@ function GamesDetail() {
     LibraryService.create(saveLibrary)
       .then((response: any) => {
         getLibarary();
-        console.log("라이브러리에 게임 추가 완료!", response.data);
       })
-      .catch((e: Error) => {
-        console.log("라이브러리에 게임 추가 실패");
-      });
+      .catch((e: Error) => {});
   };
 
   const getLibarary = () => {
@@ -619,15 +545,11 @@ function GamesDetail() {
       .then((response: any) => {
         if (response.data === true) {
           setLibrary(true);
-          console.log("라이브러리에 게임 있음", response.data);
         } else {
           setLibrary(false);
-          console.log("라이브러리에 게임 없음");
         }
       })
-      .catch((e: Error) => {
-        console.log("버그남 다시 ㄱ", pid, " : ", user?.userId);
-      });
+      .catch((e: Error) => {});
   };
   // todo : 라이브러리 끝
 
@@ -642,10 +564,7 @@ function GamesDetail() {
         setKk(true);
         isLikedValue(response.data || []);
       })
-      .catch((e: Error) => {
-        console.log("ㄹㄹㄹ : ");
-        console.log("tq");
-      });
+      .catch((e: Error) => {});
   };
   // const [isLIke, setIsLiked] = useState<number>(0);
   // todo : 오류발생원인!!!!!!!!!!!!
@@ -653,7 +572,6 @@ function GamesDetail() {
     // // setIsLiked = {review.isLike}/{reviewList};
 
     if (data.length == 0) {
-      console.log("리뷰가 없습니다,", data);
       setLikedValue("리뷰가 없습니다.");
     } else {
       let i;
@@ -694,18 +612,23 @@ function GamesDetail() {
   }, [page, reviewChild]);
   useEffect(() => {
     getAllReviewNoPage();
+    
   }, [reviewList]);
 
-  const toastMessage = (title : any = null ,message: any = null , link : any = '#') => {
+  const toastMessage = (
+    title: any = null,
+    message: any = null,
+    link: any = "#"
+  ) => {
     toast.info(
-
       <div>
         <Link to={link}>
-        <div style={{color:'black'}}>{title}</div>
-        <div style={{ whiteSpace: "pre-line" ,color:'black'}}>{message}</div>
+          <div style={{ color: "black" }}>{title}</div>
+          <div style={{ whiteSpace: "pre-line", color: "black" }}>
+            {message}
+          </div>
         </Link>
-      </div>
-      ,
+      </div>,
       {
         position: "bottom-right",
         autoClose: 5000,
@@ -795,7 +718,13 @@ function GamesDetail() {
                         {likedValue == "리뷰가 없습니다." ? (
                           <>{likedValue}</>
                         ) : (
-                          <span className="d-val"> {likedValue}평가</span>
+                          <span className="d-val">
+                            {" "}
+                            {likedValue}평가 &nbsp;{" "}
+                            <span style={{ color: "gray", fontSize: "1rem" }}>
+                              {reviewListNopage.length}개의 리뷰
+                            </span>
+                          </span>
                         )}
                       </span>
                     </div>
@@ -1332,9 +1261,9 @@ function GamesDetail() {
                                                                 ></textarea>
                                                               </div>
 
-                                                              <div className="">
+                                                              <div className="" style={{float:"right"}}>
                                                                 <a
-                                                                  className="btn btn-secondary"
+                                                                  className="btn btn-secondary me-1"
                                                                   data-bs-toggle="collapse"
                                                                   href={
                                                                     "#collapseExample" +
@@ -1379,11 +1308,7 @@ function GamesDetail() {
                                                                   }}
                                                                   onClick={
                                                                     updateReview2
-                                                                  }
-                                                                  // data-bs-target={
-                                                                  //   "#flush-collapse" +
-                                                                  //   index
-                                                                  // }
+                                                                  }                                                                 
                                                                 >
                                                                   Send Message
                                                                 </a>
@@ -1442,6 +1367,8 @@ function GamesDetail() {
                                               aria-label="Close"
                                             ></button>
                                           </div>
+
+                                          {/* 여기 유효성 체크 */}
                                           <div className="modal-body">
                                             <form>
                                               <div className="mb-3">
@@ -1477,18 +1404,32 @@ function GamesDetail() {
                                             >
                                               Close
                                             </button>
-                                            <button
-                                              type="button"
-                                              className="btn btn-primary"
-                                              data-bs-dismiss="modal"
-                                              onClick={createReviewChild}
-                                              style={{
-                                                height: "2.2rem",
-                                                width: "9rem",
-                                              }}
-                                            >
-                                              Send message
-                                            </button>
+                                            {review2.content == "" ? (
+                                              <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                style={{
+                                                  height: "2.2rem",
+                                                  width: "9rem",
+                                                  background: "#6c757d",
+                                                }}
+                                              >
+                                                Send message
+                                              </button>
+                                            ) : (
+                                              <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-dismiss="modal"
+                                                onClick={createReviewChild}
+                                                style={{
+                                                  height: "2.2rem",
+                                                  width: "9rem",
+                                                }}
+                                              >
+                                                Send message
+                                              </button>
+                                            )}
                                           </div>
                                         </div>
                                       </div>
@@ -1584,7 +1525,10 @@ function GamesDetail() {
                                               </div>
                                             </form>
                                           </div>
-                                          <div className="modal-footer">
+                                          <div
+                                            className="modal-footer"
+                                            style={{ right: "1rem" }}
+                                          >
                                             <button
                                               type="button"
                                               className="btn btn-secondary"
@@ -1680,8 +1624,15 @@ function GamesDetail() {
                           </div>
 
                           {/* 따봉버튼 */}
-                          <a className="col-lg-10 mt-3" type="button">
-                            <ul className="position-relative top-0 start-100">
+                          <a
+                            className=""
+                            type="button"
+                            style={{ width: "100%" }}
+                          >
+                            <ul
+                              className="top-0 start-100"
+                              style={{ float: "right" }}
+                            >
                               <li
                                 onClick={onLike}
                                 className="material-symbols-outlined me-5"
@@ -1742,20 +1693,19 @@ function GamesDetail() {
                           </div>
 
                           {user?.email && (
-                            <div className="col-lg-10">
-                              {review.isLike === -1 ? (
+                            <div className="" style={{ float: "right" }}>
+                              {review.isLike === -1 ||
+                              review.content === "" ||
+                              review.title === "" ? (
                                 <button
-                                  className="btn-main position-relative top-0 start-100"
+                                  className="btn-main"
                                   style={{ background: "#828282" }}
-                                  data-bs-toggle="popover"
-                                  data-bs-placement="bottom"
-                                  data-bs-content="Click Like or DisLIke"
                                 >
                                   Send Review
                                 </button>
                               ) : (
                                 <button
-                                  className="btn-main position-relative top-0 start-100"
+                                  className="btn-main"
                                   onClick={createReviewParent}
                                 >
                                   Send Review
@@ -1791,50 +1741,127 @@ function GamesDetail() {
                               >
                                 <div>
                                   {productList.finalPrice == 0 ? (
-                                    <div className="container text-center">
-                                      무료
-                                      <br></br>
+                                    <div className="text-center">
                                       <button
-                                        className="btn-main mb10"
+                                        className="btn-main mb10 mt-3"
                                         onClick={saveLibraryGame}
-                                        style={{ display: "inline-block" }}
+                                        style={{
+                                          display: "inline-block",
+                                          paddingTop: "10px",
+                                        }}
                                       >
-                                        라이브러리에 추가
-                                      </button>
-                                    </div>
-                                  ) : productList.discount > 0 ? (
-                                    <div>
-                                      Price <del>{productList.finalPrice}</del>
-                                      원<br></br>
-                                      <button
-                                        className="btn-main mb10"
-                                        onClick={sendDater}
-                                        style={{ display: "inline-block" }}
-                                      >
-                                        장바구니 추가
+                                        <span
+                                          className="material-symbols-outlined"
+                                          style={{
+                                            fontSize: "1.1rem",
+                                            marginRight: "0.5rem",
+                                            color: "white",
+                                          }}
+                                        >
+                                          library_add
+                                        </span>
+                                        <span
+                                          style={{
+                                            fontWeight: "bold",
+                                            color: "white",
+                                            fontSize: "1.3rem",
+                                          }}
+                                        >
+                                          라이브러리에 추가
+                                        </span>
                                       </button>
                                     </div>
                                   ) : (
                                     <>
-                                      Price {productList.price} 원<br></br>
+                                      {/* <span
+                                        className="material-symbols-outlined"
+                                        style={{
+                                          fontSize: "1.1rem",
+                                          marginRight: "0.5rem",
+                                          color: "#5623d8",
+                                        }}
+                                      >
+                                        add_shopping_cart
+                                      </span>
+                                      <span
+                                        style={{
+                                          fontWeight: "bold",
+                                          color: "white",
+                                          fontSize: "1.3rem",
+                                        }}
+                                      >
+                                        {productList.price}
+                                      </span>
+                                      원
                                       <button
-                                        className="btn-main mb10"
+                                        className="btn-main mb10 mt-3"
                                         onClick={sendDater}
                                         style={{ display: "inline-block" }}
                                       >
                                         장바구니 추가
+                                      </button> */}
+                                      <button
+                                        className="btn-main mb10 mt-3"
+                                        onClick={sendDater}
+                                        style={{
+                                          display: "inline-block",
+                                          paddingTop: "10px",
+                                        }}
+                                      >
+                                        <span
+                                          className="material-symbols-outlined"
+                                          style={{
+                                            fontSize: "1.1rem",
+                                            marginRight: "0.5rem",
+                                            color: "white",
+                                          }}
+                                        >
+                                          add_shopping_cart
+                                        </span>
+                                        <span
+                                          style={{
+                                            fontWeight: "bold",
+                                            color: "white",
+                                            fontSize: "1.3rem",
+                                          }}
+                                        >
+                                          {productList.finalPrice.toLocaleString()}￦
+                                        </span>
                                       </button>
                                     </>
                                   )}
                                 </div>
                               </div>
                             ) : (
-                              <div className="container">
+                              <div className="">
                                 <button
-                                  className="btn-main mb10"
+                                  className="btn-main mb10 mt-3"
                                   onClick={cartClear}
+                                  style={{
+                                    display: "inline-block",
+                                    paddingTop: "10px",
+                                    background: "#828282",
+                                  }}
                                 >
-                                  장바구니 추가 취소
+                                  <span
+                                    className="material-symbols-outlined"
+                                    style={{
+                                      fontSize: "1.1rem",
+                                      marginRight: "0.5rem",
+                                      color: "white",
+                                    }}
+                                  >
+                                    remove_shopping_cart
+                                  </span>
+                                  <span
+                                    style={{
+                                      fontWeight: "bold",
+                                      color: "white",
+                                      fontSize: "1.1rem",
+                                    }}
+                                  >
+                                    장바구니에서 제거
+                                  </span>
                                 </button>
                               </div>
                             )

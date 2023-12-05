@@ -43,11 +43,9 @@ function HomePage() {
 
         setProduct(product);
         setCount(totalPages);
-        console.log(product[0].imgUrl);
         setRender(true);
       })
       .catch((e: Error) => {
-        console.log(e);
       });
   };
 
@@ -55,12 +53,9 @@ function HomePage() {
     ProductService.getAllByThumbNailFullJoin("", 0, 8)
       .then((response: any) => {
         const { list, productDtoPage } = response.data;
-        console.log("productDtoPage", productDtoPage);
         setProductDtoPage(list);
-        console.log("response.data", response.data);
       })
       .catch((e: Error) => {
-        console.log(e);
       });
   };
 

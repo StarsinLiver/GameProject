@@ -43,11 +43,9 @@ function HomePage() {
 
         setProduct(product);
         setCount(totalPages);
-        console.log(product[0].imgUrl);
         setRender(true);
       })
       .catch((e: Error) => {
-        console.log(e);
       });
   };
 
@@ -55,12 +53,9 @@ function HomePage() {
     ProductService.getAllByThumbNailFullJoin("", 0, 8)
       .then((response: any) => {
         const { list, productDtoPage } = response.data;
-        console.log("productDtoPage", productDtoPage);
         setProductDtoPage(list);
-        console.log("response.data", response.data);
       })
       .catch((e: Error) => {
-        console.log(e);
       });
   };
 
@@ -353,7 +348,7 @@ function HomePage() {
                           className="col-lg-6 col-sm-6 wow fadeInRight"
                           data-wow-delay="0s"
                         >
-                          <div style={{ width: "600px", marginBottom: "40px" }}>
+                          <div style={{ width: "95%", marginBottom: "40px" }}>
                             <div className="de-image-hover">
                               <Link to={`/game-detail/${value.pid}`}>
                                 <img
@@ -362,7 +357,7 @@ function HomePage() {
                                   alt=""
                                   style={{
                                     marginBottom: "10px",
-                                    width: "600px",
+                                    width: "100%",
                                     borderRadius: "15px",
                                   }}
                                 />
@@ -477,7 +472,7 @@ function HomePage() {
                           className="col-lg-6 col-sm-6  wow fadeInRight"
                           data-wow-delay="0s"
                         >
-                          <div style={{ width: "600px", marginBottom: "40px" }}>
+                          <div style={{ width: "95%", marginBottom: "40px" }}>
                             <div className="de-image-hover">
                               <Link to={`/game-detail/${value.pid}`}>
                                 <img
@@ -486,7 +481,7 @@ function HomePage() {
                                   alt=""
                                   style={{
                                     marginBottom: "10px",
-                                    width: "600px",
+                                    width: "100%",
                                     borderRadius: "15px",
                                   }}
                                 />
@@ -983,7 +978,7 @@ function HomePage() {
                         className="col-lg-4 col-md-4  wow fadeInRight"
                         data-wow-delay="0s"
                       >
-                        <div style={{ width: "400px", height: "100%" }}>
+                        <div style={{ width: "98%", height: "100%" }}>
                           <div className="de-image-hover">
                             <Link to={`/game-detail/${value.pid}`}>
                               <img

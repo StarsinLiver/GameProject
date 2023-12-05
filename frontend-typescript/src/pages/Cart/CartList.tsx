@@ -33,13 +33,12 @@ function CartList() {
   const retrieveCart = () => {
     CartService.getAll(user?.userId , page - 1, pageSize)
       .then((response: any) => {
-        console.log(response);
         const { cart, totalPages } = response.data;
         setCart(cart);
         setCount(totalPages);
       })
       .catch((e: Error) => {
-        console.log(e);
+       
       });
   };
 
@@ -55,12 +54,11 @@ function CartList() {
   const deleteCart = (scno: number) => {
     CartService.remove(scno)
       .then((response: any) => {
-        console.log(response);
         toastMessage("삭제되었습니다.");
         retrieveCart();
       })
       .catch((e: Error) => {
-        console.log(e);
+    console.log(e);
       });
   };
 

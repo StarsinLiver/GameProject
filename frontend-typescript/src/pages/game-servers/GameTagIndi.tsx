@@ -100,7 +100,6 @@ function GameTagIndi() {
           setRender(true);
         })
         .catch((e: Error) => {
-          console.log(e);
         });
     } else {
       setPage2(1);

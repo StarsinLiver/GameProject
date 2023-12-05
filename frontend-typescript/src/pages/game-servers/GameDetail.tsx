@@ -4,7 +4,6 @@ import customSwiper2 from "../../assets/js/custom-swiper-2";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ISteam from "../../types/steam/ISteam";
 import SteamOpenApiService from "../../services/steam/SteamOpenApiService";
-// import "../../assets/css/button.css"; style.css에 추가해둠 (상세페이지 추가로 표시)
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import CartService from "../../services/cart/CartService";
@@ -16,10 +15,11 @@ import LibraryService from "../../services/library/LibraryService";
 import ProductService from "../../services/product/ProductService";
 import IProduct from "../../types/IProduct";
 import ILibrary from "../../types/ILibrary";
-import { grey } from "@mui/material/colors";
 import ISteamNews from "../../types/steam/ISteamNews";
 import "../../assets/css/gameDetail.css";
 import { ToastContainer, toast } from "react-toastify";
+import * as Yup from "yup";
+import ScrollToTop from "../../assets/js/scrollTop";
 
 function GamesDetail() {
   // user
@@ -350,12 +350,12 @@ function GamesDetail() {
   };
 
   // 댓글 작성 시 작동하는 상세조회
-  const getReview2 = (rid: string) => {
+  const getReview2 = (rid: string, title:string) => {
     ReviewService.get(rid) // 백엔드로 상세조회 요청
       .then((response: any) => {
         const data2 = {
           rid: rid,
-          title: review.title,
+          title: title,
           content: "",
           email: email,
           writer: user?.userId, // 유저 정보 들고오기
@@ -365,8 +365,10 @@ function GamesDetail() {
           pid: Number(pid),
           insertTime: null,
         };
+        
 
         setReview(data2);
+        
       })
       .catch((e: Error) => {});
   };
@@ -408,6 +410,13 @@ function GamesDetail() {
       })
       .catch((e: Error) => {});
   };
+
+  // TODO : 유효성 체크
+  // Todo : 함수 정의
+  // Todo : Formit 라이브러리 : validationSchema
+  // Todo : validationSchema : 유효성 체크 규칙을 정의
+  // Todo : validationSchema = Yup.object().shape({유효성 체크규칙})
+  const validationSchema = Yup.object().shape({});
 
   // todo : 따봉 버튼 함수
 
@@ -603,6 +612,7 @@ function GamesDetail() {
   }, [page, reviewChild]);
   useEffect(() => {
     getAllReviewNoPage();
+    
   }, [reviewList]);
 
   const toastMessage = (
@@ -708,7 +718,13 @@ function GamesDetail() {
                         {likedValue == "리뷰가 없습니다." ? (
                           <>{likedValue}</>
                         ) : (
-                          <span className="d-val"> {likedValue}평가</span>
+                          <span className="d-val">
+                            {" "}
+                            {likedValue}평가 &nbsp;{" "}
+                            <span style={{ color: "gray", fontSize: "1rem" }}>
+                              {reviewListNopage.length}개의 리뷰
+                            </span>
+                          </span>
                         )}
                       </span>
                     </div>
@@ -1017,7 +1033,7 @@ function GamesDetail() {
                                                   data-bs-target="#exampleModal"
                                                   data-bs-whatever="@mdo"
                                                   onClick={() =>
-                                                    getReview2(value.rid)
+                                                    getReview2(value.rid, value.title)
                                                   }
                                                 >
                                                   댓글 달기
@@ -1245,9 +1261,9 @@ function GamesDetail() {
                                                                 ></textarea>
                                                               </div>
 
-                                                              <div className="">
+                                                              <div className="" style={{float:"right"}}>
                                                                 <a
-                                                                  className="btn btn-secondary"
+                                                                  className="btn btn-secondary me-1"
                                                                   data-bs-toggle="collapse"
                                                                   href={
                                                                     "#collapseExample" +
@@ -1292,11 +1308,7 @@ function GamesDetail() {
                                                                   }}
                                                                   onClick={
                                                                     updateReview2
-                                                                  }
-                                                                  // data-bs-target={
-                                                                  //   "#flush-collapse" +
-                                                                  //   index
-                                                                  // }
+                                                                  }                                                                 
                                                                 >
                                                                   Send Message
                                                                 </a>
@@ -1355,11 +1367,13 @@ function GamesDetail() {
                                               aria-label="Close"
                                             ></button>
                                           </div>
+
+                                          {/* 여기 유효성 체크 */}
                                           <div className="modal-body">
                                             <form>
                                               <div className="mb-3">
                                                 <label className="col-form-label">
-                                                  Reply to: {value.title}
+                                                  Reply to: {review.title}
                                                 </label>
                                                 <textarea
                                                   className="form-control"
@@ -1390,18 +1404,32 @@ function GamesDetail() {
                                             >
                                               Close
                                             </button>
-                                            <button
-                                              type="button"
-                                              className="btn btn-primary"
-                                              data-bs-dismiss="modal"
-                                              onClick={createReviewChild}
-                                              style={{
-                                                height: "2.2rem",
-                                                width: "9rem",
-                                              }}
-                                            >
-                                              Send message
-                                            </button>
+                                            {review2.content == "" ? (
+                                              <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                style={{
+                                                  height: "2.2rem",
+                                                  width: "9rem",
+                                                  background: "#6c757d",
+                                                }}
+                                              >
+                                                Send message
+                                              </button>
+                                            ) : (
+                                              <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-dismiss="modal"
+                                                onClick={createReviewChild}
+                                                style={{
+                                                  height: "2.2rem",
+                                                  width: "9rem",
+                                                }}
+                                              >
+                                                Send message
+                                              </button>
+                                            )}
                                           </div>
                                         </div>
                                       </div>
@@ -1497,7 +1525,10 @@ function GamesDetail() {
                                               </div>
                                             </form>
                                           </div>
-                                          <div className="modal-footer">
+                                          <div
+                                            className="modal-footer"
+                                            style={{ right: "1rem" }}
+                                          >
                                             <button
                                               type="button"
                                               className="btn btn-secondary"
@@ -1593,8 +1624,15 @@ function GamesDetail() {
                           </div>
 
                           {/* 따봉버튼 */}
-                          <a className="col-lg-10 mt-3" type="button">
-                            <ul className="position-relative top-0 start-100">
+                          <a
+                            className=""
+                            type="button"
+                            style={{ width: "100%" }}
+                          >
+                            <ul
+                              className="top-0 start-100"
+                              style={{ float: "right" }}
+                            >
                               <li
                                 onClick={onLike}
                                 className="material-symbols-outlined me-5"
@@ -1655,20 +1693,19 @@ function GamesDetail() {
                           </div>
 
                           {user?.email && (
-                            <div className="col-lg-10">
-                              {review.isLike === -1 ? (
+                            <div className="" style={{ float: "right" }}>
+                              {review.isLike === -1 ||
+                              review.content === "" ||
+                              review.title === "" ? (
                                 <button
-                                  className="btn-main position-relative top-0 start-100"
+                                  className="btn-main"
                                   style={{ background: "#828282" }}
-                                  // data-bs-toggle="popover"
-                                  // data-bs-placement="bottom"
-                                  // data-bs-content="Click Like or DisLIke"
                                 >
                                   Send Review
                                 </button>
                               ) : (
                                 <button
-                                  className="btn-main position-relative top-0 start-100"
+                                  className="btn-main"
                                   onClick={createReviewParent}
                                 >
                                   Send Review
@@ -1788,7 +1825,7 @@ function GamesDetail() {
                                             fontSize: "1.3rem",
                                           }}
                                         >
-                                          {productList.price.toLocaleString()}￦
+                                          {productList.finalPrice.toLocaleString()}￦
                                         </span>
                                       </button>
                                     </>
@@ -1803,7 +1840,7 @@ function GamesDetail() {
                                   style={{
                                     display: "inline-block",
                                     paddingTop: "10px",
-                                    background: "#828282"
+                                    background: "#828282",
                                   }}
                                 >
                                   <span

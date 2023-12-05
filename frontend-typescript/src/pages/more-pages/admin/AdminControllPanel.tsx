@@ -69,7 +69,7 @@ function AdminControllPenal() {
         const { apps } = response.data.applist;
 
         // Todo : 검색 결과 제한
-        setSteamList(apps.slice(50, 200000)); // name 과 appid
+        setSteamList(apps.slice(50, 1000)); // name 과 appid
 
         // Todo : 페이징 처리
         setCount(Math.ceil(steamList.length / pageSize));

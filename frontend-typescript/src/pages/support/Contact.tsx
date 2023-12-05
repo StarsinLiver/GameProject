@@ -69,22 +69,17 @@ function Contact() {
         `${process.env.REACT_APP_EMAIL_JS_API_KEY}` // public-key
       )
       .then((response: any) => {
-        console.log("문의가 성공적으로 전송되었습니다:", response);
-        // setIsEmailSent(true);
+        alert(`문의가 성공적으로 전송되었습니다:`);
+        window.location.reload();
       })
       .catch((error: Error) => {
-        console.error("문의 실패:", error);
-        // 이메일 전송 실패 처리 로직 추가
+        alert("문의에 실패하였습니다 다시 입력해주세요");
+        window.location.reload();
       });
-
-    // console.log("name ", name);
-    // console.log("email ", email);
-    // console.log("phone ", phone);
   };
 
   const onChangeTextArea = (e: any) => {
     setAnyQuestion(e.target.value);
-    console.log(anyQuestion);
   };
 
   return (

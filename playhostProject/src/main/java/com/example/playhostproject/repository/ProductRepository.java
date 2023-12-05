@@ -59,7 +59,8 @@ public interface ProductRepository extends JpaRepository<Product , Integer> {
             "FULL JOIN THUMBNAIL T " +
             "ON P.UUID = T.UUID " +
             "WHERE P.DELETE_YN = 'N' " +
-            "AND P.TAG LIKE '%' || :tag || '%'" ,nativeQuery = true)
+            "AND P.TAG LIKE '%' || :tag || '%' " +
+            "ORDER BY P.UPDATE_TIME DESC" ,nativeQuery = true)
     List<ProductDto> selectAllByThumbNailJoin(@Param("tag") String tag);
 
 //    todo : 페이징 형식도 만들자!

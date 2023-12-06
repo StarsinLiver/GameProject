@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import form from "../../assets/js/form";
-import recaptcha from "../../assets/js/recaptcha";
 import designesis from "../../assets/js/designesia";
 import emailjs, { send } from "emailjs-com";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import customMarquee from "../../assets/js/custom-marquee";
-import { useAppDispatch } from "../../store/store";
-import AuthService from "../../services/auth/AuthService";
 
 function Contact() {
   const [message, setMessage] = useState("");

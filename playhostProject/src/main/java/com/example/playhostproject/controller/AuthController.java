@@ -105,7 +105,6 @@ public class AuthController {
     @PostMapping("/auth/signup")
     public ResponseEntity<Object> register(@RequestBody User user) {
         try {
-            System.out.println("회원가입된 유저 패스워드 : " + user.getPassword());
 //            Todo : 1) 요청된 유저객체  id(email) 있는지 확인
             if (authService.existByEmail(user.getEmail())) {
                 return ResponseEntity.badRequest().body("에러 : 이메일이 이미 있습니다.");
@@ -117,7 +116,6 @@ public class AuthController {
                     .password(passwordEncoder.encode(user.getPassword()))
                     .name(user.getName())
                     .build();
-            System.out.println(user1.toString());
 //            Todo : 3) 리엑트에서 요청한 권한이 있는지 조사
             String role = user.getRole(); // 요청 권한 가져오기
             if (role.equals("ROLE_ADMIN")) {
@@ -150,7 +148,6 @@ public class AuthController {
                 String databasePassword = user1.get().getPassword().toString();
                 //            Todo : 유저 패스워드 인코딩 , 패스워드를 바꿧다면
                 if (user.getPassword() != null && user.getPassword().equals(databasePassword)) {
-                    System.out.println("유저의 패스워드를 바꾸지 않았습니다.");
                 } else if (user.getPassword() != null) {
                     user.setPassword(passwordEncoder.encode(user.getPassword()));
                 }

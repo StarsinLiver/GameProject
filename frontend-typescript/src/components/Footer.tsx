@@ -29,34 +29,34 @@ function Footer() {
 
                 <div style={{ marginTop: "0.8rem" }}>
                   <img
-                    src="images/payments/toss.png"
+                    src="/images/payments/toss.png"
                     className="img-fluid"
                     alt=""
                     style={{ width: "18%" }}
                   />
 
                   <img
-                    src="images/payments/mastercard.png"
+                    src="/images/payments/mastercard.png"
                     className="img-fluid"
                     alt=""
                     style={{ width: "18%" }}
                   />
 
                   <img
-                    src="images/payments/samsungpay.png"
+                    src="/images/payments/samsungpay.png"
                     className="img-fluid me-2"
                     alt=""
                     style={{ width: "18%" }}
                   />
 
                   <img
-                    src="images/payments/cultureland.png"
+                    src="/images/payments/cultureland.png"
                     className="img-fluid me-2"
                     style={{ width: "18%" }}
                   />
 
                   <img
-                    src="images/payments/ssgpay.png"
+                    src="/images/payments/ssgpay.png"
                     className="img-fluid"
                     alt=""
                     style={{ width: "18%" }}
@@ -140,7 +140,7 @@ function Footer() {
               <div className="col-lg-6 col-sm-6">
                 <a href="https://store.steampowered.com/login/?redir=&redir_ssl=1&snr=1_4_4__global-header">
                   <img
-                    src="images/payments/sits_01.png"
+                    src={require(`../assets/images/payments/sits_01.png`)}
                     style={{ float: "right" }}
                   />{" "}
                 </a>

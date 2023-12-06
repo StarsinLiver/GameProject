@@ -350,7 +350,7 @@ function GamesDetail() {
   };
 
   // 댓글 작성 시 작동하는 상세조회
-  const getReview2 = (rid: string, title:string) => {
+  const getReview2 = (rid: string, title: string) => {
     ReviewService.get(rid) // 백엔드로 상세조회 요청
       .then((response: any) => {
         const data2 = {
@@ -365,10 +365,8 @@ function GamesDetail() {
           pid: Number(pid),
           insertTime: null,
         };
-        
 
         setReview(data2);
-        
       })
       .catch((e: Error) => {});
   };
@@ -612,7 +610,6 @@ function GamesDetail() {
   }, [page, reviewChild]);
   useEffect(() => {
     getAllReviewNoPage();
-    
   }, [reviewList]);
 
   const toastMessage = (
@@ -867,7 +864,7 @@ function GamesDetail() {
                               className="small-border"
                               style={{ width: "100%" }}
                             ></div>
-                            <h4 className="d-label mt-3">Review</h4>
+                            <h4 className="d-label mt-3">Reviews</h4>
                           </div>
                           {/* 전체조회 - map 시작 */}
                           <div
@@ -1033,7 +1030,10 @@ function GamesDetail() {
                                                   data-bs-target="#exampleModal"
                                                   data-bs-whatever="@mdo"
                                                   onClick={() =>
-                                                    getReview2(value.rid, value.title)
+                                                    getReview2(
+                                                      value.rid,
+                                                      value.title
+                                                    )
                                                   }
                                                 >
                                                   댓글 달기
@@ -1261,7 +1261,13 @@ function GamesDetail() {
                                                                 ></textarea>
                                                               </div>
 
-                                                              <div className="" style={{float:"right"}}>
+                                                              <div
+                                                                className=""
+                                                                style={{
+                                                                  float:
+                                                                    "right",
+                                                                }}
+                                                              >
                                                                 <a
                                                                   className="btn btn-secondary me-1"
                                                                   data-bs-toggle="collapse"
@@ -1308,7 +1314,7 @@ function GamesDetail() {
                                                                   }}
                                                                   onClick={
                                                                     updateReview2
-                                                                  }                                                                 
+                                                                  }
                                                                 >
                                                                   Send Message
                                                                 </a>
@@ -1696,7 +1702,8 @@ function GamesDetail() {
                             <div className="" style={{ float: "right" }}>
                               {review.isLike === -1 ||
                               review.content === "" ||
-                              review.title === "" ? (
+                              review.title === "" ||
+                              library === false ? (
                                 <button
                                   className="btn-main"
                                   style={{ background: "#828282" }}
@@ -1773,33 +1780,6 @@ function GamesDetail() {
                                     </div>
                                   ) : (
                                     <>
-                                      {/* <span
-                                        className="material-symbols-outlined"
-                                        style={{
-                                          fontSize: "1.1rem",
-                                          marginRight: "0.5rem",
-                                          color: "#5623d8",
-                                        }}
-                                      >
-                                        add_shopping_cart
-                                      </span>
-                                      <span
-                                        style={{
-                                          fontWeight: "bold",
-                                          color: "white",
-                                          fontSize: "1.3rem",
-                                        }}
-                                      >
-                                        {productList.price}
-                                      </span>
-                                      원
-                                      <button
-                                        className="btn-main mb10 mt-3"
-                                        onClick={sendDater}
-                                        style={{ display: "inline-block" }}
-                                      >
-                                        장바구니 추가
-                                      </button> */}
                                       <button
                                         className="btn-main mb10 mt-3"
                                         onClick={sendDater}
@@ -1825,7 +1805,8 @@ function GamesDetail() {
                                             fontSize: "1.3rem",
                                           }}
                                         >
-                                          {productList.finalPrice.toLocaleString()}￦
+                                          {productList.finalPrice.toLocaleString()}
+                                          ￦
                                         </span>
                                       </button>
                                     </>

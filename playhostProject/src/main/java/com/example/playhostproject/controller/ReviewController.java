@@ -49,12 +49,9 @@ public class ReviewController {
         try {
 
             Pageable pageable = PageRequest.of(page, size);
-            System.out.println("서비스 들어감");
 
             Page<ReviewDto> reviewDtoPage = reviewService.selectByParentAll(pid, pageable);
-            System.out.println("서비스에서 나옴");
 
-            System.out.println("맵에 들어감");
             Map<String, Object> response = new HashMap<>();
             response.put("reviewList", reviewDtoPage.getContent()); // 배열
             response.put("currentPage", reviewDtoPage.getNumber()); // 현재페이지번호
@@ -198,13 +195,10 @@ public class ReviewController {
     @PostMapping("/review/email/{userId}")
     public ResponseEntity<Object> selectByEmail(@PathVariable int userId) {
         try {
-            System.out.println("이베일 서비스 들가기직전");
             String email = reviewService.seletByEmail(userId);
-            System.out.println("이베일 서비스 나옴");
             return new ResponseEntity<>(email, HttpStatus.OK);
         } catch (Exception e) {
 //            DB 에러가 날경우
-            System.out.println("이베일 실패");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -214,28 +208,21 @@ public class ReviewController {
         try {
 
             Pageable pageable = PageRequest.of(page, size);
-            System.out.println("이즈 서비스 들어감");
 
             Page<IsLikeDto> isLikeDtoPage = reviewService.findByIsLike(tag,name,minPrice,maxPrice,pageable, order);
-            System.out.println("이즈 서비스에서 나옴");
             List<String> tagList = productService.findAllTag();
-            System.out.println("이즈 맵에 들어감");
             Map<String, Object> response = new HashMap<>();
             response.put("IsLikeProduct", isLikeDtoPage.getContent()); // 배열
             response.put("currentPage", isLikeDtoPage.getNumber()); // 현재페이지번호
             response.put("tagList", tagList); // 부서배열
             response.put("totalItems", isLikeDtoPage.getTotalElements()); // 총건수(개수)
             response.put("totalPages", isLikeDtoPage.getTotalPages()); // 총페이지수
-            System.out.println("rere : " + response);
             if (isLikeDtoPage.isEmpty() == false) {
-                System.out.println("완벽선공 WWWWWWWW");
                 return new ResponseEntity<>(response,HttpStatus.OK);
             } else {
-                System.out.println("서비스 성공 나머지 실패");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
         } catch (Exception e) {
-            System.out.println("실패 나옴");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

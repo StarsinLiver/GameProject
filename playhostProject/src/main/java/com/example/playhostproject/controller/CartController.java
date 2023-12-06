@@ -265,7 +265,6 @@ public class CartController {
     @PostMapping("/cart-library-update")
     public ResponseEntity<Object> updateAllCart(@RequestBody Library library) {
         try {
-            System.out.println("왔니");
             Library library1 = libraryService.save(library);
 
             return new ResponseEntity<>(library1, HttpStatus.OK);

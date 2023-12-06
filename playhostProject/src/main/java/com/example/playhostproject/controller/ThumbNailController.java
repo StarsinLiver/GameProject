@@ -140,7 +140,6 @@ public class ThumbNailController {
     // 삭제함수
     @DeleteMapping("/admin/thumbNail/deletion/{uuid}")
     public ResponseEntity<Object> delete(@PathVariable String uuid) {
-        System.out.println("uuid : " + uuid);
 //        프론트엔드 쪽으로 상태정보를 보내줌
         try {
             boolean bSuccess = thumbNailService.removeById(uuid);

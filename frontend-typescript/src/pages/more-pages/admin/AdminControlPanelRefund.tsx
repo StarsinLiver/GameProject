@@ -213,7 +213,7 @@ function AdminControlPanelRefund() {
                       width: "100px",
                       fontSize: "15px",
                     }}
-                    to="/control-panel-refund"
+                    to="/controll-panel-refund"
                   >
                     돌아가기
                   </Link>

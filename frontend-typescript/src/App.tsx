@@ -18,7 +18,7 @@ import CartList from "./pages/Cart/CartList";
 import CheckOut from "./pages/Cart/Checkout";
 import { SuccessPage } from "./pages/Cart/Success";
 import Fail from "./pages/Cart/Fail";
-import AdminControllPanel from "./pages/more-pages/admin/AdminControllPanel";
+import AdminControllPanel from "./pages/more-pages/admin/AdminControlPanel";
 import ForgotPassword from "./pages/more-pages/ForgotPassword";
 import HomePage from "./pages/homepage/HomePage";
 import AdminControlPanelModify from "./pages/more-pages/admin/AdminControlPanelModify";

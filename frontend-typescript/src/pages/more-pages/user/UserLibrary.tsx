@@ -129,13 +129,12 @@ function UserLibrary() {
 
   // Todo : 유저 수정 함수
   const handleRegisterUpdate = () => {
-    if (!IspasswordCheck) {
+    if (!IspasswordCheck && isPasswordChangButton === true) {
       alert("영문자 + 숫자 6자리 이상으로 비밀번호를 입력해주세요");
       return;
     }
-
     // 패스워드 변경 버튼이 활성화가 되지 않았을때
-    if (isPasswordChangButton === false) {
+    else if (isPasswordChangButton === false) {
       const data: IUser = {
         userId: userDto.userId,
         email: userDto.email, // == email : email (생략 가능)
@@ -343,6 +342,7 @@ function UserLibrary() {
                 {/* 유저 정보 끝 */}
                 <div className="spacer-single"></div>
 
+                {/* 유저 정보 수정 */}
                 {userUpdate && (
                   <>
                     <form
@@ -507,6 +507,8 @@ function UserLibrary() {
                     </form>
                   </>
                 )}
+                {/* 유저 정보 끝 */}
+
                 {/* 라이브러리 시작 */}
                 <section className="no-top ">
                   <div className="container">

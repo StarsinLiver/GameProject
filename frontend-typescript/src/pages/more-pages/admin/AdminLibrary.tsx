@@ -47,9 +47,13 @@ function AdminLibrary() {
   let [adminLibraryListRefundOk, setAdminLibraryListRefundOk] = useState<
     Array<ILibrary>
   >([]);
+  // 패스워드 확인하고자 할때
+  const [password, setPassword] = useState<string>("");
   const [isPasswordChangButton, setIsPasswordChangeButton] =
     useState<boolean>(false);
   const [isPasswordRight, setIsPasswordRight] = useState<boolean>(false);
+
+  const [IspasswordCheck, setIsPasswordCheck] = useState<boolean>(false);
 
   // TODO: 할인율 수정할 adminProduct 변수
   // initialAdminProduct 객체 초기화
@@ -211,17 +215,36 @@ function AdminLibrary() {
     setUserDto({ ...userDto, [name]: value });
   };
 
+  // 패스워드를 확인하고자 할때
+  const inputChangeSetPassword = (e: any) => {
+    setPassword(e.target.value);
+  };
+
+  // 변경된 패스워드 확인
   const inputChangeRepassword = (e: any) => {
     setRepassword(e.target.value);
   };
 
-  const inputChnageResetPassword = (e: any) => {
+  // 변경된 패스워드
+  const inputChangeResetPassword = (e: any) => {
+    // Todo : 영문자 + 숫자 6자리 이상으로 정규식 체크
+    const passwordCheck = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$/;
     setResetPassword(e.target.value);
+    if (passwordCheck.test(e.target.value)) {
+      return setIsPasswordCheck(true);
+    } else {
+      return setIsPasswordCheck(false);
+    }
   };
 
   // Todo : 유저 수정 함수
   const handleRegisterUpdate = () => {
-    if (isPasswordChangButton === false) {
+    if (!IspasswordCheck && isPasswordChangButton === true) {
+      alert("영문자 + 숫자 6자리 이상으로 비밀번호를 입력해주세요");
+      return;
+    }
+    // 패스워드 변경 버튼이 활성화가 되지 않았을때
+    else if (isPasswordChangButton === false) {
       const data: IUser = {
         userId: userDto.userId,
         email: userDto.email, // == email : email (생략 가능)
@@ -235,7 +258,12 @@ function AdminLibrary() {
       update(data);
     }
 
-    if (resetPassword === repassword && isPasswordChangButton === true) {
+    // 패스워드 변경 버튼이 활성화가 됬을때
+    if (
+      resetPassword === repassword &&
+      isPasswordChangButton === true &&
+      IspasswordCheck
+    ) {
       const data: IUser = {
         userId: userDto.userId,
         email: userDto.email, // == email : email (생략 가능)
@@ -248,7 +276,7 @@ function AdminLibrary() {
       };
       update(data);
     } else if (resetPassword != repassword) {
-      toastMessage("패스워드가 맞지않습니다. 다시 한번 더 쳐주세요.");
+      alert("패스워드가 맞지않습니다. 다시 한번 확인해주세요");
     }
   };
 
@@ -267,7 +295,9 @@ function AdminLibrary() {
 
   // Todo : 유저 삭제 함수
   const handleWithDraw = () => {
-    if (window.confirm("현 계정은 어드민계정입니다. 정말로 탈퇴를 원하십니까?")) {
+    if (
+      window.confirm("현 계정은 어드민계정입니다. 정말로 탈퇴를 원하십니까?")
+    ) {
       AuthService.withdraw(userDto.userId)
         .then((response: any) => {
           // Todo : 삭제와 함께 로그아웃
@@ -292,7 +322,7 @@ function AdminLibrary() {
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    isPasswordChangButton == false
+    isPasswordChangButton === false
       ? setIsPasswordChangeButton(true)
       : setIsPasswordChangeButton(false);
   };
@@ -300,24 +330,34 @@ function AdminLibrary() {
   // Todo : DB에서 패스워드가 맞는지 확인
   const onClickMatchPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (userDto.password == null) {
+      alert("카카오 또는 구글아이디는 패스워드를 수정할 수 없습니다.");
+      setIsPasswordChangeButton(false);
+      return;
+    }
+
     let data = {
       userId: userDto.userId,
       email: userDto.email,
-      password: userDto.password,
+      password: password,
     };
     AuthService.isPassword(data)
       .then((response: any) => {
         setIsPasswordRight(response.data);
         response.data
-          ? toastMessage("바꾸실 패스워드를 입력해주세요")
-          : toastMessage("패스워드가 잘못되었습니다.");
+          ? alert("바꾸실 패스워드를 입력해주세요")
+          : alert("패스워드가 잘못되었습니다.");
+        if (response.data == false) {
+          setIsPasswordChangeButton(false);
+        }
       })
       .catch((e: Error) => {
         console.log(e);
       });
   };
 
-  const toastMessage = (title: any = null , message : any = null) => {
+  const toastMessage = (title: any = null, message: any = null) => {
     toast.info(
       <div>
         <div>{title}</div>
@@ -398,7 +438,7 @@ function AdminLibrary() {
                 {/* 유저 정보 끝 */}
                 <div className="spacer-single"></div>
 
-                {/* 유저 정보 수정 시작 */}
+                {/* 유저 정보 수정 */}
                 {userUpdate && (
                   <>
                     <form
@@ -451,6 +491,7 @@ function AdminLibrary() {
                           </div>
                         </div>
 
+                        {/* 비밀번호 확인  */}
                         {isPasswordChangButton && isPasswordRight == false && (
                           <>
                             <div className="col-md-6">
@@ -460,7 +501,7 @@ function AdminLibrary() {
                                   type="text"
                                   name="password"
                                   id="password"
-                                  onChange={inputChange}
+                                  onChange={inputChangeSetPassword}
                                   className={"form-control"}
                                 />
                               </div>
@@ -477,6 +518,7 @@ function AdminLibrary() {
                           </>
                         )}
 
+                        {/* 비밀번호가 확인이 되었다면 이곳으로 */}
                         {isPasswordRight && isPasswordChangButton && (
                           <>
                             <div className="col-md-6 ">
@@ -486,7 +528,7 @@ function AdminLibrary() {
                                   type="text"
                                   name="password"
                                   id="password"
-                                  onChange={inputChnageResetPassword}
+                                  onChange={inputChangeResetPassword}
                                   className={"form-control"}
                                 />
                               </div>
@@ -561,7 +603,7 @@ function AdminLibrary() {
                     </form>
                   </>
                 )}
-                {/* 유저 정보 수정 끝 */}
+                {/* 유저 정보 끝 */}
 
                 {/* 상품 목록 시작 */}
                 <section className="no-top ">
@@ -690,7 +732,12 @@ function AdminLibrary() {
                                                 paddingTop: "5px",
                                               }}
                                               disabled={disable}
-                                              onClick={() => toastMessage('해당 게임은 무료이기 때문에 할인율을 수정할수 없습니다.',data.name)}
+                                              onClick={() =>
+                                                toastMessage(
+                                                  "해당 게임은 무료이기 때문에 할인율을 수정할수 없습니다.",
+                                                  data.name
+                                                )
+                                              }
                                             >
                                               수정 불가
                                             </button>

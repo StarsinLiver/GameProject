@@ -305,7 +305,7 @@ function Register() {
                             <div className="field-set">
                               <label>비밀번호 재입력:</label>
                               <Field
-                                type="text"
+                                type="password"
                                 name="repassword"
                                 id="repassword"
                                 className={

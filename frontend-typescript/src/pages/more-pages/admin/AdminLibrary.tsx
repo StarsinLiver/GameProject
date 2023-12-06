@@ -498,7 +498,7 @@ function AdminLibrary() {
                               <div className="field-set">
                                 <label>enter your Password:</label>
                                 <input
-                                  type="text"
+                                  type="password"
                                   name="password"
                                   id="password"
                                   onChange={inputChangeSetPassword}
@@ -538,7 +538,7 @@ function AdminLibrary() {
                               <div className="field-set">
                                 <label>Re-enter Password:</label>
                                 <input
-                                  type="text"
+                                  type="password"
                                   name="repassword"
                                   id="repassword"
                                   onChange={inputChangeRepassword}

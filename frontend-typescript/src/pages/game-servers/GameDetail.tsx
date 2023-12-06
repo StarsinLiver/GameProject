@@ -867,7 +867,7 @@ function GamesDetail() {
                               className="small-border"
                               style={{ width: "100%" }}
                             ></div>
-                            <h4 className="d-label mt-3">Review</h4>
+                            <h4 className="d-label mt-3">Reviews</h4>
                           </div>
                           {/* 전체조회 - map 시작 */}
                           <div
@@ -1614,6 +1614,7 @@ function GamesDetail() {
 
                       {/* 리뷰 작성 */}
                       <section style={{ margin: "0px", padding: "0px" }}>
+                      {library == true && (
                         <div className="container col-lg-12 mt-5">
                           <div className="col-lg-12">
                             <div className="field-set">
@@ -1713,7 +1714,7 @@ function GamesDetail() {
                               )}
                             </div>
                           )}
-                        </div>
+                        </div>)}
                       </section>
                     </section>
                   </div>
@@ -1772,34 +1773,7 @@ function GamesDetail() {
                                       </button>
                                     </div>
                                   ) : (
-                                    <>
-                                      {/* <span
-                                        className="material-symbols-outlined"
-                                        style={{
-                                          fontSize: "1.1rem",
-                                          marginRight: "0.5rem",
-                                          color: "#5623d8",
-                                        }}
-                                      >
-                                        add_shopping_cart
-                                      </span>
-                                      <span
-                                        style={{
-                                          fontWeight: "bold",
-                                          color: "white",
-                                          fontSize: "1.3rem",
-                                        }}
-                                      >
-                                        {productList.price}
-                                      </span>
-                                      원
-                                      <button
-                                        className="btn-main mb10 mt-3"
-                                        onClick={sendDater}
-                                        style={{ display: "inline-block" }}
-                                      >
-                                        장바구니 추가
-                                      </button> */}
+                                    <>                                      
                                       <button
                                         className="btn-main mb10 mt-3"
                                         onClick={sendDater}

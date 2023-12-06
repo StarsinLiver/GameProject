@@ -57,7 +57,7 @@ function Header() {
                       <Link to="/">
                         <img
                           className="logo-main ms-6"
-                          src="images/logo.png"
+                          src={require(`../assets/images/logo.png`)}
                           alt=""
                           style={{width: "180px", height: "45px"}}
                         />

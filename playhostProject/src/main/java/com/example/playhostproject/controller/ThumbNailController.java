@@ -123,8 +123,6 @@ public class ThumbNailController {
                                             @PathVariable String uuid,          // 기본키
                                             @RequestParam MultipartFile thumbNail  // 첨부파일
     ) {
-        System.out.println("여기서 uuid 를 확인해 보세요 uuid : " + uuid );
-
         uuid = (uuid.equals("undefined")) ? null : uuid;
         try {
             ThumbNail thumbNail1 = thumbNailService.save(

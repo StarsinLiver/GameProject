@@ -42,10 +42,19 @@ const findNewsById = (appid : number) => {
   });
 }
 
+const findBySearchName = (searchName: string, page: number, pageSize: number) => {
+  return axios.get(`https://your-search-api-endpoint?search=${searchName}&page=${page}&pageSize=${pageSize}`, {
+      headers: {
+          'x-cors-api-key': `${process.env.REACT_APP_PROXY_KEY}`
+      }
+  });
+};
+
 const TestOpenApiService = {
   findAll,
   findById,
-  findNewsById
+  findNewsById,
+  findBySearchName
 };
 
 export default TestOpenApiService;

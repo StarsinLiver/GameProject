@@ -39,7 +39,7 @@ function UserLibrary() {
   const [userDto, setUserDto] = useState<IUser>(initalUser);
   // 패스워드 확인하고자 할때
   const [password, setPassword] = useState<string>("");
-  // 변경된 패스워드 다시 치기 
+  // 변경된 패스워드 다시 치기
   const [repassword, setRepassword] = useState<string>("");
   // 변경된 패스워드
   const [resetPassword, setResetPassword] = useState<string>("");
@@ -51,6 +51,8 @@ function UserLibrary() {
   const [isPasswordChangButton, setIsPasswordChangeButton] =
     useState<boolean>(false);
   const [isPasswordRight, setIsPasswordRight] = useState<boolean>(false);
+
+  const [IspasswordCheck, setIsPasswordCheck] = useState<boolean>(false);
 
   // TODO : 공통 변수(필수) : page(현재 페이지), count(총 페이지 건수) , pageSize(3,6,9 배열 : 1페이지 당 건수)
   const [page, setPage] = useState<number>(1); // 현재 페이지 번호        : 최초값 1
@@ -92,8 +94,6 @@ function UserLibrary() {
         setUserDto(userDto);
         setCount(totalPages);
         setLibraryDtoNoPage(libraryDtoNoPage);
-
-        console.log(response.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -103,13 +103,12 @@ function UserLibrary() {
   const inputChange = (e: any) => {
     const { name, value } = e.target;
     setUserDto({ ...userDto, [name]: value });
-    console.log(userDto.password);
   };
 
   // 패스워드를 확인하고자 할때
-  const inputChangeSetPassword = (e : any) => { 
+  const inputChangeSetPassword = (e: any) => {
     setPassword(e.target.value);
-   }
+  };
 
   // 변경된 패스워드 확인
   const inputChangeRepassword = (e: any) => {
@@ -117,12 +116,23 @@ function UserLibrary() {
   };
 
   // 변경된 패스워드
-  const inputChnageResetPassword = (e: any) => {
+  const inputChangeResetPassword = (e: any) => {
+    // Todo : 영문자 + 숫자 6자리 이상으로 정규식 체크
+    const passwordCheck = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$/;
     setResetPassword(e.target.value);
+    if (passwordCheck.test(e.target.value)) {
+      return setIsPasswordCheck(true);
+    } else {
+      return setIsPasswordCheck(false);
+    }
   };
 
   // Todo : 유저 수정 함수
   const handleRegisterUpdate = () => {
+    if (!IspasswordCheck) {
+      alert("영문자 + 숫자 6자리 이상으로 비밀번호를 입력해주세요");
+      return;
+    }
 
     // 패스워드 변경 버튼이 활성화가 되지 않았을때
     if (isPasswordChangButton === false) {
@@ -140,7 +150,11 @@ function UserLibrary() {
     }
 
     // 패스워드 변경 버튼이 활성화가 됬을때
-    if (resetPassword === repassword && isPasswordChangButton === true) {
+    if (
+      resetPassword === repassword &&
+      isPasswordChangButton === true &&
+      IspasswordCheck
+    ) {
       const data: IUser = {
         userId: userDto.userId,
         email: userDto.email, // == email : email (생략 가능)
@@ -153,7 +167,7 @@ function UserLibrary() {
       };
       update(data);
     } else if (resetPassword != repassword) {
-      alert("패스워드가 맞지않습니다. 다시 한번 더 쳐주세요.");
+      alert("패스워드가 맞지않습니다. 다시 한번 확인해주세요");
     }
   };
 
@@ -219,14 +233,13 @@ function UserLibrary() {
     };
     AuthService.isPassword(data)
       .then((response: any) => {
-        console.log(response);
         setIsPasswordRight(response.data);
         response.data
           ? alert("바꾸실 패스워드를 입력해주세요")
           : alert("패스워드가 잘못되었습니다.");
-          if(response.data == false) {
-            setIsPasswordChangeButton(false);
-          }
+        if (response.data == false) {
+          setIsPasswordChangeButton(false);
+        }
       })
       .catch((e: Error) => {
         console.log(e);
@@ -419,7 +432,7 @@ function UserLibrary() {
                                   type="text"
                                   name="password"
                                   id="password"
-                                  onChange={inputChnageResetPassword}
+                                  onChange={inputChangeResetPassword}
                                   className={"form-control"}
                                 />
                               </div>
@@ -533,7 +546,7 @@ function UserLibrary() {
                                 {!showRefundButton && (
                                   <Link
                                     className="btn-main btn-fullwidth"
-                                    to="pricing-table-one.html"
+                                    to="https://store.steampowered.com/"
                                   >
                                     게임 플레이
                                   </Link>
@@ -1060,9 +1073,9 @@ function UserLibrary() {
                   <h4>주의 사항</h4>
                   <div className="small-border"></div>
                   <p className="small no-bottom">
-                    환불한 게임은 다시 그 가격에 구매하지 못할수도 있습니다.
-                    일부 게임은 환불이 불가합니다. 추가적인 문의사항은 Q&A를
-                    이용해주세요.
+                    환불한 게임은 다시 그 가격에 구매하지 못할수도 있습니다.{" "}
+                    <br /> 일부 게임은 환불이 불가합니다. <br /> 추가적인
+                    문의사항은 Q&A를 이용해주세요.
                   </p>
                 </div>
                 {/* 주의 사항 끝 */}

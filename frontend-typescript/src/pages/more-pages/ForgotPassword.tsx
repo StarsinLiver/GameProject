@@ -47,7 +47,6 @@ function ForgotPassword() {
     let data = {
       email: email,
     };
-    console.log(randomNumber);
     if (randomNumber === parseInt(certificationNumber)) {
       navigate(`/reset-password/${email}`);
       return;
@@ -74,17 +73,14 @@ function ForgotPassword() {
       message: `이메일 확인 메시지입니다. ${randomNumber} 번호를 맞게 입력해주세요`,
     };
 
-    console.log("전송 데이터:", templateParams);
-
     emailjs
       .send(
         `${process.env.REACT_APP_EMAIL_JS_SERVICE_ID}`,
-        "template_p4jxv0a",
+        `template_p4jxv0a`,
         templateParams,
         `${process.env.REACT_APP_EMAIL_JS_API_KEY}`
       )
       .then((response) => {
-        console.log("이메일이 성공적으로 보내졌습니다:", response);
         setIsEmailSent(true);
       })
       .catch((error) => {
@@ -108,7 +104,6 @@ function ForgotPassword() {
   // 인증번호 재전송 로직
   const handleResendEmail = (values: any) => {
     const newRandomNumber = Math.floor(Math.random() * 8999 + 1000);
-    console.log("새로 생성된 랜덤 숫자:", newRandomNumber); // 랜덤 숫자 출력
     setRandomNumber(newRandomNumber);
     setVerificationCode(""); // 이전 입력값 초기화
     setResendClick(true);

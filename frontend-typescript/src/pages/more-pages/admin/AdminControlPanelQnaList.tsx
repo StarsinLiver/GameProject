@@ -56,8 +56,6 @@ function AdminControlPanelQnaList() {
                 setQnaList(qna);
                 // Todo : 페이징 처리
                 setCount(totalPages);
-                // 로깅
-                console.log(response.data);
             })
             .catch((e: Error) => {
                 console.log(e);
@@ -150,7 +148,15 @@ function AdminControlPanelQnaList() {
                                                         <h4>{data.questioner}</h4>
                                                     </div>
                                                     {/* 제목 */}
-                                                    <h3 style={{ overflow: 'hidden', textOverflow : 'ellipsis' , height : '100px' }}>{data.question}</h3>
+                                                    <h3
+                                                        style={{
+                                                            overflow: 'hidden',
+                                                            textOverflow: 'ellipsis',
+                                                            height: '100px',
+                                                        }}
+                                                    >
+                                                        {data.question}
+                                                    </h3>
                                                     <Link
                                                         role="button"
                                                         className="btn-main opt-1 me-2 mt-3"
@@ -171,45 +177,45 @@ function AdminControlPanelQnaList() {
                             <div className="spacer-single"></div>
 
                             <div className="container" id="paging">
-                            <Pagination
-                  className="pagination"
-                  count={count}
-                  page={page}
-                  siblingCount={1}
-                  boundaryCount={1}
-                  shape="rounded"
-                  onChange={handlePageChange}
-                  sx={{
-                    backgroundColor: "#1E1F22", // 검정색 배경
-                    color: "white", // 흰색 글자색
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "20px", // 원하는 여백 설정
-                    "& .Mui-selected": {
-                      backgroundColor: "white", // 선택된 페이지의 배경색
-                      color: "#1E1F22", // 선택된 페이지의 글자색
-                      "&:hover": {
-                        backgroundColor: "white", // 선택된 페이지의 호버 배경색
-                      },
-                    },
-                    "& .MuiPaginationItem-root": {
-                      fontSize: "1rem", // 페이지 아이템의 글자 크기
-                      minWidth: "30px", // 페이지 아이템의 최소 너비
-                      height: "30px", // 페이지 아이템의 높이
-                      color: "white", // 선택되지 않은 페이지 아이템의 글자색
-                      "&:hover": {
-                        backgroundColor: "black", // 선택되지 않은 페이지 아이템의 호버 배경색
-                      },
-                      "&.Mui-selected": {
-                        backgroundColor: "purple", // 특정 페이지일 때 선택된 페이지의 배경색
-                        color: "white", // 특정 페이지일 때 선택된 페이지의 글자색
-                        "&:hover": {
-                          backgroundColor: "purple", // 특정 페이지일 때 선택된 페이지의 호버 배경색
-                        },
-                      },
-                    },
-                  }}
-                />
+                                <Pagination
+                                    className="pagination"
+                                    count={count}
+                                    page={page}
+                                    siblingCount={1}
+                                    boundaryCount={1}
+                                    shape="rounded"
+                                    onChange={handlePageChange}
+                                    sx={{
+                                        backgroundColor: '#1E1F22', // 검정색 배경
+                                        color: 'white', // 흰색 글자색
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        marginTop: '20px', // 원하는 여백 설정
+                                        '& .Mui-selected': {
+                                            backgroundColor: 'white', // 선택된 페이지의 배경색
+                                            color: '#1E1F22', // 선택된 페이지의 글자색
+                                            '&:hover': {
+                                                backgroundColor: 'white', // 선택된 페이지의 호버 배경색
+                                            },
+                                        },
+                                        '& .MuiPaginationItem-root': {
+                                            fontSize: '1rem', // 페이지 아이템의 글자 크기
+                                            minWidth: '30px', // 페이지 아이템의 최소 너비
+                                            height: '30px', // 페이지 아이템의 높이
+                                            color: 'white', // 선택되지 않은 페이지 아이템의 글자색
+                                            '&:hover': {
+                                                backgroundColor: 'black', // 선택되지 않은 페이지 아이템의 호버 배경색
+                                            },
+                                            '&.Mui-selected': {
+                                                backgroundColor: 'purple', // 특정 페이지일 때 선택된 페이지의 배경색
+                                                color: 'white', // 특정 페이지일 때 선택된 페이지의 글자색
+                                                '&:hover': {
+                                                    backgroundColor: 'purple', // 특정 페이지일 때 선택된 페이지의 호버 배경색
+                                                },
+                                            },
+                                        },
+                                    }}
+                                />
                             </div>
                             {/* 답변 전 질문 박스 끝 */}
 
@@ -256,43 +262,43 @@ function AdminControlPanelQnaList() {
                             <div className="spacer-single"></div>
 
                             <Pagination
-                  className="pagination"
-                  count={count}
-                  page={page}
-                  siblingCount={1}
-                  boundaryCount={1}
-                  shape="rounded"
-                  onChange={handlePageChange}
-                  sx={{
-                    color: "white", // 흰색 글자색
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "20px", // 원하는 여백 설정
-                    "& .Mui-selected": {
-                      backgroundColor: "white", // 선택된 페이지의 배경색
-                      color: "#1E1F22", // 선택된 페이지의 글자색
-                      "&:hover": {
-                        backgroundColor: "white", // 선택된 페이지의 호버 배경색
-                      },
-                    },
-                    "& .MuiPaginationItem-root": {
-                      fontSize: "1rem", // 페이지 아이템의 글자 크기
-                      minWidth: "30px", // 페이지 아이템의 최소 너비
-                      height: "30px", // 페이지 아이템의 높이
-                      color: "white", // 선택되지 않은 페이지 아이템의 글자색
-                      "&:hover": {
-                        backgroundColor: "black", // 선택되지 않은 페이지 아이템의 호버 배경색
-                      },
-                      "&.Mui-selected": {
-                        backgroundColor: "purple", // 특정 페이지일 때 선택된 페이지의 배경색
-                        color: "white", // 특정 페이지일 때 선택된 페이지의 글자색
-                        "&:hover": {
-                          backgroundColor: "purple", // 특정 페이지일 때 선택된 페이지의 호버 배경색
-                        },
-                      },
-                    },
-                  }}
-                />
+                                className="pagination"
+                                count={count}
+                                page={page}
+                                siblingCount={1}
+                                boundaryCount={1}
+                                shape="rounded"
+                                onChange={handlePageChange}
+                                sx={{
+                                    color: 'white', // 흰색 글자색
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    marginTop: '20px', // 원하는 여백 설정
+                                    '& .Mui-selected': {
+                                        backgroundColor: 'white', // 선택된 페이지의 배경색
+                                        color: '#1E1F22', // 선택된 페이지의 글자색
+                                        '&:hover': {
+                                            backgroundColor: 'white', // 선택된 페이지의 호버 배경색
+                                        },
+                                    },
+                                    '& .MuiPaginationItem-root': {
+                                        fontSize: '1rem', // 페이지 아이템의 글자 크기
+                                        minWidth: '30px', // 페이지 아이템의 최소 너비
+                                        height: '30px', // 페이지 아이템의 높이
+                                        color: 'white', // 선택되지 않은 페이지 아이템의 글자색
+                                        '&:hover': {
+                                            backgroundColor: 'black', // 선택되지 않은 페이지 아이템의 호버 배경색
+                                        },
+                                        '&.Mui-selected': {
+                                            backgroundColor: 'purple', // 특정 페이지일 때 선택된 페이지의 배경색
+                                            color: 'white', // 특정 페이지일 때 선택된 페이지의 글자색
+                                            '&:hover': {
+                                                backgroundColor: 'purple', // 특정 페이지일 때 선택된 페이지의 호버 배경색
+                                            },
+                                        },
+                                    },
+                                }}
+                            />
                             {/* 답변 후 질문 박스 끝 */}
 
                             {/* 공백용 div */}
@@ -310,11 +316,11 @@ function AdminControlPanelQnaList() {
                                             />
                                         </div>
                                         <div className="col-lg-9">
-                                            <h4>Cannot find answer? Contact our customer support now.</h4>
+                                            <h4>관리자 라이브러리로 돌아가기</h4>
                                         </div>
                                         <div className="col-lg-2 text-lg-end">
-                                            <a className="btn-main" href="#">
-                                                Contact Us
+                                            <a className="btn-main" href="admin-library">
+                                                Admin Library
                                             </a>
                                         </div>
                                     </div>

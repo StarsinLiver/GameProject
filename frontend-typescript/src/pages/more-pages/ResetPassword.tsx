@@ -93,7 +93,6 @@ function ResetPassword() {
 
       AuthService.resetPassword(data)
       .then((response : any) => {
-        console.log(response);
         setSeconds(3);
         sendVerificationEmail();
       })
@@ -116,12 +115,11 @@ function ResetPassword() {
       emailjs
       .send(
         `${process.env.REACT_APP_EMAIL_JS_SERVICE_ID}`,
-        "template_p4jxv0a",
+        `template_8i7gn6k`,
         templateParams,
         `${process.env.REACT_APP_EMAIL_JS_API_KEY}`
       )
         .then((response: any) => {
-          console.log("이메일이 성공적으로 보내졌습니다:", response);
           // setIsEmailSent(true);
         })
         .catch((error: Error) => {

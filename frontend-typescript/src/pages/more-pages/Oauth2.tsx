@@ -13,8 +13,6 @@ import designesis from "../../assets/js/designesia";
 function Oauth2() {
   useEffect(() => {
     designesis();
-    console.log("registrationId",registrationId);
-    console.log("code" , code);
   }, []);
   let navigate = useNavigate();
   let { registrationId } = useParams();

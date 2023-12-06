@@ -33,6 +33,14 @@ function AdminControllPenal() {
   const onChangeSearchName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchName = e.target.value;
     setSearchName(searchName);
+
+    const pageCount = Math.floor(
+      steamList.filter(
+        (value) =>
+          value.name.toUpperCase().indexOf(e.target.value.toUpperCase()) != -1
+      ).length / pageSize
+    );
+    setCount(pageCount);
   };
 
   // Todo : 파일
@@ -49,22 +57,20 @@ function AdminControllPenal() {
   useEffect(() => {
     // todo : 첫번째 실행
     reteiveSteamAll();
-  }, [count]);
+  }, [render]);
 
   // todo : 첫번째 실행
   const reteiveSteamAll = () => {
     TestOpenApiService.findAll()
       .then((response: any) => {
-        console.log(response);
 
         const { apps } = response.data.applist;
 
         // Todo : 검색 결과 제한
-        setSteamList(apps.slice(50, 200000)); // name 과 appid
+        setSteamList(apps.slice(50, 10000)); // name 과 appid
 
         // Todo : 페이징 처리
         setCount(Math.ceil(steamList.length / pageSize));
-
         setRender(true);
       })
       .catch((e: Error) => {
@@ -77,7 +83,6 @@ function AdminControllPenal() {
     TestOpenApiService.findById(appid)
       .then((response: any) => {
         let data = response.data[`${appid}`].data;
-        console.log(response.data);
         setSteam(data);
         setDiscount(0);
       })
@@ -154,7 +159,6 @@ function AdminControllPenal() {
     ThumbNailService.upload(appid, currentFile) // 저장 요청
       .then((response: any) => {
         uploadProduct(appid, response.data);
-        console.log(response.data);
       })
       .catch((e: Error) => {
         if ("Request failed with status code 400" == e.message) {
@@ -448,6 +452,7 @@ function AdminControllPenal() {
                           (value) =>
                             value.name
                               .toUpperCase()
+
                               .indexOf(searchName.toUpperCase()) != -1
                         )
                         .map((value, index) => (
@@ -788,88 +793,63 @@ function AdminControllPenal() {
           </div>
         </section>
 
-        <section className="no-top">
-          <div className="container">
-            <div className="row g-4">
+        {/* < -- 2번째 섹션 : Premium Game Server 시작 -- > */}
+        <section className="no-bottom">
+          <div className="container pb-5">
+            <div className="row">
               <div className="col-lg-6">
                 <div className="subtitle wow fadeInUp mb-3">
                   Incredibly features
                 </div>
                 <h2 className="wow fadeInUp mb20" data-wow-delay=".2s">
-                  Premium Features
+                  프리미엄 게임 서버
                 </h2>
               </div>
 
               <div className="col-lg-6"></div>
 
               <div
-                className="col-lg-3 col-sm-6 wow fadeInRight"
+                className="col-lg-3 col-md-6 mb-sm-20 wow fadeInRight"
                 data-wow-delay="0s"
               >
                 <div>
-                  <img
-                    src={require("../../../assets/images/icons/1.png")}
-                    className="mb20"
-                    alt=""
-                  />
+                  <img src="images/icons/1.png" className="mb20" alt="" />
                   <h4>Super Quick Setup</h4>
-                  <p>
-                    Dolor minim in pariatur in deserunt laboris eu pariatur
-                    labore excepteur cupidatat cupidatat duis dolor in.
-                  </p>
+                  <p>다른 웹 사이트보다 훨신 빠른 게임 설정이 가능합니다.</p>
                 </div>
               </div>
 
               <div
-                className="col-lg-3 col-sm-6 wow fadeInRight"
+                className="col-lg-3 col-md-6 mb-sm-20 wow fadeInRight"
                 data-wow-delay=".2s"
               >
                 <div>
-                  <img
-                    src={require("../../../assets/images/icons/2.png")}
-                    className="mb20"
-                    alt=""
-                  />
+                  <img src="images/icons/2.png" className="mb20" alt="" />
                   <h4>Premium Hardware</h4>
-                  <p>
-                    Dolor minim in pariatur in deserunt laboris eu pariatur
-                    labore excepteur cupidatat cupidatat duis dolor in.
-                  </p>
+                  <p>저희 서버에서는 프리미엄 하드웨어를 제공합니다.</p>
                 </div>
               </div>
 
               <div
-                className="col-lg-3 col-sm-6 wow fadeInRight"
+                className="col-lg-3 col-md-6 mb-sm-20 wow fadeInRight"
                 data-wow-delay=".4s"
               >
                 <div>
-                  <img
-                    src={require("../../../assets/images/icons/3.png")}
-                    className="mb20"
-                    alt=""
-                  />
+                  <img src="images/icons/3.png" className="mb20" alt="" />
                   <h4>DDos Protection</h4>
-                  <p>
-                    Dolor minim in pariatur in deserunt laboris eu pariatur
-                    labore excepteur cupidatat cupidatat duis dolor in.
-                  </p>
+                  <p>어떠한 디도스 공격에도 막아낼 수 있습니다.</p>
                 </div>
               </div>
 
               <div
-                className="col-lg-3 col-sm-6 wow fadeInRight"
+                className="col-lg-3 col-md-6 mb-sm-20 wow fadeInRight"
                 data-wow-delay=".6s"
               >
                 <div>
-                  <img
-                    src={require("../../../assets/images/icons/4.png")}
-                    className="mb20"
-                    alt=""
-                  />
+                  <img src="images/icons/4.png" className="mb20" alt="" />
                   <h4>Fast Support</h4>
                   <p>
-                    Dolor minim in pariatur in deserunt laboris eu pariatur
-                    labore excepteur cupidatat cupidatat duis dolor in.
+                    24시간 대기 하고있는 상담원을 빠른 서포트 기능을 만나보세요!
                   </p>
                 </div>
               </div>
@@ -889,6 +869,7 @@ function AdminControllPenal() {
             style={{ width: "600px" }}
           />
         </section>
+        {/* < -- 2번째 섹션 : Premium Game Server 종료 -- > */}
       </div>
     </>
   );

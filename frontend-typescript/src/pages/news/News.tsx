@@ -43,7 +43,7 @@ function News() {
         setLoading(false);
       })
       .catch((e: Error) => {
-        console.log(e);
+       
         setLoading(false);
       });
   };

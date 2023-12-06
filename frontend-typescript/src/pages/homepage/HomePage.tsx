@@ -83,7 +83,7 @@ function HomePage() {
                 {render &&
                   productDtoPage
                     .filter((value, index) => value.uuid != null)
-                    .slice(0, 4)
+                    .slice(0,4)
                     .map((value, index) => (
                       <>
                         <div

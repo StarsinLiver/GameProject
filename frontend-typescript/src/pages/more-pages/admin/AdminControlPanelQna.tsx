@@ -54,7 +54,6 @@ function AdminControlPanelQna() {
         AdminQnaService.get(qid) // 벡엔드로 상세조회 요청
             .then((response: any) => {
                 setQna(response.data);
-                console.log(response.data);
             })
             .catch((e: Error) => {
                 console.log(e);
@@ -77,7 +76,6 @@ function AdminControlPanelQna() {
             .then((response: any) => {
                 alert('답변이 완료되었습니다.');
                 navigate(`/control-panel-qna`);
-                console.log(response.data);
             })
             .catch((e: Error) => {
                 console.log(e);

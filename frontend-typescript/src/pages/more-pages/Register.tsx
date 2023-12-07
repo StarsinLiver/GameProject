@@ -10,6 +10,7 @@ import { register } from "../../store/slices/auth";
 import customMarquee from "../../assets/js/custom-marquee";
 import IUser from "../../types/auth/IUser";
 import designesis from "../../assets/js/designesia";
+import AuthService from "../../services/auth/AuthService";
 
 function Register() {
   useEffect(() => {
@@ -19,6 +20,10 @@ function Register() {
   }, []);
 
   let navigate = useNavigate();
+  const kakaoClientId = process.env.REACT_APP_KAKAO_CLIENT_ID;
+  const kakaoRedirectUrl = process.env.REACT_APP_KAKAO_REDIRECT_URL;  
+  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const googleRedirectUrl = process.env.REACT_APP_GOOGLE_REDIRECT_URL;
   const { isLoggedIn } = useSelector((state: RootState) => state.auth);
   const [successful, setSuccessful] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -125,6 +130,16 @@ function Register() {
     const { name, email, password, number } = formValue;
     setSendEmailClick(true);
     number == randomNumber ? setIsEmailRight(true) : setIsEmailRight(false);
+    let data1 = {
+      email : email
+    }
+    AuthService.findPassword(data1)
+    .then((response : any) => {
+      alert("이미 계정을 가지고 계십니다. 다른 계정으로 회원가입을 진행해 주세요")
+    })
+    .catch((e : Error) => {
+
+
     const data: IUser = {
       email, // == email : email (생략 가능)
       password, // == password : password
@@ -150,6 +165,7 @@ function Register() {
     } else {
       sendVerificationEmail(email, randomNumber);
     }
+  })
   };
 
   const sendVerificationEmail = (email: any, randomNumber: any) => {
@@ -424,10 +440,7 @@ function Register() {
                             </div>
                             <div className="row g-2">
                               <div className="col-lg-6">
-                                <Link
-                                  className="btn-sc btn-fullwidth mb10"
-                                  to="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=431919365136-7pl1vo66ea1ioglqbbnc619pkl09cnsm.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/oauth2/code/google&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&serviso&o2v=1&theme=glif&flowName=GeneralOAuthFlow"
-                                >
+                              <Link className="btn-sc btn-fullwidth mb10" to={`https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=${googleClientId}&redirect_uri=${googleRedirectUrl}&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&serviso&o2v=1&theme=glif&flowName=GeneralOAuthFlow`}>
                                   <img
                                     src={require("../../assets/images/svg/google_icon.svg")}
                                     alt=""
@@ -436,10 +449,7 @@ function Register() {
                                 </Link>
                               </div>
                               <div className="col-lg-6">
-                                <Link
-                                  className="btn-sc btn-fullwidth"
-                                  to="https://kauth.kakao.com/oauth/authorize?client_id=44f5d067449f18cd91d5dc36a85d67c9&redirect_uri=http://localhost:3000/login/oauth2/code/kakao&response_type=code"
-                                >
+                              <Link className="btn-sc btn-fullwidth" to={`https://kauth.kakao.com/oauth/authorize?client_id=${kakaoClientId}&redirect_uri=${kakaoRedirectUrl}&response_type=code`}>
                                   <img
                                     src={require("../../assets/images/svg/google_icon.svg")}
                                     alt=""

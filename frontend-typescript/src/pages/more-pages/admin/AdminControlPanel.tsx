@@ -67,7 +67,189 @@ function AdminControllPenal() {
         const { apps } = response.data.applist;
 
         // Todo : 검색 결과 제한
-        setSteamList(apps.slice(50, 10000)); // name 과 appid
+        setSteamList(
+          apps
+          .slice(50, 10000) // name 과 appid
+          .filter(
+            (value : any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("sex".toUpperCase()) == -1
+          )
+          .filter(
+            (value : any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("hentai".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("girl".toUpperCase()) == -1
+          )
+          .filter(
+            (value : any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("demo".toUpperCase()) == -1
+          )
+          .filter(
+            (value : any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("soundtrack".toUpperCase()) == -1
+          )
+          .filter(
+            (value : any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("illust".toUpperCase()) == -1
+          )
+          .filter(
+            (value : any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("pack".toUpperCase()) == -1
+          )
+          .filter(
+            (value : any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("bgm".toUpperCase()) == -1
+          )
+          .filter(
+            (value : any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("dlc".toUpperCase()) == -1
+          )
+          .filter(
+            (value : any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("bonus".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("sticker set".toUpperCase()) == -1
+          )
+          .filter(
+            (value : any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("gesture".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("Pendant:".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("MHW:".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("Costume".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("Wings of Ruin".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("The Handler's ".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("face Paint: ".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("Hairstyle".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("Voucher".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("Bundle".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("armor piece".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("layered armor".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("layered weapon".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("Deluxe Kit".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("Cohoot outfit".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("hunter voice".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("face paint".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("pose set".toUpperCase()) == -1
+          )
+          .filter(
+            (value: any) =>
+              value.name
+                .toUpperCase()
+                .indexOf("makeup".toUpperCase()) == -1
+          ))
 
         // Todo : 페이징 처리
         setCount(Math.ceil(steamList.length / pageSize));

@@ -8,11 +8,10 @@ npm i axios
 npm install @tosspayments/payment-widget-sdk
 ## middleware
 npm i http-proxy-middleware
-## Material Page component 업그레이드 
+## Material Page component
 npm install @mui/material @emotion/react @emotion/styled
-## 공유라이브러리 리덕스-툴킷 설치
+## 리덕스
 npm i react-redux @reduxjs/toolkit
-# 폼 유효성 체크 라이브러리 설치
 ## formik
 npm i formik
 ## yup

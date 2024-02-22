@@ -1,5 +1,5 @@
 # Playhost Springboot Game Web page Project
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FStarsinLiver%2FGameProject&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?tab=readme-ov-file&url=https%3A%2F%2Fgithub.com%2FStarsinLiver%2FGameProject&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ## 0. Spring Boot 와 React 을 활용한 게임 웹사이트 프로젝트
 - SpringBoot 기반 웹 사이트 개발 프로젝트를 진행
